@@ -1,9 +1,9 @@
 {
-	"name": "hyde-docs",
+	"name": "docuhyde",
 	"version": "1.0.0",
-	"description": "A website for documentation. Developeed in Jekyll",
+	"description": "Open Source documentation website template made with Jekyll",
 	"main": "index.js",
-	"repository": "git@github.com:kubixmedia/hyde-docs.git",
+	"repository": "git@github.com:kubixmedia/docuhyde.git",
 	"author": "YewTreeWeb <mathew.teague@yewtreeweb.co.uk>",
 	"license": "MIT",
 	"keywords": [ "jekyll", "lint", "airbnb", "es6", "gulp", "typescript" ],

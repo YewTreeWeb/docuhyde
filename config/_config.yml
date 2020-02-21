@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Test Site
+title: Docuhyde
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -37,7 +37,7 @@ destination: website/build
 # called by using 'site.author.name' and so on
 # NOTE: Don't use @ in front of your Twitter username
 author:
-  name: Mathew Teague
+  name: Your Name
   email: your-email@example.com
   uri: example
   bio: me
@@ -47,6 +47,7 @@ author:
   instagram: "https://www.instagram.com/example/"
   linkedin: "https://www.linkedin.com/in/example"
   gitlab: "https://gitlab.com/example"
+  facebook: "https://www.facebook.com/example"
 
 # _config.dev.yml overwrites these options when you run `gulp`
 # Hides your drafts and future posts
@@ -59,9 +60,6 @@ limit_posts: 0
 
 # Permalink structure and pagination options
 permalink: pretty
-paginate: 10
-paginate_path: "page:num"
-excerpt_separator: ""
 
 # Markdown library and options
 markdown: kramdown
@@ -110,10 +108,10 @@ plugins:
   - jekyll-feed
   # - jekyll-gist
   # - jekyll-paginate
-  # - jekyll-sitemap
-  # - jekyll-seo-tag
-  # - jekyll-include-cache
-  # - jekyll-algolia
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-include-cache
+  - jekyll-algolia
   # - jekyll/tagging
   # - jekyll-tagging-related_posts
 
