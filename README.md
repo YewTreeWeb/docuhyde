@@ -1,7 +1,7 @@
 # Docuhyde
 
 [/Comment/]: # (Project Version)
-[![](https://img.shields.io/github/package-json/v/YewTreeWeb/docuhyde?logoColor=%23eb8a5e&style=for-the-badge)](https://docuhyde.netlify.com
+[![](https://img.shields.io/github/package-json/v/YewTreeWeb/docuhyde?logoColor=%23eb8a5e&style=for-the-badge)](https://docuhyde.netlify.com)
 
 [/Comment/]: # (Project Version)
 [![](https://img.shields.io/npm/dm/@daveberning/griddle?style=for-the-badge)](https://www.npmjs.com/package/@daveberning/griddle)
