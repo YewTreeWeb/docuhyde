@@ -6,7 +6,14 @@
 	"repository": "git@github.com:kubixmedia/docuhyde.git",
 	"author": "YewTreeWeb <mathew.teague@yewtreeweb.co.uk>",
 	"license": "MIT",
-	"keywords": [ "jekyll", "lint", "airbnb", "es6", "gulp", "typescript" ],
+	"keywords": [
+		"jekyll",
+		"lint",
+		"airbnb",
+		"es6",
+		"gulp",
+		"typescript"
+	],
 	"scripts": {
 		"lint": "markdownlint --config linters/.markdownlint.json README.md */README.md",
 		"pretest": "npm run --silent lint",
@@ -17,6 +24,7 @@
 	"dependencies": {
 		"airbnb-browser-shims": "^3.3.0",
 		"bourbon": "^6.0.0",
+		"bulma": "^0.8.0",
 		"include-media": "^1.4.9",
 		"normalize.css": "^8.0.1",
 		"system-font-css": "^2.0.2"
@@ -108,5 +116,9 @@
 		"workbox-build": "^3.6.3",
 		"yargs": "^4.7.0"
 	},
-	"browserslist": [ "last 2 version", "> 1%", "IE 10" ]
+	"browserslist": [
+		"last 2 version",
+		"> 1%",
+		"IE 10"
+	]
 }
