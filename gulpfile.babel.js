@@ -110,7 +110,6 @@ export const styles = () => {
         })
       )
     )
-    .pipe($.if(!prod, $.sourcemaps.write('.')))
     .pipe(
       $.if(
         prod,
