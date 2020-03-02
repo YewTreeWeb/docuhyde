@@ -12,7 +12,9 @@
 		"airbnb",
 		"es6",
 		"gulp",
-		"typescript"
+		"typescript",
+		"scss",
+		"webpack"
 	],
 	"scripts": {
 		"lint": "markdownlint --config linters/.markdownlint.json README.md */README.md",
