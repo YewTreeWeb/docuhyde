@@ -10,42 +10,60 @@ hero:
 {%- assign hero = page.hero -%}
 
 <section class="hero is-large">
-  <div class="hero-body">
-    <div class="container hero-inner">
+  <div class="hero-body container">
+    <div class="hero-inner">
       <h1 class="reveal-from-bottom" data-reveal-delay="150">{{ hero.title | default: site.title }}</h1>
-      <p class="reveal-from-bottom" data-reveal-delay="300">{{ hero.content }}</p>
+      <p class="reveal-from-bottom" data-reveal-delay="300">{{ hero.content | default: site.description }}</p>
       <div class="reveal-from-bottom" data-reveal-delay="450">
-        <a class="button button-primary button-wide-mobile" href="{{ hero.button.link }}">{{ hero.button.text }}</a>
+        <a class="btn btn--primary" href="{{ hero.button.link | default: 'javascript:void(0)' }}">{{ hero.button.text | default: "Get Started" }}</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="clients section reveal-fade">
-	<div class="container">
-		<div class="clients-inner section-inner has-top-divider has-bottom-divider">
-			<ul class="list-reset">
-				<li class="reveal-from-top">
-					<img src="images/clients-01.svg" alt="Clients 01">
-				</li>
-				<li class="reveal-from-bottom" data-reveal-delay="150">
-					<img src="images/clients-02.svg" alt="Clients 02">
-				</li>
-				<li class="reveal-from-top" data-reveal-delay="300">
-					<img src="images/clients-03.svg" alt="Clients 03">
-				</li>
-				<li class="reveal-from-bottom" data-reveal-delay="450">
-					<img src="images/clients-04.svg" alt="Clients 04">
-				</li>
-				<li class="reveal-from-top" data-reveal-delay="600">
-					<img src="images/clients-05.svg" alt="Clients 05">
-				</li>
-			</ul>
+<section class="features section reveal-fade">
+	<div class="features__inner container">
+		<div class="columns is-multiline is-tablet">
+			<div class="column is-3">
+				<div class="feature reveal-from-top">
+					<img class="feature__img" src="" alt="">
+					<h2 class="feature__heading">Powered by Markdown</h2>
+					<p class="feature__info">Save time and focus on your project's documentation. Simply write docs and blog posts with Markdown and Docusaurus will publish a set of static html files ready to serve.</p>
+				</div>
+			</div>
+			<div class="column is-3">
+				<div class="feature reveal-from-top">
+					<img class="feature__img" src="" alt="">
+					<h2 class="feature__heading">Built Using Jekyll</h2>
+					<p class="feature__info">Extend or customize your project's layout by using Liquid. Docusaurus can be extended while reusing the same header and footer.</p>
+				</div>
+			</div>
+			<div class="column is-3">
+				<div class="feature reveal-from-top">
+					<img class="feature__img" src="" alt="">
+					<h2 class="feature__heading">Ready for Translations</h2>
+					<p class="feature__info">Localization comes pre-configured. Use Crowdin to translate your docs into over 70 languages.</p>
+				</div>
+			</div>
+			<div class="column is-3">
+				<div class="feature reveal-from-top">
+					<img class="feature__img" src="" alt="">
+					<h2 class="feature__heading">Document Versioning</h2>
+					<p class="feature__info">Support users on all versions of your project. Document versioning helps you keep documentation in sync with project releases.</p>
+				</div>
+			</div>
+			<div class="column is-3">
+				<div class="feature reveal-from-top">
+					<img class="feature__img" src="" alt="">
+					<h2 class="feature__heading">Document Search</h2>
+					<p class="feature__info">Make it easy for your community to find what they need in your documentation. We proudly support Algolia documentation search.</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
 
-<section class="section center-content">
+<section class="section">
 	<div class="container">
 		<div class="section-inner">
 			<div class="section-header reveal-from-bottom">

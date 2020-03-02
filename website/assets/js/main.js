@@ -16807,7 +16807,7 @@ if (browser.mobile) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/mat/Sites/Jekyll/docuhyde/website/src/js/main.js */"./website/src/js/main.js");
+module.exports = __webpack_require__(/*! /Users/mat/Sites/jekyll/docuhyde/website/src/js/main.js */"./website/src/js/main.js");
 
 
 /***/ }),
