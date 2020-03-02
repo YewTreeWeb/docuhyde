@@ -6,6 +6,33 @@
 @import '../vendors/system-font-css/system-font.scss';
 
 @include font-face(
+  Fira Code,
+  '/assets/fonts/fira-code-v8-latin-regular',
+  (0, 0),
+  400,
+  normal,
+  swap,
+  true
+);
+@include font-face(
+  Fira Sans,
+  '/assets/fonts/fira-sans-v10-latin-regular',
+  'Fira Sans Regular' 'FiraSans-Regular',
+  400,
+  normal,
+  swap,
+  true
+);
+@include font-face(
+  Fira Sans,
+  '/assets/fonts/fira-sans-v10-latin-600',
+  'Fira Sans SemiBold' 'FiraSans-SemiBold',
+  600,
+  normal,
+  swap,
+  true
+);
+@include font-face(
   Source Sans Pro,
   '/assets/fonts/source-sans-pro-v13-latin-200',
   'Source Sans Pro ExtraLight' 'SourceSansPro-ExtraLight',

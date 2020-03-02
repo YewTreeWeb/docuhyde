@@ -1,18 +1,20 @@
 /// Convert Hex to HSL color.
 @function hex2hsl($colour) {
-  @return unquote("hsl(#{hue($colour)}, #{saturation($colour)}, #{lightness($colour)})"
+  @return unquote(
+    'hsl(#{hue($colour)}, #{saturation($colour)}, #{lightness($colour)})'
   );
 }
 
 /// Convert Hex to HSLA color.
 @function hex2hsla($colour, $opacity) {
-  @return unquote("hsla(#{hue($colour)}, #{saturation($colour)}, #{lightness($colour)}, #{$opacity})"
+  @return unquote(
+    'hsla(#{hue($colour)}, #{saturation($colour)}, #{lightness($colour)}, #{$opacity})'
   );
 }
 
 /// Convert Hex to RGB color.
 @function rgb($colour) {
-  @return unquote("rgb(#{red($colour)}, #{green($colour)}, #{blue($colour)})");
+  @return unquote('rgb(#{red($colour)}, #{green($colour)}, #{blue($colour)})');
 }
 
 /// Access CSS variables
@@ -38,43 +40,27 @@
   @if $currentUnit==px {
     @if $convertUnit==em {
       @return $value / 16+0em;
-    }
-
-    @else if $convertUnit==percent {
+    } @else if $convertUnit==percent {
       @return percentage($value / 16);
     }
-  }
-
-  @else if $currentUnit==em {
+  } @else if $currentUnit==em {
     @if $convertUnit==px {
       @return $value * 16+0px;
-    }
-
-    @else if $convertUnit==percent {
+    } @else if $convertUnit==percent {
       @return percentage($value);
     }
-  }
-
-  @else if $currentUnit==percent {
+  } @else if $currentUnit==percent {
     @if $convertUnit==px {
       @return $value * 16 / 100+0px;
-    }
-
-    @else if $convertUnit==em {
+    } @else if $convertUnit==em {
       @return $value / 100+0em;
     }
-  }
-
-  @else if $currentUnit==pts {
+  } @else if $currentUnit==pts {
     @if $convertUnit==px {
       @return $value * 1.3333+0px;
-    }
-
-    @else if $convertUnit==em {
+    } @else if $convertUnit==em {
       @return $value / 12+0em;
-    }
-
-    @else if $convertUnit==percent {
+    } @else if $convertUnit==percent {
       @return percentage($value / 12);
     }
   }
@@ -85,35 +71,34 @@
   @return $value / ($value * 0 + 1);
 }
 
-/// Retrieve colour from $colors map ie. `color(base, primary)`.
-@function colour($color-name, $color-variant:null, $true-val:false) {
+// --------------------------------------------------------------------
+// Retrieve Colors ----------------------------------------------------
+// Usage: get-color(dark, 1) ------------------------------------------
+// --------------------------------------------------------------------
+@function get-color($elem, $variant) {
+  @return map-get(map-get($palette, $elem), $variant);
+}
 
+/// Retrieve colour from $colors map ie. `color(base, primary)`.
+@function colour($color-name, $color-variant: null, $true-val: false) {
   // if we are returning the true color value
   @if $true-val==true {
-
     // color variant is optional
     @if ($color-variant !=null) {
       // map inception, need two deep
       @return map-get(map-get($colours, $color-name), $color-variant);
-    }
-
-    @else {
+    } @else {
       // single-level color, one deep
       @return map-get($colours, $color-name);
     }
 
     // if we’re only returning the CSS4 variable
-  }
-
-  @else {
-
+  } @else {
     // color variant is optional
     @if ($color-variant !=null) {
       // map inception, need two names
       @return var(--colour-#{$color-name}-#{$color-variant});
-    }
-
-    @else {
+    } @else {
       // single-level color, one name
       @return var(--colour-#{$color-name});
     }
@@ -130,17 +115,11 @@
 
   @if type-of($index) !=number {
     @warn "$index: #{quote($index)} is not a number for `remove-nth`.";
-  }
-
-  @else if $index==0 {
+  } @else if $index==0 {
     @warn "List index 0 must be a non-zero integer for `remove-nth`.";
-  }
-
-  @else if abs($index)>length($list) {
+  } @else if abs($index) >length($list) {
     @warn "List index is #{$index} but list is only #{length($list)} item long for `remove-nth`.";
-  }
-
-  @else {
+  } @else {
     $result: ();
     $index: if($index < 0, length($list) + $index + 1, $index);
 
@@ -160,7 +139,7 @@
 /// @param {string} $keys Key(s).
 /// @return {string} Value.
 @function val($map, $keys...) {
-  @if nth($keys, 1)==null {
+  @if nth($keys, 1) ==null {
     $keys: remove-nth($keys, 1);
   }
 
@@ -181,43 +160,22 @@
 /// Gets a colour value.
 /// @param {string} $keys Key(s).
 /// @return {string} Value.
-@function _colours($keys...) {
-  @return val($colours, $keys...);
-}
-
-/// Gets a colour value.
-/// @param {string} $keys Key(s).
-/// @return {string} Value.
-@function _dark-colours($keys...) {
-  @return val($dark-colours, $keys...);
-}
-
-/// Gets a colour value.
-/// @param {string} $keys Key(s).
-/// @return {string} Value.
-@function _light-colours($keys...) {
-  @return val($light-colours, $keys...);
-}
-
-/// Gets a colour value.
-/// @param {string} $keys Key(s).
-/// @return {string} Value.
 @function _colour($keys...) {
   @return val($colours, $keys...);
 }
 
-/// Gets a light colour value.
+/// Gets a colour value.
 /// @param {string} $keys Key(s).
 /// @return {string} Value.
-@function _lightcolour($keys...) {
-  @return val($light-colours, $keys...);
+@function _dark-colour($keys...) {
+  @return val($dark-colours, $keys...);
 }
 
-/// Gets a dark colour value.
+/// Gets a colour value.
 /// @param {string} $keys Key(s).
 /// @return {string} Value.
-@function _darkcolour($keys...) {
-  @return val($dark-colours, $keys...);
+@function _light-colour($keys...) {
+  @return val($light-colours, $keys...);
 }
 
 /// Transforms shorthand to its shortest possible form.
@@ -261,17 +219,11 @@
 
   @if $a==$b and $a==$c and $a==$d {
     $output: $a;
-  }
-
-  @else if $a==$c and $b==$d {
+  } @else if $a==$c and $b==$d {
     $output: $a $b;
-  }
-
-  @else if $b==$d {
+  } @else if $b==$d {
     $output: $a $b $c;
-  }
-
-  @else {
+  } @else {
     $output: $a $b $c $d;
   }
 
