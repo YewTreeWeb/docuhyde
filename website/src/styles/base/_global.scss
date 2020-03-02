@@ -57,14 +57,14 @@ body {
 		display: block;
 	}
 
-	&[data-theme='dark'] {
-		.asset-dark {
-			display: block;
-		}
-		.asset-light {
-			display: none;
-		}
-	}
+	// &[data-theme='dark'] {
+	// 	.asset-dark {
+	// 		display: block;
+	// 	}
+	// 	.asset-light {
+	// 		display: none;
+	// 	}
+	// }
 }
 
 .container {

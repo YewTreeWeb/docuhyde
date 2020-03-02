@@ -6,12 +6,11 @@
 	text-decoration: none;
 	white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis;
 	text-transform: uppercase;
 	color: v(colour-text-accent);
 	z-index: 1;
 	position: relative;
-	@include font(_heading(h6), $family-base, $weight, 1.7);
+	@include font(_heading(h6), $font-family, $weight, 1.7);
 	padding: 0.5em 2.3em;
 	outline: none;
 	border: 1px solid v(colour-accent);
@@ -24,7 +23,6 @@
 	display: inline-block;
 	margin-top: em(58px);
 	cursor: pointer;
-	box-shadow: none;
 	&::before {
 		content: '';
 		z-index: -1;

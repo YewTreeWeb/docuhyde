@@ -1,18 +1,14 @@
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	@include font(em($font-base), $family-base, $weight-light, 1.2);
+	@include font($font-base, $font-family, $weight-light, 1.2);
 }
 
 @each $heading, $size in $headings {
 	#{$heading} {
-		@include font(em($size), $family-base, $weight, 1.5);
+		@include font($size, $font-family, $weight, 1.5);
 		letter-spacing: -2.42px;
 	}
-}
-
-%banner-font {
-	font-family: $family-banner;
 }
 
 sub {
