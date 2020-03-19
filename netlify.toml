@@ -1,10 +1,10 @@
 [build]
-  command = "cd website; npm install; JEKYLL_ENV=production bundle exec jekyll build;"
-  publish = "website/build/site"
+  command = "npm install; bundle install; cd website; JEKYLL_ENV=production bundle exec jekyll build --config config/jekyll.config.yml;"
+  publish = "website/build"
 
 [context.development]
-  command = "cd website; npm install; bundle exec jekyll build --config _config.yml, _config.dev.yml"
-  publish = "website/build/site"
+  command = "npm install; bundle install; cd website; bundle exec jekyll build --config config/jekyll.config.yml, config/jekyll.config.dev.yml"
+  publish = "website/build"
 
 [[headers]]
   for = "/*"

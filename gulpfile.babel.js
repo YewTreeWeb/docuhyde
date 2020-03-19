@@ -30,7 +30,8 @@ const $ = plugins({
     'gulp-sass-glob': 'sassGlob',
     'gulp-cloudinary-upload': 'cloudinary',
     'gulp-clean-css': 'cleanCSS',
-    'gulp-html-autoprefixer': 'htmlAutoprefixer'
+    'gulp-html-autoprefixer': 'htmlAutoprefixer',
+    'gulp-gh-pages': 'ghPages'
   },
   pattern: ['gulp-*', '*', '-', '@*/gulp{-,.}*'],
   replaceString: /\bgulp[\-.]/
@@ -441,10 +442,10 @@ export const fonts = done => {
 export const jekyll = done => {
   const JEKYLL_ENV = prod ? 'JEKYLL_ENV=production' : 'JEKYLL_ENV=development'
   const build = !prod
-    ? 'jekyll build --config config/jekyll.config.yml, config/jekyll.config.dev.yml'
-    : 'jekyll build --config config/jekyll.config.yml'
+    ? `jekyll build --config config/jekyll.config.yml, config/jekyll.config.dev.yml ${config.jekyll.flags.dev}`
+    : `jekyll build --config config/jekyll.config.yml ${config.jekyll.flags.prod}`
 
-  shell.exec(`${JEKYLL_ENV} bundle exec ${build} --quiet`)
+  shell.exec(`${JEKYLL_ENV} bundle exec ${build}`)
   done()
 }
 
@@ -501,9 +502,11 @@ export const serve = done => {
   watch(config.watch.fonts)
     .on('add', series(fonts, reload))
     .on('change', series(fonts, reload))
+  watch(config.watch.svgsprites)
+    .on('add', series(svgSprite, reload))
+    .on('change', series(svgSprite, reload))
   watch(config.watch.jekyll, series(jekyll, reload))
   watch(config.watch.images, series(images, webpImg, reload))
-  watch(config.watch.svgsprites, series(svgSprites, reload))
   watch(config.watch.sprites, series(sprite, webpImg, reload))
 }
 
@@ -511,11 +514,21 @@ export const serve = done => {
  * Deploy
  */
 export const deploy = done => {
-  const live = prod ? 'netlify deploy --prod' : 'netlify deploy'
-  shell.exec(live)
+  let live
+  if (config.deploy === 'netlify') {
+    live = prod ? 'netlify deploy --prod' : 'netlify deploy'
+  } else if (config.deploy === 'firebase') {
+    live = 'firebase deploy'
+  }
+  if (config.deploy) {
+    if (config.deploy !== 'github' || config.deploy !== 'ghPages') {
+      shell.exec(live)
+    } else {
+      src(config.dist).pipe(ghPages()))
+    }
+  }
   done()
 }
-
 /**
  * Build site
  */
