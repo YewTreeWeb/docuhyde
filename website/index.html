@@ -6,6 +6,31 @@ hero:
     link: "#"
   content: "Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever."
   title: "Open Source documentation websites with Docuhyde"
+features:
+  -
+    content: "Save time and focus on your project's documentation. Simply write docs and blog posts with Markdown and Docusaurus will publish a set of static html files ready to serve."
+    heading: "Powered by Markdown"
+    icon: 
+      alt: ""
+      src: ""
+  -
+    content: "Extend or customize your project's layout by using Liquid. Docusaurus can be extended while reusing the same header and footer."
+    heading: "Built Using Jekyll"
+    icon: 
+      alt: ""
+      src: ""
+  -
+    content: "Localization comes pre-configured. Use Crowdin to translate your docs into over 70 languages."
+    heading: "Ready for Translations"
+    icon: 
+      alt: ""
+      src: ""
+  -
+    content: "Make it easy for your community to find what they need in your documentation. We proudly support Algolia documentation search."
+    heading: "Document Search"
+    icon: 
+      alt: ""
+      src: ""
 ---
 {%- assign hero = page.hero -%}
 
@@ -24,41 +49,15 @@ hero:
 <section class="features section reveal-fade">
 	<div class="features__inner container">
 		<div class="columns is-multiline is-tablet">
-			<div class="column is-3">
-				<div class="feature reveal-from-top">
-					<img class="feature__img" src="" alt="">
-					<h2 class="feature__heading">Powered by Markdown</h2>
-					<p class="feature__info">Save time and focus on your project's documentation. Simply write docs and blog posts with Markdown and Docusaurus will publish a set of static html files ready to serve.</p>
+			{%- for feature in page.features -%}
+				<div class="column is-3">
+					<div class="feature reveal-from-top">
+						<img class="feature__img" src="{{ feature.icon.src }}" alt="{{ feature.icon.alt }}">
+						<h2 class="feature__heading">{{ feature.heading }}</h2>
+						<p class="feature__info">{{ feature.content }}</p>
+					</div>
 				</div>
-			</div>
-			<div class="column is-3">
-				<div class="feature reveal-from-top">
-					<img class="feature__img" src="" alt="">
-					<h2 class="feature__heading">Built Using Jekyll</h2>
-					<p class="feature__info">Extend or customize your project's layout by using Liquid. Docusaurus can be extended while reusing the same header and footer.</p>
-				</div>
-			</div>
-			<div class="column is-3">
-				<div class="feature reveal-from-top">
-					<img class="feature__img" src="" alt="">
-					<h2 class="feature__heading">Ready for Translations</h2>
-					<p class="feature__info">Localization comes pre-configured. Use Crowdin to translate your docs into over 70 languages.</p>
-				</div>
-			</div>
-			<div class="column is-3">
-				<div class="feature reveal-from-top">
-					<img class="feature__img" src="" alt="">
-					<h2 class="feature__heading">Document Versioning</h2>
-					<p class="feature__info">Support users on all versions of your project. Document versioning helps you keep documentation in sync with project releases.</p>
-				</div>
-			</div>
-			<div class="column is-3">
-				<div class="feature reveal-from-top">
-					<img class="feature__img" src="" alt="">
-					<h2 class="feature__heading">Document Search</h2>
-					<p class="feature__info">Make it easy for your community to find what they need in your documentation. We proudly support Algolia documentation search.</p>
-				</div>
-			</div>
+			{%- endfor -%}
 		</div>
 	</div>
 </section>
@@ -69,7 +68,7 @@ hero:
 			<div class="section-header reveal-from-bottom">
 				<div class="container-xs">
 					<h2 class="mt-0 mb-16">
-						Built exclusively for you
+						Built exclusively for you and completly customisable
 					</h2>
 					<p class="m-0">
 						Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.

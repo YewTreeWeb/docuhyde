@@ -503,8 +503,8 @@ export const serve = done => {
     .on('add', series(fonts, reload))
     .on('change', series(fonts, reload))
   watch(config.watch.svgsprites)
-    .on('add', series(svgSprite, reload))
-    .on('change', series(svgSprite, reload))
+    .on('add', series(svgSprites, reload))
+    .on('change', series(svgSprites, reload))
   watch(config.watch.jekyll, series(jekyll, reload))
   watch(config.watch.images, series(images, webpImg, reload))
   watch(config.watch.sprites, series(sprite, webpImg, reload))
@@ -514,17 +514,17 @@ export const serve = done => {
  * Deploy
  */
 export const deploy = done => {
-  let live
-  if (config.deploy === 'netlify') {
-    live = prod ? 'netlify deploy --prod' : 'netlify deploy'
-  } else if (config.deploy === 'firebase') {
-    live = 'firebase deploy'
-  }
   if (config.deploy) {
+    let live
+    if (config.deploy === 'netlify') {
+      live = prod ? 'netlify deploy --prod' : 'netlify deploy'
+    } else if (config.deploy === 'firebase') {
+      live = 'firebase deploy'
+    }
     if (config.deploy !== 'github' || config.deploy !== 'ghPages') {
       shell.exec(live)
     } else {
-      src(config.dist).pipe(ghPages()))
+      src(config.dist).pipe(ghPages())
     }
   }
   done()
