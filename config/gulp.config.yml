@@ -84,6 +84,8 @@ vendors:
 watch:
   fonts: "website/src/fonts/*"
   jekyll:
+    - "config/jekyll.config.yml"
+    - "config/jekyll.config.dev.yml"
     - "website/**/*.+(md|markdown)"
     - "website/**/*.html"
     - "website/**/*.+(yml|yaml)"

@@ -27,6 +27,9 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 lang: en-GB
+git_repository: # GitHub username/repo-name e.g. "YewTreeWeb/docuhyde"
+logo: # logo name and file type e.g. "hyde.svg"
+logo_alt: # description of logo
 words_per_minute: 200
 
 # Used so Jekyll outputs the site correctly so Gulp can do what it wants
@@ -108,6 +111,12 @@ algolia:
 google:
   search_engine_id: # YOUR_SEARCH_ENGINE_ID
   instant_search: # false (default), true
+
+# Firebase Hosting
+firebase_project: # YOUR PROJECT NAME
+firebase_apiKey: # FIREBASE API
+firebase_appID: # FIREBASE API ID
+firebase_messagingID: # FIREBASE messagingSenderId
 
 # Collections
 collections:

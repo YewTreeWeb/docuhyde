@@ -28,18 +28,46 @@
 
   <!-- JS -->
   {%- if jekyll.environment == "production" -%}
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () {
-      ga.q.push(arguments)
-    };
-    ga.q = [];
-    ga.l = +new Date;
-    ga('create', '{{ site.google_analytics }}', 'auto');
-    ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+    <script>
+      window.ga = function () {
+        ga.q.push(arguments)
+      };
+      ga.q = [];
+      ga.l = +new Date;
+      ga('create', '{{ site.google_analytics }}', 'auto');
+      ga('send', 'pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
   {%- endif -%}
+
+  {%- comment -%} Firebase {%- endcomment -%}
+  {%- if site.firebase_project -%}
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "{{ site.firebase_appKey }}",
+        authDomain: "{{ site.firebase_project | append: '.firebaseapp.com' }}",
+        databaseURL: "{{ site.firebase_project | prepend: 'https://' | append: '.firebaseio.com' }}",
+        projectId: "{{ site.firebase_project }}",
+        storageBucket: "{{ site.firebase_project | append: '.appspot.com' }}",
+        messagingSenderId: "{{ site.firebase_messagingID }}",
+        appId: "{{ site.firebase_appID }}"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
+    </script>
+  {%- endif -%}
+  {%- comment -%} End Firebase {%- endcomment -%}
+
   <script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}" defer></script>
   <script src="{{ '/assets/js/browser.min.js' | relative_url }}" defer></script>
   <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>

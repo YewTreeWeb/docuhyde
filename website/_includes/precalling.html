@@ -2,6 +2,12 @@
 <link rel="dns-prefetch" href="//www.google-analytics.com">
 <link rel="dns-prefetch" href="//connect.facebook.net">
 <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+{%- if site.firebase_project -%}
+    <link rel="preconnect" href="{{ site.firebase_project | append: '.firebaseapp.com' }}" crossorigin>
+    <link rel="preconnect" href="{{ site.firebase_project | prepend: 'https://' | append: '.firebaseio.com' }}" crossorigin>
+    <link rel="preconnect" href="{{ site.firebase_project | append: '.appspot.com' }}" crossorigin>
+{%- endif -%}
 <link rel="preconnect" href="https://instant.page" crossorigin>
 <link rel="prefetch" href="{{ '/assets/css/normalize.css' | relative.url }}">
 <link rel="preload" as="font" type="font/woff2" href="{{ '/assets/fonts/fira-code-v8-latin-regular.woff2' | relative_url }}" crossorigin importance="high">
