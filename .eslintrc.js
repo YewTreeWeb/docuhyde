@@ -1,12 +1,26 @@
 module.exports = {
-	root: true,
-	env: {
-		browser: true,
-		jquery: true,
-		es6: true
-	},
-	extends: [ 'airbnb', 'prettier' ],
-	rules: {
-		'prettier/prettier': 'error'
-	}
-};
+  extends: ['eslint:recommended', 'airbnb', 'plugin:prettier/recommended'],
+  env: {
+    browser: true,
+    jquery: true,
+    es6: true,
+    node: true,
+    jest: true,
+  },
+  parserOptions: {
+    ecmaVersion: 8,
+  },
+  rules: {
+    indent: 2,
+    'space-before-function-paren': 0,
+    'new-cap': 0,
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        parser: 'flow',
+        usePrettierrc: true,
+      },
+    ],
+  },
+}
