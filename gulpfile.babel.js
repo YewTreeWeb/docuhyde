@@ -1,7 +1,6 @@
 import { src, dest, watch, lastRun, series, parallel } from 'gulp'
 import autoprefixer from 'autoprefixer'
 import rucksack from 'rucksack-css'
-import cssvariables from 'postcss-css-variables'
 import webpack from 'webpack'
 import webpackStream from 'webpack-stream'
 import named from 'vinyl-named'
@@ -31,10 +30,10 @@ const $ = plugins({
     'gulp-cloudinary-upload': 'cloudinary',
     'gulp-clean-css': 'cleanCSS',
     'gulp-html-autoprefixer': 'htmlAutoprefixer',
-    'gulp-gh-pages': 'ghPages'
+    'gulp-gh-pages': 'ghPages',
   },
   pattern: ['gulp-*', '*', '-', '@*/gulp{-,.}*'],
-  replaceString: /\bgulp[\-.]/
+  replaceString: /\bgulp[\-.]/,
 })
 
 const sync = browserSync.create()
@@ -45,7 +44,7 @@ const config = read.sync('./config/gulp.config.yml')
 /**
  * Environment
  */
-export const env = done => {
+export const env = (done) => {
   console.log(
     prod
       ? 'Running Gulp & Jekyll in production'
@@ -63,30 +62,30 @@ export const styles = () => {
     .pipe($.if(!prod, $.sourcemaps.init())) // Start sourcemap.
     .pipe(
       $.cssimport({
-        matchPattern: '*.css'
+        matchPattern: '*.css',
       })
     )
     .pipe($.sassGlob())
     .pipe(
       $.sass({
         precision: 6,
-        outputStyle: 'expanded'
+        outputStyle: 'expanded',
       })
     )
     .pipe(
       $.size({
-        showFiles: true
+        showFiles: true,
       })
     )
     .pipe(
       $.postcss([
         rucksack({
-          fallbacks: true
+          fallbacks: true,
         }),
         autoprefixer({
           grid: true,
-          cascade: false
-        })
+          cascade: false,
+        }),
       ])
     )
     .pipe($.gcmq())
@@ -98,16 +97,16 @@ export const styles = () => {
           level: {
             1: {
               all: true,
-              normalizeUrls: false
+              normalizeUrls: false,
             },
             2: {
               all: false,
               removeEmpty: true,
               removeDuplicateFontRules: true,
               removeDuplicateMediaBlocks: true,
-              removeDuplicateRules: true
-            }
-          }
+              removeDuplicateRules: true,
+            },
+          },
         })
       )
     )
@@ -116,7 +115,7 @@ export const styles = () => {
         prod,
         $.size({
           title: 'Minified CSS',
-          showFiles: true
+          showFiles: true,
         })
       )
     )
@@ -133,13 +132,10 @@ export const js = () => {
   return src(config.js.src, { allowEmpty: true })
     .pipe($.plumber())
     .pipe(named())
-    .pipe(
-      webpackStream(webpackConfig),
-      webpack
-    )
+    .pipe(webpackStream(webpackConfig), webpack)
     .pipe(
       $.size({
-        showFiles: true
+        showFiles: true,
       })
     )
     .pipe($.if(prod, $.uglify()))
@@ -147,14 +143,14 @@ export const js = () => {
       $.if(
         prod,
         $.rename({
-          suffix: '.min'
+          suffix: '.min',
         })
       )
     )
     .pipe(
       $.size({
         title: 'Minified JS',
-        showFiles: true
+        showFiles: true,
       })
     )
     .pipe($.if(!prod, dest(config.distAssets + config.js.dist)))
@@ -168,16 +164,16 @@ const vendors = Object.keys(pkg.dependencies || {})
 
 export const vendorTask = () => {
   if (vendors.length === 0) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       console.log(config.vendors.notification)
       resolve()
     })
   }
 
   return src(
-    vendors.map(dependency => './node_modules/' + dependency + '/**/*.*'),
+    vendors.map((dependency) => './node_modules/' + dependency + '/**/*.*'),
     {
-      base: './node_modules/'
+      base: './node_modules/',
     }
   ).pipe(dest(config.vendors.dist))
 }
@@ -196,36 +192,36 @@ export const images = () => {
           $.imagemin(
             [
               $.imagemin.jpegtran({
-                progressive: true
+                progressive: true,
               }),
               pngquant({
                 speed: 1,
-                quality: [0.5, 0.5] // lossy settings
+                quality: [0.5, 0.5], // lossy settings
               }),
               zopfli({
-                more: true
+                more: true,
               }),
               giflossy({
                 optimizationLevel: 3,
                 optimize: 3, // keep-empty: Preserve empty transparent frames
-                lossy: 2
+                lossy: 2,
               }),
               $.imagemin.svgo({
                 plugins: [
                   {
-                    removeViewBox: true
+                    removeViewBox: true,
                   },
                   {
-                    cleanupIDs: true
-                  }
-                ]
+                    cleanupIDs: true,
+                  },
+                ],
               }),
               mozjpeg({
-                quality: 90
-              })
+                quality: 90,
+              }),
             ],
             {
-              verbose: true
+              verbose: true,
             }
           )
         )
@@ -234,7 +230,7 @@ export const images = () => {
     .pipe($.if(!prod, dest(config.distAssets + config.image.dist)))
     .pipe(
       $.size({
-        title: 'images'
+        title: 'images',
       })
     )
     .pipe(dest(config.jekyllDist + config.image.dist))
@@ -247,11 +243,11 @@ export const sprite = () => {
   // Generate our spritesheet
   const spriteData = src(config.image.sprites, {
     allowEmpty: true,
-    since: lastRun(sprite)
+    since: lastRun(sprite),
   }).pipe(
     $.spritesmith({
       imgName: 'sprite.png',
-      cssName: 'sprite.css'
+      cssName: 'sprite.css',
     })
   )
 
@@ -264,11 +260,11 @@ export const sprite = () => {
         [
           pngquant({
             speed: 1,
-            quality: [0.5, 0.5] // lossy settings
-          })
+            quality: [0.5, 0.5], // lossy settings
+          }),
         ],
         {
-          verbose: true
+          verbose: true,
         }
       )
     )
@@ -282,9 +278,9 @@ export const sprite = () => {
         level: {
           1: {
             all: true,
-            normalizeUrls: false
-          }
-        }
+            normalizeUrls: false,
+          },
+        },
       })
     )
     .pipe(
@@ -312,15 +308,15 @@ export const webpImg = () => {
       $.cache(
         $.imagemin([
           webp({
-            quality: 75
-          })
+            quality: 75,
+          }),
         ])
       )
     )
     .pipe(extReplace('.webp'))
     .pipe(
       $.size({
-        title: 'Coverted to webp'
+        title: 'Coverted to webp',
       })
     )
     .pipe($.if(!prod, dest(config.distAssets + config.image.dist)))
@@ -333,32 +329,32 @@ export const webpImg = () => {
 export const svgSprites = () => {
   return src(config.image.svgsprites, {
     allowEmpty: true,
-    since: lastRun(svgSprites)
+    since: lastRun(svgSprites),
   })
     .pipe($.plumber())
     .pipe($.svgmin())
     .pipe(
       $.rename({
-        prefix: 'icon-'
+        prefix: 'icon-',
       })
     )
     .pipe(
       $.svgstore({
         fileName: 'icons.svg',
-        inlineSvg: true
+        inlineSvg: true,
       })
     )
     .pipe(
       $.cheerio({
-        run: function($, file) {
+        run: function ($, file) {
           $('svg').attr('style', 'display:none!important')
         },
-        parserOptions: { xmlMode: true }
+        parserOptions: { xmlMode: true },
       })
     )
     .pipe(
       $.size({
-        showFiles: true
+        showFiles: true,
       })
     )
     .pipe($.if(!prod, dest(config.distAssets + config.image.dist)))
@@ -371,7 +367,7 @@ export const svgSprites = () => {
 export const cloudinary = () => {
   return src(config.cloudinary.src, {
     allowEmpty: true,
-    since: lastRun(cloudinary)
+    since: lastRun(cloudinary),
   })
     .pipe($.plumber())
     .pipe(
@@ -379,14 +375,14 @@ export const cloudinary = () => {
         config: {
           cloud_name: config.cloudinary.account.name,
           api_key: config.cloudinary.account.key,
-          api_secret: config.cloudinary.account.secret
-        }
+          api_secret: config.cloudinary.account.secret,
+        },
       })
     )
     .pipe(
       $.cloudinary.manifest({
         path: config.cloudinary.manifest,
-        merge: true
+        merge: true,
       })
     )
     .pipe(dest(config.cloudinary.dist))
@@ -407,12 +403,12 @@ export const html = () => {
         removeAttributeQuotes: false,
         removeRedundantAttributes: false,
         minifyJS: true,
-        minifyCSS: true
+        minifyCSS: true,
       })
     )
     .pipe(
       $.size({
-        title: 'optimized HTML'
+        title: 'optimized HTML',
       })
     )
     .pipe(dest(config.dist))
@@ -421,14 +417,14 @@ export const html = () => {
 /**
  * Fonts
  */
-export const fonts = done => {
+export const fonts = (done) => {
   src(config.fonts.src, { allowEmpty: true })
     .pipe($.plumber())
     .pipe($.if(!prod, dest(config.distAssets + config.fonts.dist)))
     .pipe(dest(config.jekyllDist + config.fonts.dist))
     .pipe(
       $.size({
-        title: 'Fonts completed'
+        title: 'Fonts completed',
       })
     )
   done()
@@ -439,7 +435,7 @@ export const fonts = done => {
  */
 
 // Run Jekyll build
-export const jekyll = done => {
+export const jekyll = (done) => {
   const JEKYLL_ENV = prod ? 'JEKYLL_ENV=production' : 'JEKYLL_ENV=development'
   const build = !prod
     ? `jekyll build --config config/jekyll.config.yml, config/jekyll.config.dev.yml ${config.jekyll.flags.dev}`
@@ -455,7 +451,7 @@ export const jekyll = done => {
 export const clean_build = () => {
   return del(config.clean.dist)
 }
-export const clean_cache = done => {
+export const clean_cache = (done) => {
   $.cache.clearAll()
   done()
 }
@@ -463,7 +459,7 @@ export const clean_cache = done => {
 /**
  * Reload browser
  */
-export const reload = done => {
+export const reload = (done) => {
   sync.reload()
   done()
 }
@@ -471,14 +467,14 @@ export const reload = done => {
 /**
  * Watch and live reload
  */
-export const serve = done => {
+export const serve = (done) => {
   sync.init({
     port: config.browsersync.port,
     ui: {
-      port: config.browsersync.port + 1
+      port: config.browsersync.port + 1,
     },
     server: {
-      baseDir: 'website/build'
+      baseDir: 'website/build',
     },
     files: ['build'],
     logLevel: config.browsersync.debug ? 'debug' : '',
@@ -486,16 +482,14 @@ export const serve = done => {
     notify: config.browsersync.notify,
     ghostMode: {
       clicks: config.browsersync.preferences.clicks,
-      scroll: config.browsersync.preferences.scroll
+      scroll: config.browsersync.preferences.scroll,
     },
-    open: config.browsersync.open // Toggle to automatically open page when starting.
+    open: config.browsersync.open, // Toggle to automatically open page when starting.
   })
 
   done()
 
-  watch(config.watch.scss)
-    .on('add', styles)
-    .on('change', styles)
+  watch(config.watch.scss).on('add', styles).on('change', styles)
   watch(config.watch.js)
     .on('add', series(js, reload))
     .on('change', series(js, reload))
@@ -513,7 +507,7 @@ export const serve = done => {
 /**
  * Deploy
  */
-export const deploy = done => {
+export const deploy = (done) => {
   if (config.deploy) {
     let live
     if (config.deploy === 'netlify') {

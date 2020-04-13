@@ -1,36 +1,63 @@
 ---
 layout: default
-hero: 
-  button: 
+hero:
+  button:
     text: "Get Started"
     link: "#"
-  content: "Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever."
-  title: "Open Source documentation and website template with Docuhyde"
+  content: "Project starter kit and documentation website template made with Jekyll. Using Gulp, Webpack, SCSS/Sass, Autoprefixer, PostCSS, imagemin, Webp convertion, Browsersync, CleanCSS, Cloudinary intergration etc."
+  title: "Docuhyde"
 features:
   -
-    content: "Save time and focus on your project's documentation. Simply write docs and blog posts with Markdown and Docusaurus will publish a set of static html files ready to serve."
+    content: "Simply write documentation and blog posts with Markdown and Docuhyde will transform your plain text into static HTML website files."
     heading: "Powered by Markdown"
-    icon: 
+    icon:
       alt: ""
       src: ""
   -
-    content: "Extend or customize your project's layout by using Liquid. Docusaurus can be extended while reusing the same header and footer."
+    content: "Extend or customize your project's template by using Liquid. Docuhyde can be extended while reusing the same header, footer, page layouts and page partials."
     heading: "Built Using Jekyll"
-    icon: 
+    icon:
       alt: ""
       src: ""
   -
-    content: "Localization comes pre-configured. Use Crowdin to translate your docs into over 70 languages."
-    heading: "Ready for Translations"
-    icon: 
+    content: "Use the latest JavaScript technologies and dynamic importing with Webpack as well as project automation and style processing with Gulp."
+    heading: "Gulp & Webpack"
+    icon:
       alt: ""
       src: ""
   -
-    content: "Make it easy for your community to find what they need in your documentation. We proudly support Algolia documentation search."
+    content: "Easily find the files you need with support for both Algolia & Google documentation search."
     heading: "Document Search"
-    icon: 
+    icon:
       alt: ""
       src: ""
+  -
+    content: "Flexible publishing and hosting with a choice of Netlify, Firebase and Github Pages. Expand the complexity of your website with Firebase's cloud database."
+    heading: "Netlify, Firebase or Github Pages"
+    icon:
+      alt: ""
+      src: ""
+  -
+    content: "Offload your images, next-gen image formats, optimize, and deliver images, videos and other media across every device with Cloudinary."
+    heading: "Next-gen images with Cloudinary"
+    icon:
+      alt: ""
+      src: ""
+sections:
+  -
+    content: "Preconfigured and developed, so the only command needed to start is <code data-lang=\"node\">npm run start</code> to create your website. Easy changes without needing to touch any code using Markdown and Yaml."
+    heading: "Setup and usage"
+    image:
+      alt: ""
+      position: "left"
+      src: "/assets/images/vial.svg"
+  -
+    content: ""
+    heading: ""
+    image:
+      alt: ""
+      position: "right"
+      src: "/assets/images/vial.svg"
 ---
 {%- assign hero = page.hero -%}
 
@@ -46,250 +73,94 @@ features:
   </div>
 </section>
 
-<section class="features section reveal-fade">
-	<div class="features__inner container">
-		<div class="columns is-multiline is-tablet">
-			{%- for feature in page.features -%}
-				<div class="column is-3">
-					<div class="feature reveal-from-top">
-						<img class="feature__img" src="{{ feature.icon.src }}" alt="{{ feature.icon.alt }}">
-						<h2 class="feature__heading">{{ feature.heading }}</h2>
-						<p class="feature__info">{{ feature.content }}</p>
-					</div>
-				</div>
-			{%- endfor -%}
-		</div>
-	</div>
-</section>
+{%- if page.features -%}
+  <section class="features section reveal-fade">
+    <div class="features__inner container">
+      <div class="columns is-multiline is-tablet">
+        {%- for feature in page.features -%}
+          <div class="column is-3">
+            <div class="feature reveal-from-top">
+              <img class="feature__img" src="{{ feature.icon.src }}" alt="{{ feature.icon.alt }}">
+              <h2 class="feature__heading">{{ feature.heading }}</h2>
+              <p class="feature__info">{{ feature.content }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{%- if page.sections -%}
+  {%- for section in page.sections -%}
+    <section class="section container">
+      <div class="columns is-multiline is-tablet section__inner">
+        {%- if section.image.src != '' and section.image.position == 'left' -%}
+          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }}">
+            <img src="{{ section.image.src | relative_url }}" alt="{{ section.image.alt }}">
+          </div>
+        {%- endif -%}
+        <div class="column {% if section.image.src != '' and section.image.position != 'center' %}is-8{% else %}is-12{% endif %} reveal-from-bottom">
+          <h2>{{ section.heading }}</h2>
+          {%- if section.image.src != '' and section.image.position == 'center' -%}
+            <img class="reveal-from-bottom" src="{{ section.image.src }}" alt="{{ section.image.alt }}">
+          {%- endif -%}
+          <p>{{ section.content }}</p>
+        </div>
+        {%- if section.image.src != '' and section.image.position == 'right' -%}
+          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }}">
+            <img src="{{ section.image.src | relative_url }}" alt="{{ section.image.alt }}">
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if site.posts.size > 0 -%}
+  <section class="section container">
+    <div class="columns is-multiline is-tablet section__inner">
+      <div class="column is-12 reveal-from-bottom">
+        <h2>Latest Post</h2>
+        {%- for post in site.posts limit: 1 -%}
+          <article class="post">
+            {%- if post.image -%}
+                <picture>
+                    <source type="image/webp" srcset="/assets/images/{{ post.image.name }}.webp">
+                    <source type="image/jpg" srcset="/assets/images/{{ post.image.name }}.jpg">
+                    <img src="{{ post.image.name }}.jpg" alt="{{ post.image.alt }}">
+                </picture>
+            {%- else -%}
+                {%- comment -%} {%- include default-image.html -%} {%- endcomment -%}
+            {%- endif -%}
+            <h3>
+              {{ post.title }}
+              <small>
+                  {% assign day = post.date | date: "%-d" %}
+                  {% case day %}
+                    {% when '1' or '21' or '31' %}{{ day }}<sup>st</sup>
+                    {% when '2' or '22' %}{{ day }}<sup>nd</sup>
+                    {% when '3' or '23' %}{{ day }}<sup>rd</sup>
+                    {% else %}{{ day }}<sup>th</sup>
+                  {% endcase %}
+                  {{ post.date | date: "%B %Y" }}
+              </small>
+            </h3>
+            <p>{{ post.excerpt }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
 
 <section class="section container">
 	<div class="columns is-multiline is-tablet section__inner">
 		<div class="column is-12 reveal-from-bottom">
-			<h2>Built exclusively for you and completly customisable</h2>
-			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.</p>
-		</div>
-		<div class="column is-12 reveal-from-bottom">
-			<a class="modal-trigger" aria-controls="video-modal" data-video="https://player.vimeo.com/video/174002812" href="javascript:void(0)">
-				<img src="images/video-placeholder.svg" alt="Video" width="712" height="400">
-			</a>
-			<dialog id="video-modal" class="modal modal-video">
-				<div class="modal__inner">
-					<div class="modal__content responsive-video">
-						<iframe src="#" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-						<!-- <video controls src="#"></video> -->
-					</div>
-					<button class="modal__close">Close</button>
-				</div>
-			</dialog>
-		</div>
-	</div>
-</section>
-
-<section class="features-tiles section center-content">
-	<div class="container">
-		<div class="features-tiles-inner section-inner has-top-divider">
-			<div class="section-header">
-				<div class="container-xs">
-					<h2 class="mt-0 mb-16">
-						Build up the whole picture
-					</h2>
-					<p class="m-0">
-						Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.
-					</p>
-				</div>
-			</div>
-			<div class="tiles-wrap">
-				<div class="tiles-item reveal-from-right">
-					<div class="tiles-item-inner">
-						<div class="features-tiles-item-header">
-							<div class="features-tiles-item-image mb-16">
-								<img src="images/feature-tile-icon-01.svg" alt="Feature tile icon 01" width="72" height="72">
-							</div>
-						</div>
-						<div class="features-tiles-item-content">
-							<h4 class="mt-0 mb-8">
-								Generate Leads
-							</h4>
-							<p class="m-0 text-sm">
-								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="tiles-item reveal-from-left">
-					<div class="tiles-item-inner">
-						<div class="features-tiles-item-header">
-							<div class="features-tiles-item-image mb-16">
-								<img src="images/feature-tile-icon-02.svg" alt="Feature tile icon 02" width="72" height="72">
-							</div>
-						</div>
-						<div class="features-tiles-item-content">
-							<h4 class="mt-0 mb-8">
-								Generate Leads
-							</h4>
-							<p class="m-0 text-sm">
-								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="tiles-item reveal-from-right">
-					<div class="tiles-item-inner">
-						<div class="features-tiles-item-header">
-							<div class="features-tiles-item-image mb-16">
-								<img src="images/feature-tile-icon-03.svg" alt="Feature tile icon 03" width="72" height="72">
-							</div>
-						</div>
-						<div class="features-tiles-item-content">
-							<h4 class="mt-0 mb-8">
-								Generate Leads
-							</h4>
-							<p class="m-0 text-sm">
-								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="tiles-item reveal-from-left">
-					<div class="tiles-item-inner">
-						<div class="features-tiles-item-header">
-							<div class="features-tiles-item-image mb-16">
-								<img src="images/feature-tile-icon-04.svg" alt="Feature tile icon 04" width="72" height="72">
-							</div>
-						</div>
-						<div class="features-tiles-item-content">
-							<h4 class="mt-0 mb-8">
-								Generate Leads
-							</h4>
-							<p class="m-0 text-sm">
-								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="tiles-item reveal-from-right">
-					<div class="tiles-item-inner">
-						<div class="features-tiles-item-header">
-							<div class="features-tiles-item-image mb-16">
-								<img src="images/feature-tile-icon-05.svg" alt="Feature tile icon 05" width="72" height="72">
-							</div>
-						</div>
-						<div class="features-tiles-item-content">
-							<h4 class="mt-0 mb-8">
-								Generate Leads
-							</h4>
-							<p class="m-0 text-sm">
-								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="tiles-item reveal-from-left">
-					<div class="tiles-item-inner">
-						<div class="features-tiles-item-header">
-							<div class="features-tiles-item-image mb-16">
-								<img src="images/feature-tile-icon-06.svg" alt="Feature tile icon 06" width="72" height="72">
-							</div>
-						</div>
-						<div class="features-tiles-item-content">
-							<h4 class="mt-0 mb-8">
-								Generate Leads
-							</h4>
-							<p class="m-0 text-sm">
-								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="testimonial section">
-	<div class="container">
-		<div class="testimonial-inner section-inner has-top-divider">
-			<div class="section-header center-content">
-				<div class="container-xs">
-					<h2 class="mt-0 mb-16">
-						Don't take our word for it
-					</h2>
-					<p class="m-0">
-						Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.
-					</p>
-				</div>
-			</div>
-			<div class="tiles-wrap">
-				<div class="tiles-item reveal-from-right" data-reveal-delay="200">
-					<div class="tiles-item-inner">
-						<div class="testimonial-item-content">
-							<p class="text-sm mb-0">
-								— Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum cillum dolore eu fugiat. 
-							</p>
-						</div>
-						<div class="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
-							<span class="testimonial-item-name text-color-high">Roman Level</span>
-							<span class="text-color-low"> / </span>
-							<span class="testimonial-item-link">
-								<a href="#">AppName</a>
-							</span>
-						</div>
-					</div>
-				</div>
-				<div class="tiles-item reveal-from-bottom">
-					<div class="tiles-item-inner">
-						<div class="testimonial-item-content">
-							<p class="text-sm mb-0">
-								— Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum cillum dolore eu fugiat. 
-							</p>
-						</div>
-						<div class="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
-							<span class="testimonial-item-name text-color-high">Diana Rynzhuk</span>
-							<span class="text-color-low"> / </span>
-							<span class="testimonial-item-link">
-								<a href="#">AppName</a>
-							</span>
-						</div>
-					</div>
-				</div>
-				<div class="tiles-item reveal-from-left" data-reveal-delay="200">
-					<div class="tiles-item-inner">
-						<div class="testimonial-item-content">
-							<p class="text-sm mb-0">
-								— Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum cillum dolore eu fugiat. 
-							</p>
-						</div>
-						<div class="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
-							<span class="testimonial-item-name text-color-high">Ben Stafford</span>
-							<span class="text-color-low"> / </span>
-							<span class="testimonial-item-link">
-								<a href="#">AppName</a>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="cta section center-content-mobile reveal-from-bottom">
-	<div class="container">
-		<div class="cta-inner section-inner cta-split">
-			<div class="cta-slogan">
-				<h3 class="m-0">
-					For previewing layouts and visual?
-				</h3>
-			</div>
-			<div class="cta-action">
-				<div class="has-icon-right">
-					<label for="newsletter" class="form-label screen-reader">Subscribe</label>
-					<input id="newsletter" class="form-input" type="email" placeholder="Your best email">
-					<svg width="16" height="12" xmlns="http://www.w3.org/2000/svg">
-						<path d="M9 5H1c-.6 0-1 .4-1 1s.4 1 1 1h8v5l7-6-7-6v5z" fill="#376DF9" fill-rule="nonzero" />
-					</svg>
-				</div>
-			</div>
+      <img src="" alt="">
+			<h2>{{ site.author.name }}</h2>
+      <p>{{ site.author.job_role }}</p>
+			<blockquote>{{ site.author.bio }}</blockquote>
 		</div>
 	</div>
 </section>

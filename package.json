@@ -1,7 +1,7 @@
 {
 	"name": "docuhyde",
 	"version": "1.0.0",
-	"description": "Open Source documentation website template made with Jekyll",
+	"description": "Open Source project starter kit and documentation website template made with Jekyll",
 	"main": "index.js",
 	"repository": "git@github.com:kubixmedia/docuhyde.git",
 	"author": "YewTreeWeb <mathew.teague@yewtreeweb.co.uk>",
