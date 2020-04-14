@@ -154,13 +154,15 @@ sections:
   </section>
 {%- endif -%}
 
-<section class="section container">
-	<div class="columns is-multiline is-tablet section__inner">
-		<div class="column is-12 reveal-from-bottom">
-      <img src="" alt="">
-			<h2>{{ site.author.name }}</h2>
-      <p>{{ site.author.job_role }}</p>
-			<blockquote>{{ site.author.bio }}</blockquote>
-		</div>
-	</div>
-</section>
+{%- if site.author -%}
+  <section class="section container">
+    <div class="columns is-multiline is-tablet section__inner">
+      <div class="column is-12 reveal-from-bottom">
+        <img src="" alt="">
+        <h2>{{ site.author.name }}</h2>
+        <p>{{ site.author.job_role }}</p>
+        <blockquote>{{ site.author.bio }}</blockquote>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
