@@ -1,22 +1,32 @@
 ## Usage
+# Google:
+# @ {display} - Set how the fonts will display (swap, optional, etc.) (optional)
+# @ {rel} - Set the loading primitive for fonts.googleapis.com (cannot be preload) (optional)
+# fonts:
+# @ {family} - Add font family
+# @ {style} - Font style
+# @ {weight} - Font weights
+# Local:
 # @ {importance} - Set the Priority Hints for the resource (optional)
 # @ {rel} - Set the loading primitive of the font (optional)
 # @ {src} - Font file name (Not CSS name)
 # @ {type} - Set the file type of the font e.g. woff or woff2
 
-- src: fira-code-v8-latin-regular
-  type: "woff2"
-- src: fira-sans-v10-latin-regular
-  type: "woff2"
-- src: fira-sans-v10-latin-600
-  type: "woff2"
-- src: source-sans-pro-v13-latin-200
-  type: "woff2"
-- src: source-sans-pro-v13-latin-300
-  type: "woff2"
-- src: source-sans-pro-v13-latin-400
-  type: "woff2"
-- src: source-sans-pro-v13-latin-600
-  type: "woff2"
-- src: source-sans-pro-v13-latin-900
-  type: "woff2"
+Google: false
+Local:
+  - src: fira-code-v8-latin-regular
+    type: "woff2"
+  - src: fira-sans-v10-latin-regular
+    type: "woff2"
+  - src: fira-sans-v10-latin-600
+    type: "woff2"
+  - src: source-sans-pro-v13-latin-200
+    type: "woff2"
+  - src: source-sans-pro-v13-latin-300
+    type: "woff2"
+  - src: source-sans-pro-v13-latin-400
+    type: "woff2"
+  - src: source-sans-pro-v13-latin-600
+    type: "woff2"
+  - src: source-sans-pro-v13-latin-900
+    type: "woff2"

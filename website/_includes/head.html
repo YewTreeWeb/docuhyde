@@ -45,12 +45,33 @@
 
   <!-- Precalling assets -->
   {%- include_cached precalling.html -%}
-  
+
   <!-- Icons -->
   {%- include_cached favicons.html -%}
 
   <script>document.getElementsByTagName("html")[0].className += "js";</script>
-  
+
+  {%- comment -%} fonts {%- endcomment -%}
+  {%- if site.data.fonts.Google -%}
+    {%- assign googleFonts = site.data.fonts.Google -%}
+    {%- capture gfonts -%}
+      {%- for font in googleFonts.fonts -%}
+        {%- if forloop.first -%}
+          {{ font.family | prepend: 'family=' | append: ':' }}
+        {%- else -%}
+          {{ font.family | prepend: '&family=' | append: ':' }}
+        {%- endif -%}
+        {%- if font.style == 'italic' -%}
+          {{ 'ital' | append: ',' }}
+        {%- endif -%}
+        {{ font.weight | prepend: 'wght@' }}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- assign gfonts = gfonts | strip_newlines | replace: ' ', '' | append: '&' }} -%}
+
+    <link href="{{ gfonts | prepend: 'https://fonts.googleapis.com/css2?' | append: 'display=' | append: googleFonts.display }}" rel="stylesheet">
+  {%- endif -%}
+
   {%- comment -%} CSS {%- endcomment -%}
   <link rel="stylesheet" href="{{ '/assets/css/normalize.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/font.css' | relative_url }}">
