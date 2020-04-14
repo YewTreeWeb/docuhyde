@@ -131,7 +131,7 @@ sections:
                     <img src="{{ post.image.name }}.jpg" alt="{{ post.image.alt }}">
                 </picture>
             {%- else -%}
-                {%- comment -%} {%- include default-image.html -%} {%- endcomment -%}
+                {%- include default-image.html -%}
             {%- endif -%}
             <h3>
               {{ post.title }}
