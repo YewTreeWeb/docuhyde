@@ -5,6 +5,7 @@ hero:
     text: "Get Started"
     link: "#"
   content: "Project starter kit and documentation website template made with Jekyll. Using Gulp, Webpack, SCSS/Sass, Autoprefixer, PostCSS, imagemin, Webp convertion, Browsersync, CleanCSS, Cloudinary intergration etc."
+  subtitle: "Build beautiful websites"
   title: "Docuhyde"
 features:
   -
@@ -65,10 +66,15 @@ sections:
   <div class="hero-body container">
     <div class="hero-inner">
       <h1 class="reveal-from-bottom" data-reveal-delay="150">{{ hero.title | default: site.title }}</h1>
+      {%- if hero.subtitle -%}
+        <h2>{{ hero.subtitle }}</h2>
+      {%- endif -%}
       <p class="reveal-from-bottom" data-reveal-delay="300">{{ hero.content | default: site.description }}</p>
-      <div class="reveal-from-bottom" data-reveal-delay="450">
-        <a class="btn btn--primary" href="{{ hero.button.link | default: 'javascript:void(0)' }}">{{ hero.button.text | default: "Get Started" }}</a>
-      </div>
+      {%- if hero.button -%}
+        <div class="reveal-from-bottom" data-reveal-delay="450">
+          <a class="btn btn--primary" href="{{ hero.button.link | default: 'javascript:void(0)' }}">{{ hero.button.text | default: "Get Started" }}</a>
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </section>

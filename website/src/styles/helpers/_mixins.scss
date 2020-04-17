@@ -35,13 +35,15 @@
 }
 
 // Create font-face
-@mixin font-face($font-name,
+@mixin font-face(
+  $font-name,
   $file-name,
   $locals: (0, 0),
   $weight: 400,
   $style: normal,
   $display: swap,
-  $fallback: false) {
+  $fallback: false
+) {
   @font-face {
     font-family: quote($font-name);
     font-weight: $weight;
@@ -49,37 +51,30 @@
     font-display: $display;
 
     @if ($fallback) {
-      src: url($file-name+'.eot');
+      src: url($file-name + '.eot');
 
-      @if (nth($locals, 1) !=0 and nth($locals, 2) !=0) {
-        src: local(quote(nth($locals, 1))),
-        local(quote(nth($locals, 2))),
-        url($file-name+'.eot?#iefix') format('embedded-opentype'),
-        url($file-name+'.woff2') format('woff2'),
-        url($file-name+'.woff') format('woff'),
-        url($file-name+'.ttf') format('truetype'),
-        url($file-name+'.svg##{$font-name}') format('svg');
-      }
-
-      @else {
-        src: url($file-name+'.eot?#iefix') format('embedded-opentype'),
-        url($file-name+'.woff2') format('woff2'),
-        url($file-name+'.woff') format('woff'),
-        url($file-name+'.ttf') format('truetype'),
-        url($file-name+'.svg##{$font-name}') format('svg');
-      }
-    }
-
-    @else {
       @if (nth($locals, 1) !=0 and nth($locals, 2) !=0) {
         src: local(quote(nth($locals, 1))), local(quote(nth($locals, 2))),
-          url($file-name+'.woff2') format('woff2'),
-          url($file-name+'.woff') format('woff');
+          url($file-name + '.eot?#iefix') format('embedded-opentype'),
+          url($file-name + '.woff2') format('woff2'),
+          url($file-name + '.woff') format('woff'),
+          url($file-name + '.ttf') format('truetype'),
+          url($file-name + '.svg##{$font-name}') format('svg');
+      } @else {
+        src: url($file-name + '.eot?#iefix') format('embedded-opentype'),
+          url($file-name + '.woff2') format('woff2'),
+          url($file-name + '.woff') format('woff'),
+          url($file-name + '.ttf') format('truetype'),
+          url($file-name + '.svg##{$font-name}') format('svg');
       }
-
-      @else {
-        src: url($file-name+'.woff2') format('woff2'),
-          url($file-name+'.woff') format('woff');
+    } @else {
+      @if (nth($locals, 1) !=0 and nth($locals, 2) !=0) {
+        src: local(quote(nth($locals, 1))), local(quote(nth($locals, 2))),
+          url($file-name + '.woff2') format('woff2'),
+          url($file-name + '.woff') format('woff');
+      } @else {
+        src: url($file-name + '.woff2') format('woff2'),
+          url($file-name + '.woff') format('woff');
       }
     }
   }
@@ -88,29 +83,21 @@
 /// Sets the `max-width` and `max-height` of the element in one statement.
 @mixin size($width, $height: $width, $type: null) {
   @if ($width !=null and $width !=0) {
-    @if ($type=='max') {
+    @if ($type== 'max') {
       max-width: $width;
-    }
-
-    @else if ($type=='min') {
+    } @else if ($type== 'min') {
       min-width: $width;
-    }
-
-    @else {
+    } @else {
       width: $width;
     }
   }
 
   @if ($height !=null and $height !=0) {
-    @if ($type=='max') {
+    @if ($type== 'max') {
       max-height: $height;
-    }
-
-    @else if ($type=='min') {
+    } @else if ($type== 'min') {
       min-height: $height;
-    }
-
-    @else {
+    } @else {
       height: $height;
     }
   }
@@ -161,19 +148,17 @@
       #{$top}: nth($values, 1);
     }
 
-    @if length($values)==1 {
+    @if length($values) ==1 {
       @if nth($values, 1) {
         #{$right}: nth($values, 1);
       }
-    }
-
-    @else {
+    } @else {
       @if nth($values, 2) {
         #{$right}: nth($values, 2);
       }
     }
 
-    @if length($values)==2 {
+    @if length($values) ==2 {
       @if nth($values, 1) {
         #{$bottom}: nth($values, 1);
       }
@@ -181,9 +166,7 @@
       @if nth($values, 2) {
         #{$left}: nth($values, 2);
       }
-    }
-
-    @else if length($values)==3 {
+    } @else if length($values) ==3 {
       @if nth($values, 3) {
         #{$bottom}: nth($values, 3);
       }
@@ -191,9 +174,7 @@
       @if nth($values, 2) {
         #{$left}: nth($values, 2);
       }
-    }
-
-    @else if length($values)==4 {
+    } @else if length($values) ==4 {
       @if nth($values, 3) {
         #{$bottom}: nth($values, 3);
       }
@@ -202,9 +183,7 @@
         #{$left}: nth($values, 4);
       }
     }
-  }
-
-  @else {
+  } @else {
     #{$all}: $values;
   }
 }
@@ -253,19 +232,17 @@
       #{$top}: nth($values, 1);
     }
 
-    @if length($values)==1 {
+    @if length($values) ==1 {
       @if nth($values, 1) {
         #{$right}: nth($values, 1);
       }
-    }
-
-    @else {
+    } @else {
       @if nth($values, 2) {
         #{$right}: nth($values, 2);
       }
     }
 
-    @if length($values)==2 {
+    @if length($values) ==2 {
       @if nth($values, 1) {
         #{$bottom}: nth($values, 1);
       }
@@ -273,9 +250,7 @@
       @if nth($values, 2) {
         #{$left}: nth($values, 2);
       }
-    }
-
-    @else if length($values)==3 {
+    } @else if length($values) ==3 {
       @if nth($values, 3) {
         #{$bottom}: nth($values, 3);
       }
@@ -283,9 +258,7 @@
       @if nth($values, 2) {
         #{$left}: nth($values, 2);
       }
-    }
-
-    @else if length($values)==4 {
+    } @else if length($values) ==4 {
       @if nth($values, 3) {
         #{$bottom}: nth($values, 3);
       }
@@ -294,9 +267,7 @@
         #{$left}: nth($values, 4);
       }
     }
-  }
-
-  @else {
+  } @else {
     #{$all}: $values;
   }
 }
@@ -306,7 +277,10 @@
   #{$type}: #{$min-size};
 
   @media only screen and (min-width: #{$min-vw}) {
-    #{$type}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    #{$type}: calc(
+      #{$min-size} + #{strip-unit($max-size - $min-size)} *
+        ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+    );
   }
 
   @media only screen and (min-width: #{$max-vw}) {
@@ -346,7 +320,11 @@
 
 /// Add retina media query.
 @mixin retina($ratio) {
-  @if map-has-key($ratios, #{2x}) or map-has-key($ratios, #{1-2x}) or map-has-key($ratios, #{1-3x}) or map-has-key($ratios, #{1-5x}) {
+  @if map-has-key($ratios, #{2x}) or
+    map-has-key($ratios, #{1-2x}) or
+    map-has-key($ratios, #{1-3x}) or
+    map-has-key($ratios, #{1-5x})
+  {
     $ratio: map-get($ratios, $ratio);
 
     @media only screen and (-webkit-min-device-pixel-ratio: nth($ratio, 1)),
@@ -357,17 +335,15 @@
     only screen and (min-resolution: #{nth($ratio, 1)}dppx) {
       @content;
     }
-  }
-
-  @else {
+  } @else {
     @warn "There were no keys that match! Using default 2x ratio.";
 
     @media only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (min--moz-device-pixel-ratio: 2),
-    only screen and (-o-min-device-pixel-ratio: 2/1),
-    only screen and (min-device-pixel-ratio: 2),
-    only screen and (min-resolution: 192dpi),
-    only screen and (min-resolution: 2dppx) {
+      only screen and (min--moz-device-pixel-ratio: 2),
+      only screen and (-o-min-device-pixel-ratio: 2/1),
+      only screen and (min-device-pixel-ratio: 2),
+      only screen and (min-resolution: 192dpi),
+      only screen and (min-resolution: 2dppx) {
       @content;
     }
   }
@@ -392,7 +368,7 @@
     padding-top: ($height / $width) * 100%;
   }
 
-  >.content {
+  > .content {
     position: absolute;
     top: 0;
     left: 0;
@@ -411,15 +387,11 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-  }
-
-  @else if ($horizontal) {
+  } @else if ($horizontal) {
     left: 0;
     right: 0;
     margin: 0 auto;
-  }
-
-  @else if ($vertical) {
+  } @else if ($vertical) {
     top: 50%;
     @include prefix(transform, translateY(-50%));
   }
@@ -461,36 +433,28 @@
 
 // Utility function for mixin font-size
 @mixin make-font-size($fs-font-size) {
-
   // If $fs-font-size is a list, include
   // both font-size and line-height
-  @if type-of($fs-font-size)=='list' {
+  @if type-of($fs-font-size) == 'list' {
     font-size: nth($fs-font-size, 1);
 
     @if (length($fs-font-size) > 1) {
-      @if (nth($fs-font-size, 2)=='null') {
+      @if (nth($fs-font-size, 2) == 'null') {
         line-height: normal;
-      }
-
-      @else {
+      } @else {
         line-height: nth($fs-font-size, 2);
       }
 
-      @if (nth($fs-font-size, 3)=='null') {
+      @if (nth($fs-font-size, 3) == 'null') {
         letter-spacing: normal;
-      }
-
-      @else {
+      } @else {
         letter-spacing: nth($fs-font-size, 3);
       }
     }
-  }
-
-  @else {
+  } @else {
     font-size: $fs-font-size;
   }
 }
-
 
 /// Hover, Active, Focus.
 @mixin call-to-action($hover: true, $active: true, $focus: true) {
@@ -509,16 +473,13 @@
     }
 
     @supports not (hover: hover) {
-
       &:hover,
       &:active,
       &:focus {
         @content;
       }
     }
-  }
-
-  @else if ($hover) {
+  } @else if ($hover) {
     @supports (hover: hover) {
       @media (hover: hover) {
         &:hover {
@@ -532,21 +493,15 @@
         @content;
       }
     }
-  }
-
-  @else if ($active) {
+  } @else if ($active) {
     &:active {
       @content;
     }
-  }
-
-  @else if ($focus) {
+  } @else if ($focus) {
     &:focus {
       @content;
     }
-  }
-
-  @else {
+  } @else {
     @warn "A valid hover and/or active and/or focus is required.";
   }
 }
@@ -561,7 +516,6 @@
     }
 
     @media (hover: none) {
-
       &:focus,
       &:active {
         @content;
@@ -583,16 +537,72 @@
   background-position: center center;
 }
 
-/// Background Image
-@mixin bgImg($image, $position: ($x, $y), $mode: null, $darkImg: null) {
-  background-image: url(#{$image}.jpg);
-  background-image: url(#{$image}.webp);
+/// Responsive Background Image
+@mixin background {
+}
 
-  @if $mode=='dark' {
+/// Background Image
+@mixin bgImg(
+  $image,
+  $position: ($x, $y),
+  $mode: null,
+  $darkImg: null,
+  $sizes...
+) {
+  background-image: url('/assets/images/#{$image}.jpg');
+  background-image: url('/assets/images/#{$image}.webp');
+
+  @if $mode == 'dark' {
     @include darkmode {
-      background-image: url(#{$darkImg}.jpg);
-      background-image: url(#{$darkImg}.webp);
+      background-image: url('/assets/images/#{$darkImg}.jpg');
+      background-image: url('/assets/images/#{$darkImg}.webp');
     }
+  } @else if $mode == 'responsive' {
+    @each $operator, $size in $sizes {
+      // @debug meta.keywords($sizes);
+      @debug $sizes;
+      @include media('#{$operator}#{$size}px') {
+        background-image: url('/assets/images/#{$image}_#{$size}.jpg');
+        background-image: url('/assets/images/#{$image}_#{$size}.webp');
+      }
+    }
+  } @else if $mode == 'responsive-dark' {
+    @each $operator, $size in $sizes {
+      // @debug meta.keywords($sizes);
+      @debug $sizes;
+      @include media('#{$operator}#{$size}px') {
+        background-image: url('/assets/images/#{$image}_#{$size}.jpg');
+        background-image: url('/assets/images/#{$image}_#{$size}.webp');
+        @include darkmode {
+          background-image: url('/assets/images/#{$darkImg}_#{$size}.jpg');
+          background-image: url('/assets/images/#{$darkImg}_#{$size}.webp');
+        }
+      }
+    }
+    // @include media('<=480px') {
+    //   background-image: url('/assets/images/mountains_480.jpg');
+    // }
+    // @include media('>=676px') {
+    //   background-image: url('/assets/images/mountains_676.jpg');
+    // }
+    // @include media('>=842px') {
+    //   background-image: url('/assets/images/mountains_842.jpg');
+    // }
+    // @include media('>=987px') {
+    //   background-image: url('/assets/images/mountains_987.jpg');
+    // }
+    // @include media('>=1118px') {
+    //   background-image: url('/assets/images/mountains_1118.jpg');
+    // }
+    // @include media('>=1250px') {
+    //   background-image: url('/assets/images/mountains_1250.jpg');
+    // }
+    // @include media('>=1375px') {
+    //   background-image: url('/assets/images/mountains_1375.jpg');
+    // }
+    // @include media('>=1380px', '<=1679px') {
+    //   background-image: url('/assets/images/mountains_1380.jpg');
+    // }
   }
 
   background-repeat: no-repeat;
@@ -616,12 +626,11 @@
   align-items: $align;
 
   // If space-evenly is used.
-  @if $justify=='space-evenly' {
+  @if $justify== 'space-evenly' {
     justify-content: space-between;
 
     // Use fallback for Edge.
     @supports (-ms-ime-align: auto) {
-
       &::before,
       &::after {
         content: '';
@@ -634,9 +643,7 @@
       // Run space-evenly.
       justify-content: $justify;
     }
-  }
-
-  @else {
+  } @else {
     // If other justify-content used.
     justify-content: $justify;
   }
@@ -645,26 +652,20 @@
     @if str-index($direction, 'row') {
       @if $wrap {
         flex-flow: $direction wrap;
-      }
-
-      @else {
+      } @else {
         flex-direction: $direction;
 
         @include media('<=sm') {
-          @if $direction=='row' {
+          @if $direction== 'row' {
             flex-direction: column;
-          }
-
-          @else if $direction=='row-reverse' {
+          } @else if $direction== 'row-reverse' {
             flex-direction: column-reverse;
           }
         }
 
         flex-wrap: nowrap;
       }
-    }
-
-    @else {
+    } @else {
       flex-direction: $direction;
       flex-wrap: nowrap;
     }
@@ -672,15 +673,10 @@
 }
 
 @mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
-
-  @each $fs-breakpoint,
-  $fs-font-size in $fs-map {
+  @each $fs-breakpoint, $fs-font-size in $fs-map {
     @if $fs-breakpoint==null {
       @include make-font-size($fs-font-size);
-    }
-
-    @else {
-
+    } @else {
       // If $fs-font-size is a key that exists in
       // $fs-breakpoints, use the value
       @if map-has-key($fs-breakpoints, $fs-breakpoint) {

@@ -11678,6 +11678,13 @@ ol.no-style
     font-style: italic;
 }
 
+.hero
+{
+    background-image: url('/assets/images/mountains.jpg');
+    background-image: -webkit-image-set(url('/assets/images/mountains_480.jpg') 1x, url('/assets/images/mountains_676.jpg') 2x, url('/assets/images/mountains_842.jpg') 3x, url('/assets/images/mountains_987.jpg') 4x, url('/assets/images/mountains_1118.jpg') 5x, url('/assets/images/mountains_1250.jpg') 6x, url('/assets/images/mountains_1375.jpg') 7x, url('/assets/images/mountains_1380.jpg') 8x);
+    background-image:         image-set(url('/assets/images/mountains_480.jpg') 1x, url('/assets/images/mountains_676.jpg') 2x, url('/assets/images/mountains_842.jpg') 3x, url('/assets/images/mountains_987.jpg') 4x, url('/assets/images/mountains_1118.jpg') 5x, url('/assets/images/mountains_1250.jpg') 6x, url('/assets/images/mountains_1375.jpg') 7x, url('/assets/images/mountains_1380.jpg') 8x);
+}
+
 @media (min-width: 320px)
 {
     html,
