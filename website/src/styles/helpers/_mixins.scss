@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 /// Vendor prefixes
 @mixin prefix($property, $value, $vendors: webkit moz ms o, $default: true) {
   @if $vendors {
@@ -537,77 +539,112 @@
   background-position: center center;
 }
 
-/// Responsive Background Image
-@mixin background {
-}
-
 /// Background Image
-@mixin bgImg(
-  $image,
-  $position: ($x, $y),
-  $mode: null,
-  $darkImg: null,
-  $sizes...
-) {
-  background-image: url('/assets/images/#{$image}.jpg');
-  background-image: url('/assets/images/#{$image}.webp');
+@mixin bgImg($image, $position, $mode: null, $darkImg: null, $sizes...) {
+  /// Image formats to search for and replace
+  $imgFormats: ('.jpg', '.jpeg', '.png');
+  $imgNxtGenFormat: '.webp';
 
+  // Add image
+  background-image: url('/assets/images/#{$image}');
+  background-image: url('/assets/images/#{str-replace($image, $imgFormats, $imgNxtGenFormat)}');
+
+  // If theme uses darkmode
   @if $mode == 'dark' {
     @include darkmode {
-      background-image: url('/assets/images/#{$darkImg}.jpg');
-      background-image: url('/assets/images/#{$darkImg}.webp');
+      background-image: url('/assets/images/#{$darkImg}');
+      background-image: url('/assets/images/#{str-replace($darkImg, $imgFormats, $imgNxtGenFormat)}');
     }
-  } @else if $mode == 'responsive' {
-    @each $operator, $size in $sizes {
-      // @debug meta.keywords($sizes);
-      @debug $sizes;
-      @include media('#{$operator}#{$size}px') {
-        background-image: url('/assets/images/#{$image}_#{$size}.jpg');
-        background-image: url('/assets/images/#{$image}_#{$size}.webp');
+  } @else if $mode == 'responsive' or $mode == 'responsive-dark' {
+    // If a responsive background image or responsive with a darkmode theme
+    $breakpoint: null;
+    $op: null;
+    $media: null;
+
+    @each $size in $sizes {
+      // Determine operator, breakpoint.
+
+      // Greater than or equal.
+      @if (str-slice($size, 0, 2) == '>=') {
+        $op: str-slice($size, 0, 2);
+        $breakpoint: str-slice($size, 3);
       }
-    }
-  } @else if $mode == 'responsive-dark' {
-    @each $operator, $size in $sizes {
-      // @debug meta.keywords($sizes);
-      @debug $sizes;
-      @include media('#{$operator}#{$size}px') {
-        background-image: url('/assets/images/#{$image}_#{$size}.jpg');
-        background-image: url('/assets/images/#{$image}_#{$size}.webp');
-        @include darkmode {
-          background-image: url('/assets/images/#{$darkImg}_#{$size}.jpg');
-          background-image: url('/assets/images/#{$darkImg}_#{$size}.webp');
+
+      // Less than or equal.
+      @elseif (str-slice($size, 0, 2) == '<=') {
+        $op: str-slice($size, 0, 2);
+        $breakpoint: str-slice($size, 3);
+      }
+
+      // Greater than.
+      @elseif (str-slice($size, 0, 1) == '>') {
+        $op: str-slice($size, 0, 1);
+        $breakpoint: str-slice($size, 2);
+      }
+
+      // Less than.
+      @elseif (str-slice($size, 0, 1) == '<') {
+        $op: str-slice($size, 0, 1);
+        $breakpoint: str-slice($size, 2);
+      }
+
+      // Not.
+      @elseif (str-slice($size, 0, 1) == '!') {
+        $op: '<';
+        $breakpoint: str-slice($size, 2);
+      }
+
+      // Equal.
+      @else {
+        $breakpoint: $size;
+      }
+
+      // Create an include media mixin valid string
+      @if $op != null {
+        $media: #{$op}#{$breakpoint};
+      } @else {
+        $media: $breakpoint;
+      }
+
+      // Create a valid responsive image filename
+      $filename: str-replace($image, $imgFormats, '') + '_' + $breakpoint;
+      @if mode == 'responsive-dark' {
+        $filenameDark: str-replace($darkImg, $imgFormats, '') +
+          '_' +
+          $breakpoint;
+      }
+
+      @each $format in $imgFormats {
+        $index: str-index($image, $format);
+        @if $index {
+          $filename: $filename + $format;
+          @if mode == 'responsive-dark' {
+            $filenameDark: $filenameDark + $format;
+          }
+        }
+      }
+
+      // Responsive image media query
+      @include media('#{$media}px') {
+        background-image: url('/assets/images/#{$filename}');
+        background-image: url('/assets/images/#{str-replace(#{$filename}, $imgFormats, $imgNxtGenFormat)}');
+        @if $mode == 'responsive-dark' {
+          @include darkmode {
+            background-image: url('/assets/images/#{$filenameDark}');
+            background-image: url('/assets/images/#{str-replace(#{$filenameDark}, $imgFormats, $imgNxtGenFormat)}');
+          }
         }
       }
     }
-    // @include media('<=480px') {
-    //   background-image: url('/assets/images/mountains_480.jpg');
-    // }
-    // @include media('>=676px') {
-    //   background-image: url('/assets/images/mountains_676.jpg');
-    // }
-    // @include media('>=842px') {
-    //   background-image: url('/assets/images/mountains_842.jpg');
-    // }
-    // @include media('>=987px') {
-    //   background-image: url('/assets/images/mountains_987.jpg');
-    // }
-    // @include media('>=1118px') {
-    //   background-image: url('/assets/images/mountains_1118.jpg');
-    // }
-    // @include media('>=1250px') {
-    //   background-image: url('/assets/images/mountains_1250.jpg');
-    // }
-    // @include media('>=1375px') {
-    //   background-image: url('/assets/images/mountains_1375.jpg');
-    // }
-    // @include media('>=1380px', '<=1679px') {
-    //   background-image: url('/assets/images/mountains_1380.jpg');
-    // }
   }
 
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: nth($position, 1) nth($position, 2);
+  @if $position {
+    background-position: $position;
+  } @else {
+    background-position: center;
+  }
 }
 
 /// Background Overlay

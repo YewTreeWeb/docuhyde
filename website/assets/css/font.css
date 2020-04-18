@@ -1,4 +1,4 @@
-/*! system-font.css v2.0.2 | CC0-1.0 License | github.com/jonathantneal/system-font-css */
+@use 'sass:meta';
 
 @font-face
 {

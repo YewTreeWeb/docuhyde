@@ -11012,6 +11012,7 @@ label.panel-block:hover
     background-color: #fafafa;
 }
 
+@use 'sass:meta';
 .sr-only
 {
     position: absolute;
@@ -11243,6 +11244,12 @@ html
             box-sizing: border-box;
 }
 
+html,
+body
+{
+    background-color: var(--colour-primary);
+}
+
 *,
 *:before,
 *:after
@@ -11254,7 +11261,6 @@ html
 body
 {
     color: var(--colour-text);
-    background-color: var(--colour-primary);
 
     -ms-overflow-style: scrollbar;
 }
@@ -11273,8 +11279,8 @@ body.color-theme-in-transition *,
 body.color-theme-in-transition *:before,
 body.color-theme-in-transition *:after
 {
-    -webkit-transition: ease-in-out 200ms !important;
-            transition: ease-in-out 200ms !important;
+    -webkit-transition: ease-in-out 200ms;
+            transition: ease-in-out 200ms;
     -webkit-transition-delay: 0 !important;
             transition-delay: 0 !important;
 }
@@ -11681,8 +11687,10 @@ ol.no-style
 .hero
 {
     background-image: url('/assets/images/mountains.jpg');
-    background-image: -webkit-image-set(url('/assets/images/mountains_480.jpg') 1x, url('/assets/images/mountains_676.jpg') 2x, url('/assets/images/mountains_842.jpg') 3x, url('/assets/images/mountains_987.jpg') 4x, url('/assets/images/mountains_1118.jpg') 5x, url('/assets/images/mountains_1250.jpg') 6x, url('/assets/images/mountains_1375.jpg') 7x, url('/assets/images/mountains_1380.jpg') 8x);
-    background-image:         image-set(url('/assets/images/mountains_480.jpg') 1x, url('/assets/images/mountains_676.jpg') 2x, url('/assets/images/mountains_842.jpg') 3x, url('/assets/images/mountains_987.jpg') 4x, url('/assets/images/mountains_1118.jpg') 5x, url('/assets/images/mountains_1250.jpg') 6x, url('/assets/images/mountains_1375.jpg') 7x, url('/assets/images/mountains_1380.jpg') 8x);
+    background-image: url('/assets/images/mountains.webp');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 
 @media (min-width: 320px)
@@ -14808,11 +14816,38 @@ ol.no-style
     }
 }
 
+@media (max-width: 1375px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/mountains_1375.jpg');
+        background-image: url('/assets/images/mountains_1375.webp');
+    }
+}
+
+@media (max-width: 1250px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/mountains_1250.jpg');
+        background-image: url('/assets/images/mountains_1250.webp');
+    }
+}
+
 @media screen and (max-width: 1215px)
 {
     .container.is-widescreen
     {
         max-width: 1152px;
+    }
+}
+
+@media (max-width: 1118px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/mountains_1118.jpg');
+        background-image: url('/assets/images/mountains_1118.webp');
     }
 }
 
@@ -15415,6 +15450,24 @@ ol.no-style
     }
 }
 
+@media (max-width: 987px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/mountains_987.jpg');
+        background-image: url('/assets/images/mountains_987.webp');
+    }
+}
+
+@media (max-width: 842px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/mountains_842.jpg');
+        background-image: url('/assets/images/mountains_842.webp');
+    }
+}
+
 @media screen and (max-width: 768px)
 {
     .is-size-1-mobile
@@ -15993,6 +16046,24 @@ ol.no-style
     }
 }
 
+@media (max-width: 676px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/mountains_676.jpg');
+        background-image: url('/assets/images/mountains_676.webp');
+    }
+}
+
+@media (max-width: 480px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/mountains_480.jpg');
+        background-image: url('/assets/images/mountains_480.webp');
+    }
+}
+
 @media screen and (min-width: 769px) and (max-width: 1023px)
 {
     .has-text-centered-tablet-only
@@ -16311,6 +16382,26 @@ ol.no-style
     .columns.is-variable.is-8-widescreen-only
     {
         --columnGap: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion)
+{
+    body.color-theme-in-transition *,
+    body.color-theme-in-transition *:before,
+    body.color-theme-in-transition *:after
+    {
+        -webkit-transition-duration: .05s;
+                transition-duration: .05s;
+    }
+}
+
+@media (prefers-reduced-data)
+{
+    .hero
+    {
+        background-color: var(--colour-primary);
+        background-image: none !important;
     }
 }
 
