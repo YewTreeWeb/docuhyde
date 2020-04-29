@@ -17,4 +17,32 @@
     background-image: none !important;
     background-color: v(colour-primary);
   }
+  position: relative;
+  width: 100%;
+  min-height: -webkit-fill-available;
+  background-color: v(colour-white);
+  .hero-body {
+    @include size(100%, calc(100% - 74px));
+    .hero-inner {
+      -webkit-box-pack: center;
+      @include flex(center, center, column);
+      text-align: center;
+      color: v(colour-white);
+      padding: 0px 15px;
+      h1 {
+        order: 1;
+      }
+      h2 {
+        order: 0;
+        @include make-font-size(_heading(h4));
+        @include font(null, $font-family, $weight-exlight);
+      }
+      p {
+        order: 2;
+      }
+      div {
+        order: 3;
+      }
+    }
+  }
 }
