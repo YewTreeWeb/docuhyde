@@ -11692,11 +11692,30 @@ ol.no-style
     min-height: -webkit-fill-available;
 
     background-color: var(--colour-white);
-    background-image: url('/assets/images/mountains.jpg');
-    background-image: url('/assets/images/mountains.webp');
+    background-image: url('/assets/images/volcano.jpg');
+    background-image: url('/assets/images/volcano.webp');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+}
+
+.hero:before
+{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    content: '';
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+
+    background-color: #16171b;
+    background-color: rgba(22, 23, 27, .4);
 }
 
 .hero .hero-body
@@ -11712,6 +11731,8 @@ ol.no-style
     display: flex;
         flex-direction: column;
 
+    max-width: 670px;
+    margin: 0 auto;
     padding: 0 15px;
 
     text-align: center;
@@ -11749,6 +11770,10 @@ ol.no-style
 
 .hero .hero-body .hero-inner h1
 {
+    font-size: 65px;
+
+    margin-bottom: 25px;
+
     -webkit-box-ordinal-group: 2;
     -ms-flex-order: 1;
     order: 1;
@@ -11760,6 +11785,8 @@ ol.no-style
     font-size: 24px;
     font-weight: 200;
     line-height: 34px;
+
+    margin-bottom: 20px;
 
     letter-spacing: -.1px;
 
@@ -14905,21 +14932,30 @@ ol.no-style
     }
 }
 
-@media (max-width: 1375px)
+@media (max-width: 1400px)
 {
     .hero
     {
-        background-image: url('/assets/images/mountains_1375.jpg');
-        background-image: url('/assets/images/mountains_1375.webp');
+        background-image: url('/assets/images/volcano_1400.jpg');
+        background-image: url('/assets/images/volcano_1400.webp');
     }
 }
 
-@media (max-width: 1250px)
+@media (max-width: 1377px)
 {
     .hero
     {
-        background-image: url('/assets/images/mountains_1250.jpg');
-        background-image: url('/assets/images/mountains_1250.webp');
+        background-image: url('/assets/images/volcano_1377.jpg');
+        background-image: url('/assets/images/volcano_1377.webp');
+    }
+}
+
+@media (max-width: 1322px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/volcano_1322.jpg');
+        background-image: url('/assets/images/volcano_1322.webp');
     }
 }
 
@@ -14931,12 +14967,21 @@ ol.no-style
     }
 }
 
-@media (max-width: 1118px)
+@media (max-width: 1212px)
 {
     .hero
     {
-        background-image: url('/assets/images/mountains_1118.jpg');
-        background-image: url('/assets/images/mountains_1118.webp');
+        background-image: url('/assets/images/volcano_1212.jpg');
+        background-image: url('/assets/images/volcano_1212.webp');
+    }
+}
+
+@media (max-width: 1098px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/volcano_1098.jpg');
+        background-image: url('/assets/images/volcano_1098.webp');
     }
 }
 
@@ -15539,21 +15584,21 @@ ol.no-style
     }
 }
 
-@media (max-width: 987px)
+@media (max-width: 973px)
 {
     .hero
     {
-        background-image: url('/assets/images/mountains_987.jpg');
-        background-image: url('/assets/images/mountains_987.webp');
+        background-image: url('/assets/images/volcano_973.jpg');
+        background-image: url('/assets/images/volcano_973.webp');
     }
 }
 
-@media (max-width: 842px)
+@media (max-width: 835px)
 {
     .hero
     {
-        background-image: url('/assets/images/mountains_842.jpg');
-        background-image: url('/assets/images/mountains_842.webp');
+        background-image: url('/assets/images/volcano_835.jpg');
+        background-image: url('/assets/images/volcano_835.webp');
     }
 }
 
@@ -16135,21 +16180,30 @@ ol.no-style
     }
 }
 
-@media (max-width: 676px)
+@media (max-width: 672px)
 {
     .hero
     {
-        background-image: url('/assets/images/mountains_676.jpg');
-        background-image: url('/assets/images/mountains_676.webp');
+        background-image: url('/assets/images/volcano_672.jpg');
+        background-image: url('/assets/images/volcano_672.webp');
     }
 }
 
-@media (max-width: 480px)
+@media (max-width: 482px)
 {
     .hero
     {
-        background-image: url('/assets/images/mountains_480.jpg');
-        background-image: url('/assets/images/mountains_480.webp');
+        background-image: url('/assets/images/volcano_482.jpg');
+        background-image: url('/assets/images/volcano_482.webp');
+    }
+}
+
+@media (max-width: 200px)
+{
+    .hero
+    {
+        background-image: url('/assets/images/volcano_200.jpg');
+        background-image: url('/assets/images/volcano_200.webp');
     }
 }
 

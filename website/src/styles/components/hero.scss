@@ -1,16 +1,19 @@
 .hero {
   @include bgImg(
-    'mountains.jpg',
+    'volcano.jpg',
     center center,
     'responsive',
     null,
-    '<=480',
-    '<=676',
-    '<=842',
-    '<=987',
-    '<=1118',
-    '<=1250',
-    '<=1375'
+    '<=200',
+    '<=482',
+    '<=672',
+    '<=835',
+    '<=973',
+    '<=1098',
+    '<=1212',
+    '<=1322',
+    '<=1377',
+    '<=1400'
   );
   /// If reduced data os enabled on device, turn off images.
   @media (prefers-reduced-data) {
@@ -21,6 +24,7 @@
   width: 100%;
   min-height: -webkit-fill-available;
   background-color: v(colour-white);
+  @include overlay(black, 0.4);
   .hero-body {
     @include size(100%, calc(100% - 74px));
     .hero-inner {
@@ -29,13 +33,18 @@
       text-align: center;
       color: v(colour-white);
       padding: 0px 15px;
+      @include size(670px, null, max);
+      margin: 0 auto;
       h1 {
         order: 1;
+        margin-bottom: 25px;
+        font-size: ceil(nth(map-get($headings, h1), 1) * 1.2);
       }
       h2 {
         order: 0;
         @include make-font-size(_heading(h4));
         @include font(null, $font-family, $weight-exlight);
+        margin-bottom: 20px;
       }
       p {
         order: 2;

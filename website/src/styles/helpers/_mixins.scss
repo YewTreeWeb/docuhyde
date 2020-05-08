@@ -657,12 +657,12 @@
 }
 
 /// Background Overlay
-@mixin overlay($color: #{_colour(black)}, $alpha: 0.3) {
+@mixin overlay($color: black, $alpha: 0.3) {
   &::before {
     content: '';
     @include size(100%);
-    background-color: rgba($color, $alpha);
-    @include position;
+    background-color: rgba(_colour($color), $alpha);
+    @include center;
   }
 }
 
