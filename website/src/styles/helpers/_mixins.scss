@@ -662,6 +662,7 @@
     content: '';
     @include size(100%);
     background-color: rgba(_colour($color), $alpha);
+    background-color: hex2hsla(_colour($color), $alpha);
     @include center;
   }
 }

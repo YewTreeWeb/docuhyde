@@ -8,8 +8,7 @@ p {
   line-height: 24px;
 }
 
-@each $heading,
-$size in $headings {
+@each $heading, $size in $headings {
   #{$heading} {
     @include make-font-size($size);
     font-family: $font-family-header;

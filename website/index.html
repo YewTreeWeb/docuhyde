@@ -13,37 +13,37 @@ features:
     heading: "Powered by Markdown"
     icon:
       alt: ""
-      src: ""
+      src: "markdown"
   -
     content: "Extend or customize your project's template by using Liquid. Docuhyde can be extended while reusing the same header, footer, page layouts and page partials."
     heading: "Built Using Jekyll"
     icon:
       alt: ""
-      src: ""
+      src: "jekyll"
   -
     content: "Use the latest JavaScript technologies and dynamic importing with Webpack as well as project automation and style processing with Gulp."
     heading: "Gulp & Webpack"
     icon:
       alt: ""
-      src: ""
+      src: "gulp"
   -
     content: "Easily find the files you need with support for both Algolia & Google documentation search."
     heading: "Document Search"
     icon:
       alt: ""
-      src: ""
+      src: "search"
   -
     content: "Flexible publishing and hosting with a choice of Netlify, Firebase and Github Pages. Expand the complexity of your website with Firebase's cloud database."
     heading: "Netlify, Firebase or Github Pages"
     icon:
       alt: ""
-      src: ""
+      src: "migration"
   -
     content: "Offload your images, next-gen image formats, optimize, and deliver images, videos and other media across every device with Cloudinary."
     heading: "Next-gen images with Cloudinary"
     icon:
       alt: ""
-      src: ""
+      src: "cloudinary"
 sections:
   -
     content: "Preconfigured and developed, so the only command needed to start is <code data-lang=\"node\">npm run start</code> to create your website. Easy changes without needing to touch any code using Markdown and Yaml."
@@ -60,24 +60,7 @@ sections:
       position: "right"
       src: "/assets/images/vial.svg"
 ---
-{%- assign hero = page.hero -%}
-
-<section class="hero is-fullheight">
-  <div class="hero-body container">
-    <div class="hero-inner">
-      <h1 class="reveal-from-bottom" data-reveal-delay="150">{{ hero.title | default: site.title }}</h1>
-      {%- if hero.subtitle -%}
-        <h2>{{ hero.subtitle }}</h2>
-      {%- endif -%}
-      <p class="reveal-from-bottom" data-reveal-delay="300">{{ hero.content | default: site.description }}</p>
-      {%- if hero.button -%}
-        <div class="reveal-from-bottom hero-cta" data-reveal-delay="450">
-          <a class="btn btn--primary" href="{{ hero.button.link | default: 'javascript:void(0)' }}">{{ hero.button.text | default: "Get Started" }}</a>
-        </div>
-      {%- endif -%}
-    </div>
-  </div>
-</section>
+{%- include hero.html -%}
 
 {%- if page.features -%}
   <section class="features section reveal-fade">
@@ -86,9 +69,14 @@ sections:
         {%- for feature in page.features -%}
           <div class="column is-3">
             <div class="feature reveal-from-top">
-              <img class="feature__img" src="{{ feature.icon.src }}" alt="{{ feature.icon.alt }}">
+              {%- if feature.icon.src -%}
+                {%- include svg-icon.html icon=feature.icon.src id=feature.icon.name class="feature__icon" title=feature.icon.name desc=feature.icon.alt -%}
+              {%- endif -%}
               <h2 class="feature__heading">{{ feature.heading }}</h2>
               <p class="feature__info">{{ feature.content }}</p>
+              {%- if feature.button.link -%}
+                <a href="{{ feature.button.link }}" class="btn btn--primary">{{ feature.button.text }}</a>
+              {%- endif -%}
             </div>
           </div>
         {%- endfor -%}

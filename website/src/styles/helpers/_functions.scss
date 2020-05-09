@@ -178,7 +178,13 @@
   }
 
   @each $key in $keys {
-    $map: map-get($map, $key);
+    // If specified key is a list, add a sub list to get single values from map.
+    // Else return map
+    @if type-of($key) == 'list' {
+      $map: nth(map-get($map, nth($key, 1)), nth($key, 2));
+    } @else {
+      $map: map-get($map, $key);
+    }
   }
 
   @return $map;

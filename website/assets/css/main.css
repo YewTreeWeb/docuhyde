@@ -11244,6 +11244,14 @@ html
             box-sizing: border-box;
 }
 
+@supports (scroll-behavior: smooth)
+{
+    html
+    {
+        scroll-behavior: smooth;
+    }
+}
+
 html,
 body
 {
@@ -11304,6 +11312,172 @@ body .asset-light
 .highlight
 {
     color: var(--colour-accent);
+}
+
+/* Generated using nucleoapp.com */
+
+/* --------------------------------
+
+Icon colors
+
+-------------------------------- */
+
+.icon
+{
+    display: inline-block;
+
+    width: 1em;
+    height: 1em;
+    /* icon primary color */
+
+    color: #111;
+}
+
+.icon use
+{
+    /* icon secondary color - fill */
+    fill: inherit;
+}
+
+.icon.icon-outline use
+{
+    /* icon secondary color - stroke */
+    stroke: inherit;
+}
+
+/* --------------------------------
+
+Change icon size
+
+-------------------------------- */
+
+.icon-xs
+{
+    width: .5em;
+    height: .5em;
+}
+
+.icon-sm
+{
+    width: .8em;
+    height: .8em;
+}
+
+.icon-lg
+{
+    width: 1.6em;
+    height: 1.6em;
+}
+
+.icon-xl
+{
+    width: 2em;
+    height: 2em;
+}
+
+/* -------------------------------- 
+
+Align icon and text 
+
+-------------------------------- */
+
+.icon-text-aligner
+{
+    /* add this class to parent element that contains icon + text */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.icon-text-aligner .icon
+{
+    margin-right: .4em;
+
+    color: inherit;
+
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.icon-text-aligner .icon.icon-align-right
+{
+    margin-right: 0;
+    margin-left: .4em;
+}
+
+.icon-text-aligner .icon use
+{
+    color: inherit;
+
+    fill: currentColor;
+}
+
+.icon-text-aligner .icon.icon-outline use
+{
+    stroke: currentColor;
+}
+
+/* -------------------------------- 
+
+Icon reset values - used to enable color customizations
+
+-------------------------------- */
+
+.icon
+{
+    fill: currentColor;
+    stroke: none;
+}
+
+.icon.icon-outline
+{
+    stroke: currentColor;
+}
+
+.icon use
+{
+    stroke: none;
+}
+
+/* -------------------------------- 
+
+Stroke effects - Nucleo outline icons
+
+- 16px icons -> up to 1px stroke (16px outline icons do not support stroke changes)
+- 24px, 32px icons -> up to 2px stroke
+- 48px, 64px icons -> up to 4px stroke
+
+-------------------------------- */
+
+.icon-outline.icon-stroke-1
+{
+    stroke-width: 1px;
+}
+
+.icon-outline.icon-stroke-2
+{
+    stroke-width: 2px;
+}
+
+.icon-outline.icon-stroke-3
+{
+    stroke-width: 3px;
+}
+
+.icon-outline.icon-stroke-4
+{
+    stroke-width: 4px;
+}
+
+.icon-outline.icon-stroke-1 use,
+.icon-outline.icon-stroke-3 use
+{
+    -webkit-transform: translateX(.5px) translateY(.5px);
+            transform: translateX(.5px) translateY(.5px);
 }
 
 a:not(.btn)
@@ -11716,6 +11890,7 @@ ol.no-style
 
     background-color: #16171b;
     background-color: rgba(22, 23, 27, .4);
+    background-color: hsla(228deg, 10.204082%, 9.607843%, .4);
 }
 
 .hero .hero-body
@@ -11733,7 +11908,8 @@ ol.no-style
 
     max-width: 670px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding-right: 15px;
+    padding-left: 15px;
 
     text-align: center;
 
@@ -11807,6 +11983,83 @@ ol.no-style
     -webkit-box-ordinal-group: 4;
     -ms-flex-order: 3;
     order: 3;
+}
+
+.feature
+{
+    padding: 40px 50px;
+
+    -webkit-transition: all .35s ease 0s;
+            transition: all .35s ease 0s;
+    text-align: center;
+
+    border-radius: 8px;
+    -webkit-box-shadow: rgba(22, 23, 27, 0) 0 0 0 0;
+    -webkit-box-shadow: hsla(228deg, 10.204082%, 9.607843%, 0) 0 0 0 0;
+            box-shadow: rgba(22, 23, 27, 0) 0 0 0 0;
+            box-shadow: hsla(228deg, 10.204082%, 9.607843%, 0) 0 0 0 0;
+}
+
+@supports (hover: hover)
+{
+    @media (hover: hover)
+    {
+        .feature:hover
+        {
+            background: var(--colour-primary);
+            -webkit-box-shadow: var(--colour-secondary) 0 1px 30px 0;
+                    box-shadow: var(--colour-secondary) 0 1px 30px 0;
+        }
+    }
+
+    @media (hover: none)
+    {
+        .feature:focus,
+        .feature:active
+        {
+            background: var(--colour-primary);
+            -webkit-box-shadow: var(--colour-secondary) 0 1px 30px 0;
+                    box-shadow: var(--colour-secondary) 0 1px 30px 0;
+        }
+    }
+}
+
+@supports not (hover: hover)
+{
+    .feature:hover
+    {
+        background: var(--colour-primary);
+        -webkit-box-shadow: var(--colour-secondary) 0 1px 30px 0;
+                box-shadow: var(--colour-secondary) 0 1px 30px 0;
+    }
+}
+
+.feature__icon
+{
+    display: block;
+
+    margin-right: auto;
+    margin-bottom: 25px;
+    margin-left: auto;
+}
+
+.feature__heading
+{
+    font-size: 20px;
+
+    margin-bottom: 20px;
+}
+
+.feature__info
+{
+    font-weight: 300;
+
+    margin-bottom: 30px;
+
+    opacity: .6;
+    color: var(--colour-text-secondary);
+
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=60)';
 }
 
 @media (min-width: 320px)
@@ -12689,6 +12942,14 @@ ol.no-style
     .hero-buttons .button:not(:last-child)
     {
         margin-right: 1.5rem;
+    }
+}
+
+@media only screen and (min-width: 992px)
+{
+    .feature__heading
+    {
+        font-size: calc( 20px + 18 * ((100vw - 992px) / 448));
     }
 }
 
@@ -14913,6 +15174,14 @@ ol.no-style
     .columns.is-variable.is-8-fullhd
     {
         --columnGap: 2rem;
+    }
+}
+
+@media only screen and (min-width: 1440px)
+{
+    .feature__heading
+    {
+        font-size: 38px;
     }
 }
 

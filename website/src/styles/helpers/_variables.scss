@@ -79,11 +79,11 @@ $dark-colours: (
 );
 
 /// Font
-$font-family: quote(Source Sans Pro), system-ui, sans-serif;
+$font-family: quote(Source Sans Pro), system-ui, sans-serif !default;
 $font-family-header: quote(Fira Sans), system-ui, sans-serif;
 $font-family-code: quote(Fira Code), Monaco, Consolas, quote(Andale Mono),
-  quote(DejaVu Sans Mono), monospace;
-$font-family-pre: quote(Courier 10 Pitch), Courier, monospace;
+  quote(DejaVu Sans Mono), monospace !default;
+$font-family-pre: quote(Courier 10 Pitch), Courier, monospace !default;
 
 $headings: (
   h1: (
