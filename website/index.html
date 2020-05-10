@@ -11,21 +11,39 @@ features:
   -
     content: "Simply write documentation and blog posts with Markdown and Docuhyde will transform your plain text into static HTML website files."
     heading: "Powered by Markdown"
+    button:
+      link: "https://www.markdownguide.org/"
+      type: "external"
     icon:
       alt: ""
       src: "markdown"
   -
     content: "Extend or customize your project's template by using Liquid. Docuhyde can be extended while reusing the same header, footer, page layouts and page partials."
     heading: "Built Using Jekyll"
+    button:
+      link: "https://jekyllrb.com/"
+      type: "external"
     icon:
       alt: ""
       src: "jekyll"
   -
-    content: "Use the latest JavaScript technologies and dynamic importing with Webpack as well as project automation and style processing with Gulp."
-    heading: "Gulp & Webpack"
+    content: "Project automation, live reloading, style and image processing with Gulp."
+    heading: "Gulp"
+    button:
+      link: "https://gulpjs.com/"
+      type: "external"
     icon:
       alt: ""
       src: "gulp"
+  -
+    content: "Use the latest JavaScript technologies and dynamic importing with Webpack."
+    heading: "Webpack"
+    button:
+      link: "https://webpack.js.org/"
+      type: "external"
+    icon:
+      alt: ""
+      src: "webpack"
   -
     content: "Easily find the files you need with support for both Algolia & Google documentation search."
     heading: "Document Search"
@@ -41,6 +59,9 @@ features:
   -
     content: "Offload your images, next-gen image formats, optimize, and deliver images, videos and other media across every device with Cloudinary."
     heading: "Next-gen images with Cloudinary"
+    button:
+      link: "https://cloudinary.com/"
+      type: "external"
     icon:
       alt: ""
       src: "cloudinary"
@@ -75,7 +96,7 @@ sections:
               <h2 class="feature__heading">{{ feature.heading }}</h2>
               <p class="feature__info">{{ feature.content }}</p>
               {%- if feature.button.link -%}
-                <a href="{{ feature.button.link }}" class="btn btn--primary">{{ feature.button.text }}</a>
+                <a href="{{ feature.button.link }}" class="btn btn--sm"{% if feature.button.type == 'external' %} target="_blank" rel="noopener"{% endif %}>{{ feature.button.text | default: "Learn More" }}</a>
               {%- endif -%}
             </div>
           </div>

@@ -49,8 +49,18 @@
       p {
         order: 2;
       }
-      div {
+      .hero-cta {
+        margin-top: em(50px);
         order: 3;
+        > a {
+          @include hover {
+            box-shadow: v(colour-accent) 0px 1px 2px 0px;
+            opacity: 0.82;
+          }
+          @include call-to-action(false) {
+            background-color: v(colour-accent-dark);
+          }
+        }
       }
     }
   }

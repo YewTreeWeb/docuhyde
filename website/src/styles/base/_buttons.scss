@@ -1,48 +1,85 @@
+button,
+.btn {
+  cursor: pointer;
+}
+
 .btn,
 %btn {
-	appearance: none;
-	background-color: v(colour-accent);
-	text-align: center;
-	text-decoration: none;
-	white-space: nowrap;
-	overflow: hidden;
-	text-transform: uppercase;
-	color: v(colour-text-accent);
-	z-index: 1;
-	position: relative;
-	@include font(_heading(h6), $font-family, $weight, 1.7);
-	padding: 0.5em 2.3em;
-	outline: none;
-	border: 1px solid v(colour-accent);
-	border-radius: 3px;
-	@include prefix(transition, color 0.4s ease-in-out);
-	width: fit-content;
-	@include size(232px, 48px, min);
-	height: unset;
-	box-shadow: 0 em(1px) em(1px) v(colour-accent-dark);
-	display: inline-block;
-	margin-top: em(58px);
-	cursor: pointer;
-	&::before {
-		content: '';
-		z-index: -1;
-		position: absolute;
-		top: 100%;
-		left: 100%;
-		@include size(1em);
-		@include prefix(border-radius, 50%);
-		background-color: v(colour-primary);
-		transform-origin: center;
-		@include prefix(transform, translate3d(-20%, -50%, 0) scale3d(0, 0, 0));
-		@include prefix(transition, transform 0.45s ease-in-out);
-		@include hardware(transform);
-	}
-	@include call-to-action(true, false, false) {
-		cursor: pointer;
-		color: v(colour-text);
-		box-shadow: inset 0 0 0 4px darken(_colour(accent), 3%), hex2hsla(_colour(accent), 0.1) 0px 5px 20px;
-		&::before {
-			@include prefix(transform, translate3d(-650%, -50%, 0) scale3d(15, 15, 15));
-		}
-	}
+  @include font($font-base, $font-family, $weight, normal);
+  letter-spacing: 0.14rem;
+  color: v(colour-white);
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: none;
+  opacity: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid v(colour-accent-light);
+  border-image: initial;
+  border-radius: 8px;
+  background-color: v(colour-accent);
+  @include padding(12px 40px);
+  transition: all 0.35s ease 0s;
+  &--lg {
+    font-size: $font-md;
+    font-weight: $weight-heavy;
+    letter-spacing: 0.21rem;
+    @include padding(13px 48px);
+  }
+  &--sm {
+    font-size: $font-sm;
+    letter-spacing: 0.16rem;
+    @include padding(8px 26px);
+  }
+  &--modern {
+    color: v(colour-white);
+    font-weight: $weight-light;
+    letter-spacing: 0.17rem;
+    border: initial none initial;
+    background: linear-gradient(
+      -180deg,
+      v(colour-accent-light) 0%,
+      v(colour-accent-dark) 100%
+    );
+    @include padding(12px 40px);
+    &-lg {
+      font-size: $font-md;
+      font-weight: $weight;
+      letter-spacing: 0.21rem;
+      @include padding(15px 50px);
+    }
+    &-sm {
+      font-size: $font-sm;
+      letter-spacing: 0.16rem;
+      @include padding(10px 28px);
+    }
+  }
+  &--ghost {
+    font-size: 0.87rem;
+    letter-spacing: 0.17rem;
+    color: v(colour-accent);
+    @include padding(10px 38px);
+    border: 2px solid v(colour-accent);
+    background: none;
+    &-lg {
+      font-size: $font-md;
+      letter-spacing: 0.21rem;
+      @include padding(13px 48px);
+    }
+    &-sm {
+      font-size: $font-sm;
+      letter-spacing: 0.16rem;
+      @include padding(8px 26px);
+    }
+  }
+  &--rounded {
+    border-radius: 100px !important;
+  }
+  &--text {
+  }
+  &--arrow {
+  }
 }
