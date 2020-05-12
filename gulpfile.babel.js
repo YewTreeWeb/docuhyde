@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { src, dest, watch, lastRun, series, parallel } from 'gulp'
 import autoprefixer from 'autoprefixer'
 import rucksack from 'rucksack-css'
@@ -12,16 +13,17 @@ import del from 'del'
 import read from 'read-yaml'
 import shell from 'shelljs'
 import pngquant from 'imagemin-pngquant'
+import jpegtran from 'imagemin-jpegtran'
 import zopfli from 'imagemin-zopfli'
 import giflossy from 'imagemin-giflossy'
 import mozjpeg from 'imagemin-mozjpeg'
 import webp from 'imagemin-webp'
 import extReplace from 'gulp-ext-replace'
-import pkg from './package.json'
 import yargs from 'yargs'
-import webpackConfig from './config/webpack.config.js'
+import pkg from './package.json'
+import webpackConfig from './config/webpack.config'
 
-const prod = yargs.argv.prod
+const { prod } = yargs.argv
 
 const $ = plugins({
   rename: {
@@ -171,7 +173,7 @@ export const vendorTask = () => {
   }
 
   return src(
-    vendors.map((dependency) => './node_modules/' + dependency + '/**/*.*'),
+    vendors.map((dependency) => `./node_modules/${dependency}/**/*.*`),
     {
       base: './node_modules/',
     }
@@ -191,7 +193,7 @@ export const images = () => {
         $.cache(
           $.imagemin(
             [
-              $.imagemin.jpegtran({
+              jpegtran({
                 progressive: true,
               }),
               pngquant({
@@ -346,7 +348,10 @@ export const svgSprites = () => {
     )
     .pipe(
       $.cheerio({
-        run: function ($, file) {
+        // run($, file) {
+        //   $('svg').attr('style', 'display:none!important')
+        // },
+        run() {
           $('svg').attr('style', 'display:none!important')
         },
         parserOptions: { xmlMode: true },
@@ -392,7 +397,7 @@ export const cloudinary = () => {
  * HTML Minify
  */
 export const html = () => {
-  return src(config.dist + '/**/*.html')
+  return src(`${config.dist}/**/*.html`)
     .pipe($.plumber())
     .pipe($.htmlAutoprefixer())
     .pipe(
@@ -448,10 +453,10 @@ export const jekyll = (done) => {
 /**
  * Clean
  */
-export const clean_build = () => {
+export const cleanBuild = () => {
   return del(config.clean.dist)
 }
-export const clean_cache = (done) => {
+export const cleanCache = (done) => {
   $.cache.clearAll()
   done()
 }
@@ -528,7 +533,7 @@ export const deploy = (done) => {
  */
 export const build = series(
   env,
-  parallel(clean_build, clean_cache),
+  parallel(cleanBuild, cleanCache),
   jekyll,
   vendorTask,
   parallel(styles, js, images, html, fonts),
@@ -542,7 +547,7 @@ export const build = series(
  */
 export const dev = series(
   env,
-  clean_build,
+  cleanBuild,
   jekyll,
   vendorTask,
   parallel(styles, js, images, fonts),

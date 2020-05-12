@@ -469,7 +469,7 @@
 
 /// Hover, Active, Focus.
 @mixin call-to-action($hover: true, $active: true, $focus: true) {
-  @if ($hover, $active, $focus) {
+  @if $hover and $active and $focus {
     @supports (hover: hover) {
       @media (hover: hover) {
         &:hover {
@@ -490,7 +490,7 @@
         @content;
       }
     }
-  } @else if ($hover) {
+  } @else if $hover {
     @supports (hover: hover) {
       @media (hover: hover) {
         &:hover {
@@ -504,11 +504,11 @@
         @content;
       }
     }
-  } @else if ($active) {
+  } @else if $active {
     &:active {
       @content;
     }
-  } @else if ($focus) {
+  } @else if $focus {
     &:focus {
       @content;
     }
@@ -746,3 +746,8 @@
     }
   }
 }
+
+// Create borders
+// @mixin border(top, right, bottom, left) {
+
+// }

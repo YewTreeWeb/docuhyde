@@ -58,7 +58,6 @@ button,
     }
   }
   &--ghost {
-    font-size: 0.87rem;
     letter-spacing: 0.17rem;
     color: v(colour-accent);
     @include padding(10px 38px);
@@ -79,6 +78,56 @@ button,
     border-radius: 100px !important;
   }
   &--text {
+    letter-spacing: 0.17rem;
+    display: inline-flex;
+    @supports (place-items: center) {
+      place-items: center;
+    }
+    @supports not (place-items: center) {
+      justify-content: center;
+      align-items: center;
+    }
+    box-shadow: none;
+    opacity: 1;
+    border: initial none initial;
+    @include padding(7px 15px);
+    background: none;
+    border-radius: 0px;
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      @include size(33.3%, 65%);
+      border: initial none initial;
+      border-image: initial;
+      box-shadow: none;
+      border-radius: 0px;
+      opacity: 1;
+      transition: width 0.35s ease 0s, height 0.35s ease 0.35s,
+        border-color 0.35s ease 0s;
+    }
+    &::before {
+      right: unset;
+      left: 0px;
+      top: 0px;
+      border-top: 2px solid v(colour-text);
+      border-left: 2px solid v(colour-text);
+    }
+    &::after {
+      right: 0px;
+      bottom: 0px;
+      border-bottom: 2px solid v(colour-text);
+      border-right: 2px solid v(colour-text);
+    }
+    &--lg {
+      font-size: $font-md;
+      letter-spacing: 0.21rem;
+    }
+    &--sm {
+      font-size: $font-sm;
+      letter-spacing: 0.16rem;
+    }
   }
   &--arrow {
   }
