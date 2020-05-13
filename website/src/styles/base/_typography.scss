@@ -47,6 +47,34 @@ pre {
   }
 }
 
+.blockquote {
+  blockquote {
+    padding-top: 20px;
+    font-size: $font-base;
+    font-weight: $weight-exlight;
+    color: v(colour-text-secondary);
+    footer {
+      content: '';
+      display: block;
+      width: 60px;
+      @include margin(25px null 10px);
+      opacity: 0.3;
+      border-bottom: 2px solid v(colour-grey);
+      cite {
+        color: v(colour-grey);
+        opacity: 0.55;
+        font-style: normal;
+      }
+    }
+  }
+  &--boxed {
+    box-shadow: hex2hsla(_colour(grey-darker), 0.15) 0px 1px 30px 0px;
+    padding: 40px;
+    border-top: 3px solid hex2hsl(_colour(grey-darker));
+    border-radius: 0px 0px 8px 8px;
+  }
+}
+
 blockquote {
   font-style: italic;
 }

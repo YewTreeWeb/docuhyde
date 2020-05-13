@@ -1,7 +1,150 @@
 a {
+  color: v(colour-accent);
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: v(colour-accent);
+    transform-origin: bottom right;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+  }
+  @include hover {
+    color: v(colour-accent);
+    &::before {
+      transform-origin: bottom left;
+      transform: scaleX(1);
+    }
+  }
+  &.pillars {
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: v(colour-accent);
+      transform: scaleY(0);
+      transition: transform 0.5s ease;
+    }
+
+    &::before {
+      left: -8px;
+      transform-origin: center top;
+    }
+
+    &::after {
+      right: -8px;
+      transform-origin: center bottom;
+    }
+
+    @include hover {
+      &::before,
+      &::after {
+        transform: scaleY(1);
+      }
+      &::before {
+        transform-origin: center bottom;
+      }
+      &::after {
+        transform-origin: center top;
+      }
+    }
+  }
+  &.strikethrough {
+    color: v(colour-accent);
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: v(colour-accent);
+      transform-origin: center right;
+      transform: scaleX(0) translateY(-50%);
+      transition: transform 0.3s ease;
+    }
+
+    @include hover {
+      color: hex2hsla(_colour(accent), 0.6);
+      &::before {
+        transform-origin: center left;
+        transform: scaleX(1) translateY(-50%);
+      }
+    }
+  }
+  &.highlight {
+    z-index: 1;
+
+    &::before {
+      content: '';
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -0.25em;
+      right: -0.25em;
+      background-color: v(colour-accent);
+      transform-origin: bottom center;
+      transform: scaleY(0.1);
+      transition: all 0.1s ease-in-out;
+    }
+    @include hover {
+      transform: scaleY(1);
+      background-color: hex2hsla(_colour(accent), 0.75);
+    }
+  }
+  &.bars {
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: v(colour-accent);
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+    }
+
+    &::before {
+      top: 0;
+      transform-origin: center right;
+    }
+
+    &::after {
+      bottom: 0;
+      transform-origin: center left;
+    }
+
+    @include hover {
+      &::before,
+      &::after {
+        transform: scaleY(1);
+      }
+      &::before {
+        transform-origin: center left;
+      }
+      &::after {
+        transform-origin: center right;
+      }
+    }
+  }
+
   &.btn {
-    @include prefix(appearance, none);
+    @extend %btn;
+    @include prefix(appearance, button);
     text-decoration: none;
     white-space: nowrap;
+    &::before,
+    &::after {
+      content: none !important;
+    }
   }
 }

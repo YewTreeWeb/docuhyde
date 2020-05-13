@@ -15,9 +15,7 @@
 // Based on css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
 html {
   box-sizing: border-box;
-  @supports (scroll-behavior: smooth) {
-    scroll-behavior: smooth;
-  }
+  scroll-behavior: smooth;
 }
 
 html,

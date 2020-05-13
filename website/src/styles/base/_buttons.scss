@@ -3,7 +3,6 @@ button,
   cursor: pointer;
 }
 
-.btn,
 %btn {
   @include font($font-base, $font-family, $weight, normal);
   letter-spacing: 0.14rem;
@@ -34,6 +33,10 @@ button,
     letter-spacing: 0.16rem;
     @include padding(8px 26px);
   }
+  @include hover {
+    opacity: 0.82;
+    color: v(colour-black);
+  }
   &--modern {
     color: v(colour-white);
     font-weight: $weight-light;
@@ -45,6 +48,20 @@ button,
       v(colour-accent-dark) 100%
     );
     @include padding(12px 40px);
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      @include size(100%);
+      box-shadow: hex2hsla(_colour(accent), 0.75) 0px 1px 30px 0px;
+      opacity: 1;
+      border: initial none initial;
+      border-image: initial;
+      border-radius: 8px;
+      transition: opacity 0.35s ease 0s;
+    }
     &-lg {
       font-size: $font-md;
       font-weight: $weight;
@@ -55,6 +72,11 @@ button,
       font-size: $font-sm;
       letter-spacing: 0.16rem;
       @include padding(10px 28px);
+    }
+    @include hover {
+      &::before {
+        opacity: 0;
+      }
     }
   }
   &--ghost {
@@ -73,20 +95,19 @@ button,
       letter-spacing: 0.16rem;
       @include padding(8px 26px);
     }
+    @include hover {
+      color: v(colour-white);
+      background: v(colour-accent-dark);
+    }
   }
   &--rounded {
     border-radius: 100px !important;
   }
   &--text {
+    color: v(colour-text);
     letter-spacing: 0.17rem;
     display: inline-flex;
-    @supports (place-items: center) {
-      place-items: center;
-    }
-    @supports not (place-items: center) {
-      justify-content: center;
-      align-items: center;
-    }
+    place-items: center;
     box-shadow: none;
     opacity: 1;
     border: initial none initial;
@@ -128,7 +149,27 @@ button,
       font-size: $font-sm;
       letter-spacing: 0.16rem;
     }
+    @include hover {
+      color: v(colour-black);
+      &::before,
+      &::after {
+        @include size(100%);
+      }
+    }
   }
   &--arrow {
+    display: flex;
+    align-items: center;
+    color: v(colour-text);
+    padding: 0px;
+    border: initial none initial;
+    background: none;
+    transition: all 0.35s ease 0s;
+    &--lg {
+      font-size: $font-md;
+    }
+    &--sm {
+      font-size: $font-sm;
+    }
   }
 }

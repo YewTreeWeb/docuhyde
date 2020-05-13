@@ -13,28 +13,10 @@ $palette: (
     3: #292b32,
   ),
   primary: (
-    1: #376df9,
-    2: #6991fa,
-    3: #074af6,
-    4: #eaf0ff,
-  ),
-  secondary: (
     1: #ff5fa0,
     2: #ff92be,
     3: #ff2c82,
     4: #ffe7f1,
-  ),
-  tertiary: (
-    1: #ffc55a,
-    2: #ffd78d,
-    3: #ffb327,
-    4: #fff3dd,
-  ),
-  quaternary: (
-    1: #ff8d74,
-    2: #ffb7a7,
-    3: #ff6341,
-    4: #ffe8e3,
   ),
   alert: (
     error: #ff5fa0,
@@ -73,9 +55,6 @@ $dark-colours: (
   secondary: get-color(dark, 2),
   text: get-color(light, 1),
   text-secondary: get-color(light, 2),
-  accent: get-color(secondary, 1),
-  accent-light: get-color(secondary, 2),
-  accent-dark: get-color(secondary, 3),
 );
 
 /// Font

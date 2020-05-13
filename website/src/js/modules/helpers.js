@@ -28,8 +28,8 @@
     'trace',
     'warn',
   ]
-  let length = methods.length
-  let console = (window.console = window.console || {})
+  let { length } = methods
+  const console = (window.console = window.console || {})
 
   while (length--) {
     method = methods[length]

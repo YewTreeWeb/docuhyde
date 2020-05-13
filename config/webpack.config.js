@@ -9,15 +9,15 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.jsx$|\.es6$|\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-          presets: ['@babel/preset-env', 'babel-preset-airbnb']
-        }
+          presets: ['@babel/preset-env', 'babel-preset-airbnb'],
+        },
       },
       {
         enforce: 'pre',
@@ -26,22 +26,22 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           cache: true,
-          fix: true
-        }
-      }
-    ]
+          fix: true,
+        },
+      },
+    ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js'],
   },
   mode: prod ? 'production' : 'development',
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   devtool: !prod ? 'inline-source-map' : false,
   output: {
     filename: '[name].js',
-    chunkFilename: '[name].bundle.js'
+    chunkFilename: '[name].bundle.js',
   },
   optimization: {
     moduleIds: 'hashed',
@@ -51,9 +51,9 @@ module.exports = {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
-          chunks: 'all'
-        }
-      }
+          chunks: 'all',
+        },
+      },
     },
     minimize: prod ? true : false,
     minimizer: [
@@ -61,26 +61,19 @@ module.exports = {
         test: /\.js(\?.*)?$/i,
         terserOptions: {
           output: {
-            comments: !prod ? true : false
-          }
+            comments: !prod ? true : false,
+          },
         },
-        chunkFilter: chunk => {
-          // Exclude uglification for the `vendor` chunk
-          if (chunk.name === 'vendors') {
-            return false
-          }
-
-          return true
-        },
+        parallel: true,
         cache: true,
-        extractComments: false
-      })
-    ]
+        extractComments: false,
+      }),
+    ],
   },
   externals: {
     jquery: 'jQuery',
     browser: 'browser',
-    breakpoints: 'breakpoints'
+    breakpoints: 'breakpoints',
   },
   plugins: [
     // Set dependencies in global scope
@@ -90,7 +83,7 @@ module.exports = {
       jQuery: 'jquery',
       cloudinary: 'cloudinary-core',
       browser: 'browser',
-      breakpoints: 'breakpoints'
-    })
-  ]
+      breakpoints: 'breakpoints',
+    }),
+  ],
 }
