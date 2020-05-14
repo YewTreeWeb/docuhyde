@@ -59,72 +59,74 @@ export const env = (done) => {
  * Styles
  */
 export const styles = () => {
-  return src(config.styles.src, { allowEmpty: true })
-    .pipe($.plumber())
-    .pipe($.if(!prod, $.sourcemaps.init())) // Start sourcemap.
-    .pipe(
-      $.cssimport({
-        matchPattern: '*.css',
-      })
-    )
-    .pipe($.sassGlob())
-    .pipe(
-      $.sass({
-        precision: 6,
-        outputStyle: 'expanded',
-      })
-    )
-    .pipe(
-      $.size({
-        showFiles: true,
-      })
-    )
-    .pipe(
-      $.postcss([
-        rucksack({
-          fallbacks: true,
-        }),
-        autoprefixer({
-          grid: true,
-          cascade: false,
-        }),
-      ])
-    )
-    .pipe($.gcmq())
-    .pipe($.csscomb())
-    .pipe(
-      $.if(
-        prod,
-        $.cleanCSS({
-          level: {
-            1: {
-              all: true,
-              normalizeUrls: false,
-            },
-            2: {
-              all: false,
-              removeEmpty: true,
-              removeDuplicateFontRules: true,
-              removeDuplicateMediaBlocks: true,
-              removeDuplicateRules: true,
-            },
-          },
+  return (
+    src(config.styles.src, { allowEmpty: true })
+      .pipe($.plumber())
+      // .pipe($.if(!prod, $.sourcemaps.init())) // Start sourcemap.
+      .pipe(
+        $.cssimport({
+          matchPattern: '*.css',
         })
       )
-    )
-    .pipe(
-      $.if(
-        prod,
+      .pipe($.sassGlob())
+      .pipe(
+        $.sass({
+          precision: 6,
+          outputStyle: 'compact',
+        })
+      )
+      .pipe(
         $.size({
-          title: 'Minified CSS',
           showFiles: true,
         })
       )
-    )
-    .pipe($.if(!prod, $.sourcemaps.write('.')))
-    .pipe($.if(!prod, dest(config.distAssets + config.styles.dist)))
-    .pipe($.if(!prod, sync.stream()))
-    .pipe(dest(config.jekyllDist + config.styles.dist))
+      .pipe(
+        $.postcss([
+          rucksack({
+            fallbacks: true,
+          }),
+          autoprefixer({
+            grid: true,
+            cascade: false,
+          }),
+        ])
+      )
+      .pipe($.gcmq())
+      .pipe($.csscomb())
+      .pipe(
+        $.if(
+          prod,
+          $.cleanCSS({
+            level: {
+              1: {
+                all: true,
+                normalizeUrls: false,
+              },
+              2: {
+                all: false,
+                removeEmpty: true,
+                removeDuplicateFontRules: true,
+                removeDuplicateMediaBlocks: true,
+                removeDuplicateRules: true,
+              },
+            },
+          })
+        )
+      )
+      .pipe(
+        $.if(
+          prod,
+          $.size({
+            title: 'Minified CSS',
+            showFiles: true,
+          })
+        )
+      )
+      // .pipe($.if(!prod, $.sourcemaps.write('.')))
+      .pipe($.if(!prod, dest(config.distAssets + config.styles.dist)))
+      .pipe($.if(!prod, sync.stream()))
+      .pipe(dest(config.jekyllDist + config.styles.dist))
+  )
 }
 
 /**

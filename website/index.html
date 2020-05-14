@@ -84,38 +84,36 @@ sections:
 {%- include hero.html -%}
 
 {%- if page.features -%}
-  <section class="features section reveal-fade">
-    <div class="features__inner container">
-      <div class="columns is-multiline is-tablet">
+  <section class="section container reveal-fade">
+      <div class="columns is-multiline is-tablet feature-cards">
         {%- for feature in page.features -%}
           <div class="column is-3">
-            <div class="feature reveal-from-top">
+            <div class="card reveal-from-top">
               {%- if feature.icon.src -%}
-                {%- include svg-icon.html icon=feature.icon.src id=feature.icon.name class="feature__icon" title=feature.icon.name desc=feature.icon.alt -%}
+                {%- include svg-icon.html icon=feature.icon.src id=feature.icon.name class="card__icon" title=feature.icon.name desc=feature.icon.alt -%}
               {%- endif -%}
-              <h2 class="feature__heading">{{ feature.heading }}</h2>
-              <p class="feature__info">{{ feature.content }}</p>
+              <h2 class="card__heading">{{ feature.heading }}</h2>
+              <p class="card__info">{{ feature.content }}</p>
               {%- if feature.button.link -%}
-                <a href="{{ feature.button.link }}" class="btn btn--sm"{% if feature.button.type == 'external' %} target="_blank" rel="noopener"{% endif %}>{{ feature.button.text | default: "Learn More" }}</a>
+                <a href="{{ feature.button.link }}" class="btn btn--sm card__button"{% if feature.button.type == 'external' %} target="_blank" rel="noopener"{% endif %}>{{ feature.button.text | default: "Learn More" }}</a>
               {%- endif -%}
             </div>
           </div>
         {%- endfor -%}
       </div>
-    </div>
   </section>
 {%- endif -%}
 
 {%- if page.sections -%}
   {%- for section in page.sections -%}
     <section class="section container">
-      <div class="columns is-multiline is-tablet section__inner">
+      <div class="columns is-multiline is-tablet feature-layout">
         {%- if section.image.src != '' and section.image.position == 'left' -%}
-          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }}">
+          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }} feature-layout__image">
             <img src="{{ section.image.src | relative_url }}" alt="{{ section.image.alt }}">
           </div>
         {%- endif -%}
-        <div class="column {% if section.image.src != '' and section.image.position != 'center' %}is-8{% else %}is-12{% endif %} reveal-from-bottom">
+        <div class="column {% if section.image.src != '' and section.image.position != 'center' %}is-8{% else %}is-12{% endif %} reveal-from-bottom feature-layout__text">
           <h2>{{ section.heading }}</h2>
           {%- if section.image.src != '' and section.image.position == 'center' -%}
             <img class="reveal-from-bottom" src="{{ section.image.src }}" alt="{{ section.image.alt }}">
@@ -123,7 +121,7 @@ sections:
           <p>{{ section.content }}</p>
         </div>
         {%- if section.image.src != '' and section.image.position == 'right' -%}
-          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }}">
+          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }} feature-layout__image">
             <img src="{{ section.image.src | relative_url }}" alt="{{ section.image.alt }}">
           </div>
         {%- endif -%}
@@ -134,10 +132,10 @@ sections:
 
 {%- if site.posts.size > 0 -%}
   <section class="section container">
-    <div class="columns is-multiline is-tablet section__inner">
+    <div class="columns is-multiline is-tablet posts">
       <div class="column is-12 reveal-from-bottom">
         <h2>Latest Post</h2>
-        {%- for post in site.posts limit: 1 -%}
+        {%- for post in site.posts limit: 3 -%}
           <article class="post">
             {%- if post.image -%}
                 <picture>

@@ -12424,8 +12424,10 @@ ol.no-style
     background-color: var(--colour-accent-dark);
 }
 
-.feature
+.card
 {
+    position: relative;
+
     height: 100%;
     padding: 40px 8%;
 
@@ -12434,72 +12436,90 @@ ol.no-style
     text-align: center;
 
     border-radius: 8px;
-    -webkit-box-shadow: rgba(22, 23, 27, 0) 0 0 0 0;
-    -webkit-box-shadow: hsla(228deg, 10.204082%, 9.607843%, 0) 0 0 0 0;
-            box-shadow: rgba(22, 23, 27, 0) 0 0 0 0;
-            box-shadow: hsla(228deg, 10.204082%, 9.607843%, 0) 0 0 0 0;
+    background: var(--colour-primary);
+    -webkit-box-shadow: hsla(227.5deg, 10.169492%, 46.27451%, 0) 0 0 0 0;
+            box-shadow: hsla(227.5deg, 10.169492%, 46.27451%, 0) 0 0 0 0;
 }
 
 @supports (hover: hover)
 {
     @media (hover: hover)
     {
-        .feature:hover
+        .card:hover
         {
-            background: var(--colour-primary);
-            -webkit-box-shadow: var(--colour-secondary) 0 1px 30px 0;
-                    box-shadow: var(--colour-secondary) 0 1px 30px 0;
+            -webkit-box-shadow: hsla(227.5deg, 10.169492%, 46.27451%, .15) 0 1px 30px 0;
+                    box-shadow: hsla(227.5deg, 10.169492%, 46.27451%, .15) 0 1px 30px 0;
         }
     }
 
     @media (hover: none)
     {
-        .feature:focus,
-        .feature:active
+        .card:focus,
+        .card:active
         {
-            background: var(--colour-primary);
-            -webkit-box-shadow: var(--colour-secondary) 0 1px 30px 0;
-                    box-shadow: var(--colour-secondary) 0 1px 30px 0;
+            -webkit-box-shadow: hsla(227.5deg, 10.169492%, 46.27451%, .15) 0 1px 30px 0;
+                    box-shadow: hsla(227.5deg, 10.169492%, 46.27451%, .15) 0 1px 30px 0;
         }
     }
 }
 
 @supports not (hover: hover)
 {
-    .feature:hover
+    .card:hover
     {
-        background: var(--colour-primary);
-        -webkit-box-shadow: var(--colour-secondary) 0 1px 30px 0;
-                box-shadow: var(--colour-secondary) 0 1px 30px 0;
+        -webkit-box-shadow: hsla(227.5deg, 10.169492%, 46.27451%, .15) 0 1px 30px 0;
+                box-shadow: hsla(227.5deg, 10.169492%, 46.27451%, .15) 0 1px 30px 0;
     }
 }
 
-.feature__icon
+.card__icon
 {
     display: block;
 
+    width: 100%;
+    height: auto;
+    max-height: 48px;
     margin-right: auto;
     margin-bottom: 25px;
     margin-left: auto;
+
+    color: var(--colour-text);
 }
 
-.feature__heading
+.card__heading
 {
     font-size: 20px;
+    line-height: 20px;
 
     margin-bottom: 20px;
+
+    color: var(--colour-text);
 }
 
-.feature__info
+.card__info
 {
     font-weight: 300;
 
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 
-    opacity: .6;
-    color: var(--colour-text-secondary);
+    opacity: .4;
+    color: var(--colour-text);
 
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=60)';
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
+}
+
+.card .card__button
+{
+    position: absolute;
+    right: 0;
+    bottom: 17px;
+    left: 0;
+
+    width: -webkit-fit-content;
+    width:    -moz-fit-content;
+    width:         fit-content;
+    margin: 0 auto;
+    margin-top: 20px;
 }
 
 @media (min-width: 320px)
@@ -13385,9 +13405,9 @@ ol.no-style
 
 @media only screen and (min-width: 992px)
 {
-    .feature__heading
+    .card__heading
     {
-        font-size: calc( 20px + 18 * ((100vw - 992px) / 448));
+        font-size: calc( 20px + 12 * ((100vw - 992px) / 448));
     }
 }
 
@@ -14666,6 +14686,14 @@ ol.no-style
     }
 }
 
+@media only screen and (min-width: 1199px)
+{
+    .card__heading
+    {
+        line-height: calc( 20px + 28 * ((100vw - 1199px) / 241));
+    }
+}
+
 @media screen and (min-width: 1216px)
 {
     .is-size-1-widescreen
@@ -15610,9 +15638,14 @@ ol.no-style
 
 @media only screen and (min-width: 1440px)
 {
-    .feature__heading
+    .card__heading
     {
-        font-size: 38px;
+        font-size: 32px;
+    }
+
+    .card__heading
+    {
+        line-height: 48px;
     }
 }
 
@@ -17247,5 +17280,3 @@ ol.no-style
         background-image: none !important;
     }
 }
-
-/*# sourceMappingURL=main.css.map */

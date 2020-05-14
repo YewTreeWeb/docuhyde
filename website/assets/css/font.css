@@ -169,5 +169,3 @@
     src: url('/assets/fonts/source-sans-pro-v13-latin-900.eot');
     src: local('Source Sans Pro Black'), local('SourceSansPro-Black'), url('/assets/fonts/source-sans-pro-v13-latin-900.eot?#iefix') format('embedded-opentype'), url('/assets/fonts/source-sans-pro-v13-latin-900.woff2') format('woff2'), url('/assets/fonts/source-sans-pro-v13-latin-900.woff') format('woff'), url('/assets/fonts/source-sans-pro-v13-latin-900.ttf') format('truetype'), url('/assets/fonts/source-sans-pro-v13-latin-900.svg#Source Sans Pro') format('svg');
 }
-
-/*# sourceMappingURL=font.css.map */
