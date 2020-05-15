@@ -67,6 +67,9 @@ features:
       src: "cloudinary"
 sections:
   -
+    button:
+      link: "https://cloudinary.com/"
+      type: "external"
     content: "Preconfigured and developed, so the only command needed to start is <code data-lang=\"node\">npm run start</code> to create your website. Easy changes without needing to touch any code using Markdown and Yaml."
     heading: "Setup and usage"
     image:
@@ -113,12 +116,15 @@ sections:
             <img src="{{ section.image.src | relative_url }}" alt="{{ section.image.alt }}">
           </div>
         {%- endif -%}
-        <div class="column {% if section.image.src != '' and section.image.position != 'center' %}is-8{% else %}is-12{% endif %} reveal-from-bottom feature-layout__text">
+        <div class="column {% if section.image.src != '' and section.image.position != 'center' %}is-offset-1 is-7{% else %}is-12{% endif %} reveal-from-bottom feature-layout__text">
           <h2>{{ section.heading }}</h2>
           {%- if section.image.src != '' and section.image.position == 'center' -%}
             <img class="reveal-from-bottom" src="{{ section.image.src }}" alt="{{ section.image.alt }}">
           {%- endif -%}
           <p>{{ section.content }}</p>
+          {%- if section.button.link -%}
+            <a href="{{ section.button.link }}" class="btn btn--sm feature-layout__button"{% if section.button.type == 'external' %} target="_blank" rel="noopener"{% endif %}>{{ section.button.text | default: "Learn More" }}</a>
+          {%- endif -%}
         </div>
         {%- if section.image.src != '' and section.image.position == 'right' -%}
           <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }} feature-layout__image">
