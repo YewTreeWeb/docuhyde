@@ -147,25 +147,27 @@ sections:
                 <picture>
                     <source type="image/webp" srcset="/assets/images/{{ post.image.name }}.webp">
                     <source type="image/jpg" srcset="/assets/images/{{ post.image.name }}.jpg">
-                    <img src="{{ post.image.name }}.jpg" alt="{{ post.image.alt }}">
+                    <img class="post__image" src="{{ post.image.name }}.jpg" alt="{{ post.image.alt }}">
                 </picture>
             {%- else -%}
                 {%- include default-image.html -%}
             {%- endif -%}
-            <h3>
-              {{ post.title }}
-              <small>
-                  {% assign day = post.date | date: "%-d" %}
-                  {% case day %}
-                    {% when '1' or '21' or '31' %}{{ day }}<sup>st</sup>
-                    {% when '2' or '22' %}{{ day }}<sup>nd</sup>
-                    {% when '3' or '23' %}{{ day }}<sup>rd</sup>
-                    {% else %}{{ day }}<sup>th</sup>
-                  {% endcase %}
-                  {{ post.date | date: "%B %Y" }}
-              </small>
-            </h3>
-            <p>{{ post.excerpt }}</p>
+            <div class="post__content">
+              <h3>
+                <small class="post__meta">
+                    {% assign day = post.date | date: "%-d" %}
+                    {% case day %}
+                      {% when '1' or '21' or '31' %}{{ day }}<sup>st</sup>
+                      {% when '2' or '22' %}{{ day }}<sup>nd</sup>
+                      {% when '3' or '23' %}{{ day }}<sup>rd</sup>
+                      {% else %}{{ day }}<sup>th</sup>
+                    {% endcase %}
+                    {{ post.date | date: "%B %Y" }}
+                </small>
+                {{ post.title }}
+              </h3>
+              <a href="{{ post.url }}" class="btn btn--text">{{ post.link | default: 'Read More' }}</a>
+            </div>
           </article>
         {%- endfor -%}
       </div>
@@ -177,10 +179,13 @@ sections:
   <section class="section container">
     <div class="columns is-multiline is-tablet section__inner">
       <div class="column is-12 reveal-from-bottom">
-        <img src="" alt="">
-        <h2>{{ site.author.name }}</h2>
-        <p>{{ site.author.job_role }}</p>
-        <blockquote>{{ site.author.bio }}</blockquote>
+        <h2>Author</h2>
+        <article class="author">
+          <img class src="" alt="">
+          <h3>{{ site.author.name }}</h3>
+          <p>{{ site.author.job_role }}</p>
+          <blockquote class="blockquote">{{ site.author.bio }}</blockquote>
+        </article>
       </div>
     </div>
   </section>
