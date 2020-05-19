@@ -140,14 +140,14 @@ sections:
   <section class="section container">
     <div class="columns is-multiline is-tablet posts">
       <div class="column is-12 reveal-from-bottom">
-        <h2>Latest Post</h2>
+        <h2>Latest Posts</h2>
         {%- for post in site.posts limit: 3 -%}
           <article class="post">
-            {%- if post.image -%}
+            {%- if post.image.src -%}
                 <picture>
-                    <source type="image/webp" srcset="/assets/images/{{ post.image.name }}.webp">
-                    <source type="image/jpg" srcset="/assets/images/{{ post.image.name }}.jpg">
-                    <img class="post__image" src="{{ post.image.name }}.jpg" alt="{{ post.image.alt }}">
+                    <source type="image/webp" srcset="{{ post.image.src | remove: '.jpg' | remove: '.png' | prepend: '/assets/images/' }}.webp">
+                    <source type="image/jpg" srcset="{{ post.image.src | prepend: '/assets/images/' }}">
+                    <img class="post__image" src="{{ post.image.src | prepend: '/assets/images/' }}" alt="{{ post.image.alt }}">
                 </picture>
             {%- else -%}
                 {%- include default-image.html -%}
