@@ -176,15 +176,37 @@ sections:
 {%- endif -%}
 
 {%- if site.author -%}
+  {%- assign author = site.author -%}
+  {%- assign authorImg = author.image -%}
   <section class="section container">
-    <div class="columns is-multiline is-tablet section__inner">
-      <div class="column is-12 reveal-from-bottom">
-        <h2>Author</h2>
-        <article class="author">
-          <img class src="" alt="">
-          <h3>{{ site.author.name }}</h3>
-          <p>{{ site.author.job_role }}</p>
-          <blockquote class="blockquote">{{ site.author.bio }}</blockquote>
+    <div class="columns is-multiline is-tablet author">
+      <div class="column is-12"><h2>Author</h2></div>
+      <div class="column is-5 is-offset-1">
+        {%- if authorImg.src -%}
+          <picture>
+            <source type="image/webp" srcset="{{ authorImg.src | remove: '.jpg' | remove: '.png' | prepend: '/assets/images/' }}.webp">
+            <source type="image/jpg" srcset="{{ authorImg.src | prepend: '/assets/images/' }}">
+            <img class="author__image" src="{{ authorImg.src | prepend: '/assets/images/' }}" alt="{{ authorImg.alt }}">
+          </picture>
+        {%- else -%}
+          <img class="author__image" src="/assets/images/author.svg" alt="A human standing within a circle.">
+        {%- endif -%}
+      </div>
+      <div class="column is-5 reveal-from-bottom">
+        <article class="author__details">
+          <h3 class="author__name">Hello I'm {{ author.name }}</h3>
+          {%- if author.job_role -%}
+            <p class="author__role">{{ author.job_role }}</p>
+          {%- endif -%}
+          <hr>
+          <blockquote class="author__bio blockquote">{{ author.bio }}</blockquote>
+          {%- if author.social -%}
+            <ul class="author__social">
+              {%- for item in author.social -%}
+                <li id="{{ item.media | lowercase }}"><a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.media }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
         </article>
       </div>
     </div>
