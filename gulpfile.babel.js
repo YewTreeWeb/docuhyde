@@ -445,9 +445,11 @@ export const fonts = (done) => {
 export const jekyll = (done) => {
   const JEKYLL_ENV = prod ? 'JEKYLL_ENV=production' : 'JEKYLL_ENV=development'
   const build = !prod
-    ? `jekyll build --config config/jekyll.config.yml, config/jekyll.config.dev.yml ${config.jekyll.flags.dev}`
+    ? `jekyll build --config config/jekyll.config.yml,config/jekyll.config.dev.yml ${config.jekyll.flags.dev}`
     : `jekyll build --config config/jekyll.config.yml ${config.jekyll.flags.prod}`
-
+  if (process.env.NODE_ENV !== 'production') {
+    console.info(JEKYLL_ENV, build)
+  }
   shell.exec(`${JEKYLL_ENV} bundle exec ${build}`)
   done()
 }
