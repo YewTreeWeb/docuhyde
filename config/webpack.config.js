@@ -15,9 +15,6 @@ module.exports = {
         test: /\.jsx$|\.es6$|\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        options: {
-          presets: ['@babel/preset-env', 'babel-preset-airbnb'],
-        },
       },
       {
         enforce: 'pre',
@@ -55,13 +52,13 @@ module.exports = {
         },
       },
     },
-    minimize: prod ? true : false,
+    minimize: !prod,
     minimizer: [
       new TerserPlugin({
         test: /\.js(\?.*)?$/i,
         terserOptions: {
           output: {
-            comments: !prod ? true : false,
+            comments: !!prod,
           },
         },
         parallel: true,
