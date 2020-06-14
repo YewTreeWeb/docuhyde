@@ -42,27 +42,30 @@
   {%- endif -%}
 
   {%- comment -%} Firebase {%- endcomment -%}
-  {%- if site.firebase_project -%}
+  {%- if site.firebase_projectID -%}
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-firestore.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
 
     <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
-        apiKey: "{{ site.firebase_appKey }}",
-        authDomain: "{{ site.firebase_project | append: '.firebaseapp.com' }}",
-        databaseURL: "{{ site.firebase_project | prepend: 'https://' | append: '.firebaseio.com' }}",
-        projectId: "{{ site.firebase_project }}",
+        apiKey: "{{ site.firebase_apiKey }}",
+        authDomain: "{{ site.firebase_projectID | append: '.firebaseapp.com' }}",
+        databaseURL: "{{ site.firebase_projectID | prepend: 'https://' | append: '.firebaseio.com' }}",
+        projectId: "{{ site.firebase_projectID }}",
         storageBucket: "{{ site.firebase_project | append: '.appspot.com' }}",
         messagingSenderId: "{{ site.firebase_messagingID }}",
-        appId: "{{ site.firebase_appID }}"
+        appId: "{{ site.firebase_appID }}",
+        measurementId: "{{ site.firebase_measurementID }}"
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
       var db = firebase.firestore();
     </script>
   {%- endif -%}
@@ -70,9 +73,10 @@
 
   <script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}" defer></script>
   <script src="{{ '/assets/js/browser.min.js' | relative_url }}" defer></script>
-  <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
-  <script src="//instant.page/3.0.0" type="module" defer
-    integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+  <script src="{{ '/assets/js/runtime.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/vendors.bundle.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/main.bundle.js' | relative_url }}" defer></script>
+  <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
 </body>
 
 </html>

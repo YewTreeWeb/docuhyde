@@ -123,11 +123,12 @@ google:
   search_engine_id: # YOUR_SEARCH_ENGINE_ID
   instant_search: # false (default), true
 
-# Firebase Hosting
-firebase_project: # YOUR PROJECT NAME
-firebase_apiKey: # FIREBASE API
+# Firebase Hosting & Firestore Cloud Database
+firebase_projectID: # YOUR PROJECT NAME
+firebase_apiKey: # FIREBASE API Key
 firebase_appID: # FIREBASE API ID
 firebase_messagingID: # FIREBASE messagingSenderId
+firebase_measurementID: # FIREBASE measurementId
 
 # Collections
 collections:
