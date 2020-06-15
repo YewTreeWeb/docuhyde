@@ -737,6 +737,13 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
 
+"@babel/plugin-syntax-module-attributes@^7.10.2":
+  version "7.10.2"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-module-attributes/-/plugin-syntax-module-attributes-7.10.2.tgz#eea25c753b3b85bda12b3e8cb80aa6025f80d81f"
+  integrity sha512-lmWNGuHgeQDJwzIxjr0XQ2SOahOmSTwHAuAWARNUJFkyLVGYw2nRP3LYOLvkbt9pVoxFKNwKs+Hy2kx3uBD91Q==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.10.1"
+
 "@babel/plugin-syntax-nullish-coalescing-operator@^7.8.0", "@babel/plugin-syntax-nullish-coalescing-operator@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-nullish-coalescing-operator/-/plugin-syntax-nullish-coalescing-operator-7.8.3.tgz#167ed70368886081f74b5c36c65a88c03b66d1a9"
@@ -10173,6 +10180,11 @@ lazy-req@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/lazy-req/-/lazy-req-1.1.0.tgz#bdaebead30f8d824039ce0ce149d4daa07ba1fac"
   integrity sha1-va6+rTD42CQDnODOFJ1Nqge6H6w=
+
+lazysizes@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/lazysizes/-/lazysizes-5.2.2.tgz#800e5914725fef1863bd9a1e19e1bb423c536f8b"
+  integrity sha512-fYgOv1Y35M86/7qyAdPPqoOhuyZrjxEAPxqwToRY2bO/PoBJ4lSqZYuZoavNp6eyuLpIAdHodpsPfj2Lkt86FQ==
 
 lazystream@^1.0.0:
   version "1.0.0"

@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 // Avoid `console` errors in browsers that lack a console.
 ;(() => {
   let method
@@ -29,8 +31,10 @@
     'warn',
   ]
   let { length } = methods
+  // eslint-disable-next-line no-multi-assign
   const console = (window.console = window.console || {})
 
+  // eslint-disable-next-line no-plusplus
   while (length--) {
     method = methods[length]
 
@@ -75,3 +79,22 @@ if (browser.mobile) {
     body.classList.add('is-mobile')
   })
 }
+
+// Hybrid lazyloading
+;(async () => {
+  if ('loading' in HTMLImageElement.prototype) {
+    const images = document.querySelectorAll('img.lazyload')
+    images.forEach((img) => {
+      img.src = img.dataset.src
+    })
+  } else {
+    // Dynamically import the LazySizes library
+    const lazySizesPlugin = await import(
+      '/assets/js/unveilhooks/ls.unveilhooks.min.js',
+      '/assets/js/ls.blur-up.min.js'
+    )
+    const lazySizesLib = await import('/assets/js/lazysizes.min.js')
+    // Initiate LazySizes (reads data-src & class=lazyload)
+    lazySizes.init() // lazySizes works off a global.
+  }
+})()

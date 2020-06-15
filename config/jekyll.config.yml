@@ -44,6 +44,9 @@ author:
   email: your-email@example.com
   uri: example
   job_role: example
+  image:
+    src: # YOUR IMAGE NAME AND FILETYPE
+    alt: # THE ALTERNATIVE TEXT FOR THE IMAGE
   bio: me
   social:
     - media: "Twitter"
