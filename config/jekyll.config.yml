@@ -124,6 +124,7 @@ google:
   instant_search: # false (default), true
 
 # Firebase Hosting & Firestore Cloud Database
+firebase_v: # FIREBASE VERSION
 firebase_projectID: # YOUR PROJECT NAME
 firebase_apiKey: # FIREBASE API Key
 firebase_appID: # FIREBASE API ID
