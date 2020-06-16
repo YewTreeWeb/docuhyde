@@ -466,6 +466,31 @@ export const cleanCache = (done) => {
 }
 
 /**
+ * Copy
+ */
+export const copy = (done) => {
+  src(config.copy.src, {
+    allowEmpty: true,
+    since: lastRun(copy),
+  })
+    .pipe($.plumber())
+    .pipe($.if('*.css', $.cleanCSS()))
+    .pipe($.if('*.js', $.uglify()))
+    .pipe(
+      $.if(
+        !prod,
+        $.if('*.css', dest(config.distAssets + config.copy.distStyles))
+      )
+    )
+    .pipe($.if('*.css', dest(config.jekyllDist + config.copy.distStyles)))
+    .pipe(
+      $.if(!prod, $.if('*.js', dest(config.distAssets + config.copy.distJs)))
+    )
+    .pipe($.if('*.js', dest(config.jekyllDist + config.copy.distJs)))
+  done()
+}
+
+/**
  * Reload browser
  */
 export const reload = (done) => {
@@ -540,6 +565,7 @@ export const build = series(
   parallel(cleanBuild, cleanCache),
   jekyll,
   vendorTask,
+  copy,
   parallel(styles, js, images, html, fonts),
   parallel(svgSprites, sprite),
   parallel(cloudinary, webpImg),
@@ -554,6 +580,7 @@ export const dev = series(
   cleanBuild,
   jekyll,
   vendorTask,
+  copy,
   parallel(styles, js, images, fonts),
   parallel(svgSprites, sprite),
   webpImg,

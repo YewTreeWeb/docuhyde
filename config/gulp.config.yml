@@ -42,9 +42,9 @@ copy:
   distJs: "/js"
   distStyles: "/css"
   src:
-    - "lazysizes/lazysizes.min.js"
-    - "lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js"
-    - "lazysizes/plugins/blur-up/ls.blur-up.min.js"
+    - "website/src/vendors/lazysizes/lazysizes.min.js"
+    - "website/src/vendors/lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js"
+    - "website/src/vendors/lazysizes/plugins/blur-up/ls.blur-up.min.js"
 
 ### Fonts
 fonts:

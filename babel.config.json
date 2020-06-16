@@ -8,6 +8,8 @@
     "@babel/plugin-transform-runtime",
     "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-transform-async-to-generator",
-    "@babel/plugin-syntax-module-attributes"
+    ["@babel/plugin-syntax-module-attributes", {
+      "version": "may-2020"
+    }]
   ]
 }
