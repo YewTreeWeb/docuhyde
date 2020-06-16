@@ -79,26 +79,3 @@ if (browser.mobile) {
     body.classList.add('is-mobile')
   })
 }
-
-// Hybrid lazyloading
-;(async () => {
-  if ('loading' in HTMLImageElement.prototype) {
-    const images = document.querySelectorAll('img.lazyload')
-    images.forEach((img) => {
-      img.src = img.dataset.src
-    })
-  } else {
-    // Dynamically import the LazySizes library
-    const lazySizesPluginUnveil = await import(
-      /* webpackChunkName: "ls.unveilhooks" */ /* webpackPrefetch: true */ '../../vendors/lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js'
-    )
-    const lazySizesPluginBlur = await import(
-      /* webpackChunkName: "ls.blur-up" */ /* webpackPrefetch: true */ '../../vendors/lazysizes/plugins/blur-up/ls.blur-up.min.js'
-    )
-    const lazySizesLib = await import(
-      /* webpackChunkName: "lazysizes" */ /* webpackPrefetch: true */ '../../vendors/lazysizes/lazysizes.min.js'
-    )
-    // Initiate LazySizes (reads data-src & class=lazyload)
-    lazySizes.init() // lazySizes works off a global.
-  }
-})()

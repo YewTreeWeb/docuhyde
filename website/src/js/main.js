@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
+
 // External
 import 'airbnb-browser-shims'
 

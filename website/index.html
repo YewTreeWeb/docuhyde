@@ -113,13 +113,13 @@ sections:
       <div class="columns is-multiline is-tablet feature-layout">
         {%- if section.image.src != '' and section.image.position == 'left' -%}
           <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }} feature-layout__image">
-            <img class="lazyload" src="{{ section.image.src | relative_url }}" loading="lazy" alt="{{ section.image.alt }}" data-sizes="auto">
+            <img class="lazyload" data-src="{{ section.image.src | relative_url }}" loading="lazy" alt="{{ section.image.alt }}" data-sizes="auto">
           </div>
         {%- endif -%}
         <div class="column {% if section.image.src != '' and section.image.position != 'center' %}is-offset-1 is-7{% else %}is-12{% endif %} reveal-from-bottom feature-layout__text">
           <h2>{{ section.heading }}</h2>
           {%- if section.image.src != '' and section.image.position == 'center' -%}
-            <img class="reveal-from-bottom lazyload" src="{{ section.image.src | relative_url }}" loading="lazy" alt="{{ section.image.alt }}" data-sizes="auto">
+            <img class="reveal-from-bottom lazyload" data-src="{{ section.image.src | relative_url }}" loading="lazy" alt="{{ section.image.alt }}" data-sizes="auto">
           {%- endif -%}
           <p>{{ section.content }}</p>
           {%- if section.button.link -%}
@@ -128,7 +128,7 @@ sections:
         </div>
         {%- if section.image.src != '' and section.image.position == 'right' -%}
           <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }} feature-layout__image">
-            <img class="lazyload" src="{{ section.image.src | relative_url }}" loading="lazy" alt="{{ section.image.alt }}" data-sizes="auto">
+            <img class="lazyload" data-src="{{ section.image.src | relative_url }}" loading="lazy" alt="{{ section.image.alt }}" data-sizes="auto">
           </div>
         {%- endif -%}
       </div>
@@ -147,7 +147,7 @@ sections:
                 <picture>
                     <source type="image/webp" srcset="{{ post.image.src | remove: '.jpg' | remove: '.png' | prepend: '/assets/images/' }}.webp">
                     <source type="image/jpg" srcset="{{ post.image.src | prepend: '/assets/images/' }}">
-                    <img class="post__image lazyload" src="{{ post.image.src | prepend: '/assets/images/' }}" loading="lazy" alt="{{ post.image.alt }}" data-sizes="auto">
+                    <img class="post__image lazyload" data-src="{{ post.image.src | prepend: '/assets/images/' }}" loading="lazy" alt="{{ post.image.alt }}" data-sizes="auto">
                 </picture>
             {%- else -%}
                 {%- include default-image.html -%}
