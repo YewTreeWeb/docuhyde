@@ -1,34 +1,53 @@
-.feature {
+/// Feature Cards
+.card {
+  $self: &;
   height: 100%;
   text-align: center;
-  box-shadow: rgba(_colour(black), 0) 0px 0px 0px 0px;
-  box-shadow: hex2hsla(_colour(black), 0) 0px 0px 0px 0px;
+  box-shadow: hex2hsla(_colour(grey), 0) 0px 0px 0px 0px;
   @include padding(40px 8%);
   border-radius: 8px;
+  position: relative;
   transition: all 0.35s ease 0s;
+  background: v(colour-primary);
   @include hover {
-    box-shadow: v(colour-secondary) 0px 1px 30px 0px;
-    // box-shadow: hex2hsla(v(colour-secondary), 0.15) 0px 1px 30px 0px;
-    background: v(colour-primary);
+    box-shadow: hex2hsla(_colour(grey), 0.15) 0px 1px 30px 0px;
   }
   &__icon {
     display: block;
     @include margin(null auto 25px);
+    color: v(colour-text);
+    @include size(100%, auto);
+    @include size(null, 48px, max);
   }
   &__heading {
+    color: v(colour-text);
     @include fluid(
       font-size,
       _heading((h5, 1)),
-      _heading((h2, 1)),
+      _heading((h3, 1)),
       992px,
       1440px
     );
+    @include fluid(line-height, 20px, _heading((h2, 2)), 1199px, 1440px);
     margin-bottom: 20px;
   }
   &__info {
-    margin-bottom: 30px;
-    opacity: 0.6;
+    margin-bottom: 50px;
+    opacity: 0.4;
     font-weight: $weight-light;
-    color: v(colour-text-secondary);
+    color: v(colour-text);
+  }
+  #{ $self }__button {
+    width: fit-content;
+    @include margin(20px null null);
+    @include center(true, false);
+    bottom: 17px;
+  }
+}
+
+/// Posts
+.posts {
+  h2 {
+    margin-bottom: 80px;
   }
 }

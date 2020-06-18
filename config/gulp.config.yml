@@ -37,6 +37,15 @@ cloudinary:
   manifest: "config/cloudinary-manifest.json"
   src: "website/src/images/**/*.+(jpg|jpeg|png|svg|gif)"
 
+## Copy vendor files
+copy:
+  distJs: "/js"
+  distStyles: "/css"
+  src:
+    - "website/src/vendors/lazysizes/lazysizes.min.js"
+    - "website/src/vendors/lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js"
+    - "website/src/vendors/lazysizes/plugins/blur-up/ls.blur-up.min.js"
+
 ### Fonts
 fonts:
   dist: "/fonts"

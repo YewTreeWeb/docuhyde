@@ -4,3 +4,4 @@
   name: Blog
 - link: https://github.com/example
   name: Github
+  type: external

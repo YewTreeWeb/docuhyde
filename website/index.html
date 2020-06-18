@@ -67,6 +67,9 @@ features:
       src: "cloudinary"
 sections:
   -
+    button:
+      link: "https://cloudinary.com/"
+      type: "external"
     content: "Preconfigured and developed, so the only command needed to start is <code data-lang=\"node\">npm run start</code> to create your website. Easy changes without needing to touch any code using Markdown and Yaml."
     heading: "Setup and usage"
     image:
@@ -84,47 +87,48 @@ sections:
 {%- include hero.html -%}
 
 {%- if page.features -%}
-  <section class="features section reveal-fade">
-    <div class="features__inner container">
-      <div class="columns is-multiline is-tablet">
+  <section class="section container reveal-fade">
+      <div class="columns is-multiline is-tablet feature-cards">
         {%- for feature in page.features -%}
           <div class="column is-3">
-            <div class="feature reveal-from-top">
+            <div class="card reveal-from-top">
               {%- if feature.icon.src -%}
-                {%- include svg-icon.html icon=feature.icon.src id=feature.icon.name class="feature__icon" title=feature.icon.name desc=feature.icon.alt -%}
+                {%- include svg-icon.html icon=feature.icon.src id=feature.icon.name class="card__icon" title=feature.icon.name desc=feature.icon.alt -%}
               {%- endif -%}
-              <h2 class="feature__heading">{{ feature.heading }}</h2>
-              <p class="feature__info">{{ feature.content }}</p>
+              <h2 class="card__heading">{{ feature.heading }}</h2>
+              <p class="card__info">{{ feature.content }}</p>
               {%- if feature.button.link -%}
-                <a href="{{ feature.button.link }}" class="btn btn--sm"{% if feature.button.type == 'external' %} target="_blank" rel="noopener"{% endif %}>{{ feature.button.text | default: "Learn More" }}</a>
+                <a href="{{ feature.button.link }}" class="btn btn--sm card__button"{% if feature.button.type == 'external' %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ feature.button.text | default: "Learn More" }}</a>
               {%- endif -%}
             </div>
           </div>
         {%- endfor -%}
       </div>
-    </div>
   </section>
 {%- endif -%}
 
 {%- if page.sections -%}
   {%- for section in page.sections -%}
     <section class="section container">
-      <div class="columns is-multiline is-tablet section__inner">
+      <div class="columns is-multiline is-tablet feature-layout">
         {%- if section.image.src != '' and section.image.position == 'left' -%}
-          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }}">
-            <img src="{{ section.image.src | relative_url }}" alt="{{ section.image.alt }}">
+          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }} feature-layout__image">
+            <img class="lazyload" data-src="{{ section.image.src | relative_url }}" loading="lazy" alt="{{ section.image.alt }}" data-sizes="auto">
           </div>
         {%- endif -%}
-        <div class="column {% if section.image.src != '' and section.image.position != 'center' %}is-8{% else %}is-12{% endif %} reveal-from-bottom">
+        <div class="column {% if section.image.src != '' and section.image.position != 'center' %}is-offset-1 is-7{% else %}is-12{% endif %} reveal-from-bottom feature-layout__text">
           <h2>{{ section.heading }}</h2>
           {%- if section.image.src != '' and section.image.position == 'center' -%}
-            <img class="reveal-from-bottom" src="{{ section.image.src }}" alt="{{ section.image.alt }}">
+            <img class="reveal-from-bottom lazyload" data-src="{{ section.image.src | relative_url }}" loading="lazy" alt="{{ section.image.alt }}" data-sizes="auto">
           {%- endif -%}
           <p>{{ section.content }}</p>
+          {%- if section.button.link -%}
+            <a href="{{ section.button.link }}" class="btn btn--sm feature-layout__button"{% if section.button.type == 'external' %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ section.button.text | default: "Learn More" }}</a>
+          {%- endif -%}
         </div>
         {%- if section.image.src != '' and section.image.position == 'right' -%}
-          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }}">
-            <img src="{{ section.image.src | relative_url }}" alt="{{ section.image.alt }}">
+          <div class="column is-4 {{ section.image.position | prepend: 'reveal-from-' }} feature-layout__image">
+            <img class="lazyload" data-src="{{ section.image.src | relative_url }}" loading="lazy" alt="{{ section.image.alt }}" data-sizes="auto">
           </div>
         {%- endif -%}
       </div>
@@ -134,34 +138,36 @@ sections:
 
 {%- if site.posts.size > 0 -%}
   <section class="section container">
-    <div class="columns is-multiline is-tablet section__inner">
+    <div class="columns is-multiline is-tablet posts">
       <div class="column is-12 reveal-from-bottom">
-        <h2>Latest Post</h2>
-        {%- for post in site.posts limit: 1 -%}
+        <h2>Latest Posts</h2>
+        {%- for post in site.posts limit: 3 -%}
           <article class="post">
-            {%- if post.image -%}
+            {%- if post.image.src -%}
                 <picture>
-                    <source type="image/webp" srcset="/assets/images/{{ post.image.name }}.webp">
-                    <source type="image/jpg" srcset="/assets/images/{{ post.image.name }}.jpg">
-                    <img src="{{ post.image.name }}.jpg" alt="{{ post.image.alt }}">
+                    <source type="image/webp" srcset="{{ post.image.src | remove: '.jpg' | remove: '.png' | prepend: '/assets/images/' }}.webp">
+                    <source type="image/jpg" srcset="{{ post.image.src | prepend: '/assets/images/' }}">
+                    <img class="post__image lazyload" data-src="{{ post.image.src | prepend: '/assets/images/' }}" loading="lazy" alt="{{ post.image.alt }}" data-sizes="auto">
                 </picture>
             {%- else -%}
                 {%- include default-image.html -%}
             {%- endif -%}
-            <h3>
-              {{ post.title }}
-              <small>
-                  {% assign day = post.date | date: "%-d" %}
-                  {% case day %}
-                    {% when '1' or '21' or '31' %}{{ day }}<sup>st</sup>
-                    {% when '2' or '22' %}{{ day }}<sup>nd</sup>
-                    {% when '3' or '23' %}{{ day }}<sup>rd</sup>
-                    {% else %}{{ day }}<sup>th</sup>
-                  {% endcase %}
-                  {{ post.date | date: "%B %Y" }}
-              </small>
-            </h3>
-            <p>{{ post.excerpt }}</p>
+            <div class="post__content">
+              <h3>
+                <small class="post__meta">
+                    {% assign day = post.date | date: "%-d" %}
+                    {% case day %}
+                      {% when '1' or '21' or '31' %}{{ day }}<sup>st</sup>
+                      {% when '2' or '22' %}{{ day }}<sup>nd</sup>
+                      {% when '3' or '23' %}{{ day }}<sup>rd</sup>
+                      {% else %}{{ day }}<sup>th</sup>
+                    {% endcase %}
+                    {{ post.date | date: "%B %Y" }}
+                </small>
+                {{ post.title }}
+              </h3>
+              <a href="{{ post.url }}" class="btn btn--text">{{ post.link | default: 'Read More' }}</a>
+            </div>
           </article>
         {%- endfor -%}
       </div>
@@ -170,13 +176,42 @@ sections:
 {%- endif -%}
 
 {%- if site.author -%}
+  {%- assign author = site.author -%}
+  {%- assign authorImg = author.image -%}
   <section class="section container">
-    <div class="columns is-multiline is-tablet section__inner">
-      <div class="column is-12 reveal-from-bottom">
-        <img src="" alt="">
-        <h2>{{ site.author.name }}</h2>
-        <p>{{ site.author.job_role }}</p>
-        <blockquote>{{ site.author.bio }}</blockquote>
+    <div class="columns is-multiline is-tablet author">
+      <div class="column is-12"><h2>Author</h2></div>
+      <div class="column is-5 is-offset-1">
+        {%- if authorImg.src -%}
+          {%- if authorImg.src contains '.jpg' or authorImg.src contains '.png' -%}
+            <picture>
+              <source type="image/webp" srcset="{{ authorImg.src | remove: '.jpg' | remove: '.png' | prepend: '/assets/images/' | relative_url }}.webp">
+              <source type="image/jpg" srcset="{{ authorImg.src | prepend: '/assets/images/' | relative_url }}">
+              <img class="author__image lazyload" data-src="{{ authorImg.src | prepend: '/assets/images/' | relative_url }}" loading="lazy" alt="{{ authorImg.alt }}" data-sizes="auto">
+            </picture>
+          {%- else -%}
+            <img class="author__image lazyload" data-src="{{ authorImg.src | prepend: '/assets/images/' | relative_url }}" loading="lazy" alt="{{ authorImg.alt }}" data-sizes="auto">
+          {%- endif -%}
+        {%- else -%}
+          <img class="author__image lazyload" data-src="{{ '/assets/images/avatar.svg' | relative_url }}" loading="lazy" alt="A human figure standing within a circle." data-sizes="auto">
+        {%- endif -%}
+      </div>
+      <div class="column is-5 reveal-from-bottom">
+        <article class="author__details">
+          <h3 class="author__name">Hello I'm {{ author.name }}</h3>
+          {%- if author.job_role -%}
+            <p class="author__role">{{ author.job_role }}</p>
+          {%- endif -%}
+          <hr>
+          <blockquote class="author__bio blockquote">{{ author.bio }}</blockquote>
+          {%- if author.social -%}
+            <ul class="author__social">
+              {%- for item in author.social -%}
+                <li id="{{ item.media | lowercase }}"><a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.media }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </article>
       </div>
     </div>
   </section>

@@ -15,9 +15,6 @@ module.exports = {
         test: /\.jsx$|\.es6$|\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        options: {
-          presets: ['@babel/preset-env', 'babel-preset-airbnb'],
-        },
       },
       {
         enforce: 'pre',

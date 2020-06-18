@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 // Avoid `console` errors in browsers that lack a console.
 ;(() => {
   let method
@@ -29,8 +31,10 @@
     'warn',
   ]
   let { length } = methods
+  // eslint-disable-next-line no-multi-assign
   const console = (window.console = window.console || {})
 
+  // eslint-disable-next-line no-plusplus
   while (length--) {
     method = methods[length]
 

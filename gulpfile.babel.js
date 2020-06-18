@@ -59,72 +59,74 @@ export const env = (done) => {
  * Styles
  */
 export const styles = () => {
-  return src(config.styles.src, { allowEmpty: true })
-    .pipe($.plumber())
-    .pipe($.if(!prod, $.sourcemaps.init())) // Start sourcemap.
-    .pipe(
-      $.cssimport({
-        matchPattern: '*.css',
-      })
-    )
-    .pipe($.sassGlob())
-    .pipe(
-      $.sass({
-        precision: 6,
-        outputStyle: 'expanded',
-      })
-    )
-    .pipe(
-      $.size({
-        showFiles: true,
-      })
-    )
-    .pipe(
-      $.postcss([
-        rucksack({
-          fallbacks: true,
-        }),
-        autoprefixer({
-          grid: true,
-          cascade: false,
-        }),
-      ])
-    )
-    .pipe($.gcmq())
-    .pipe($.csscomb())
-    .pipe(
-      $.if(
-        prod,
-        $.cleanCSS({
-          level: {
-            1: {
-              all: true,
-              normalizeUrls: false,
-            },
-            2: {
-              all: false,
-              removeEmpty: true,
-              removeDuplicateFontRules: true,
-              removeDuplicateMediaBlocks: true,
-              removeDuplicateRules: true,
-            },
-          },
+  return (
+    src(config.styles.src, { allowEmpty: true })
+      .pipe($.plumber())
+      // .pipe($.if(!prod, $.sourcemaps.init())) // Start sourcemap.
+      .pipe(
+        $.cssimport({
+          matchPattern: '*.css',
         })
       )
-    )
-    .pipe(
-      $.if(
-        prod,
+      .pipe($.sassGlob())
+      .pipe(
+        $.sass({
+          precision: 6,
+          outputStyle: 'compact',
+        })
+      )
+      .pipe(
         $.size({
-          title: 'Minified CSS',
           showFiles: true,
         })
       )
-    )
-    .pipe($.if(!prod, $.sourcemaps.write('.')))
-    .pipe($.if(!prod, dest(config.distAssets + config.styles.dist)))
-    .pipe($.if(!prod, sync.stream()))
-    .pipe(dest(config.jekyllDist + config.styles.dist))
+      .pipe(
+        $.postcss([
+          rucksack({
+            fallbacks: true,
+          }),
+          autoprefixer({
+            grid: true,
+            cascade: false,
+          }),
+        ])
+      )
+      .pipe($.gcmq())
+      .pipe($.csscomb())
+      .pipe(
+        $.if(
+          prod,
+          $.cleanCSS({
+            level: {
+              1: {
+                all: true,
+                normalizeUrls: false,
+              },
+              2: {
+                all: false,
+                removeEmpty: true,
+                removeDuplicateFontRules: true,
+                removeDuplicateMediaBlocks: true,
+                removeDuplicateRules: true,
+              },
+            },
+          })
+        )
+      )
+      .pipe(
+        $.if(
+          prod,
+          $.size({
+            title: 'Minified CSS',
+            showFiles: true,
+          })
+        )
+      )
+      // .pipe($.if(!prod, $.sourcemaps.write('.')))
+      .pipe($.if(!prod, dest(config.distAssets + config.styles.dist)))
+      .pipe($.if(!prod, sync.stream()))
+      .pipe(dest(config.jekyllDist + config.styles.dist))
+  )
 }
 
 /**
@@ -443,9 +445,11 @@ export const fonts = (done) => {
 export const jekyll = (done) => {
   const JEKYLL_ENV = prod ? 'JEKYLL_ENV=production' : 'JEKYLL_ENV=development'
   const build = !prod
-    ? `jekyll build --config config/jekyll.config.yml, config/jekyll.config.dev.yml ${config.jekyll.flags.dev}`
+    ? `jekyll build --config config/jekyll.config.yml,config/jekyll.config.dev.yml ${config.jekyll.flags.dev}`
     : `jekyll build --config config/jekyll.config.yml ${config.jekyll.flags.prod}`
-
+  if (process.env.NODE_ENV !== 'production') {
+    console.info(JEKYLL_ENV, build)
+  }
   shell.exec(`${JEKYLL_ENV} bundle exec ${build}`)
   done()
 }
@@ -458,6 +462,31 @@ export const cleanBuild = () => {
 }
 export const cleanCache = (done) => {
   $.cache.clearAll()
+  done()
+}
+
+/**
+ * Copy
+ */
+export const copy = (done) => {
+  src(config.copy.src, {
+    allowEmpty: true,
+    since: lastRun(copy),
+  })
+    .pipe($.plumber())
+    .pipe($.if('*.css', $.cleanCSS()))
+    .pipe($.if('*.js', $.uglify()))
+    .pipe(
+      $.if(
+        !prod,
+        $.if('*.css', dest(config.distAssets + config.copy.distStyles))
+      )
+    )
+    .pipe($.if('*.css', dest(config.jekyllDist + config.copy.distStyles)))
+    .pipe(
+      $.if(!prod, $.if('*.js', dest(config.distAssets + config.copy.distJs)))
+    )
+    .pipe($.if('*.js', dest(config.jekyllDist + config.copy.distJs)))
   done()
 }
 
@@ -536,6 +565,7 @@ export const build = series(
   parallel(cleanBuild, cleanCache),
   jekyll,
   vendorTask,
+  copy,
   parallel(styles, js, images, html, fonts),
   parallel(svgSprites, sprite),
   parallel(cloudinary, webpImg),
@@ -550,6 +580,7 @@ export const dev = series(
   cleanBuild,
   jekyll,
   vendorTask,
+  copy,
   parallel(styles, js, images, fonts),
   parallel(svgSprites, sprite),
   webpImg,
