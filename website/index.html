@@ -198,12 +198,9 @@ sections:
       </div>
       <div class="column is-5 reveal-from-bottom">
         <article class="author__details">
-          <h3 class="author__name">Hello I'm {{ author.name }}</h3>
-          {%- if author.job_role -%}
-            <p class="author__role">{{ author.job_role }}</p>
-          {%- endif -%}
+          <h3 class="author__name"><span>Hello</span> I'm {{ author.name }}</h3>
           <hr>
-          <blockquote class="author__bio blockquote">{{ author.bio }}</blockquote>
+          <p class="author__bio">{{ author.bio }}</p>
           {%- if author.social -%}
             <ul class="author__social">
               {%- for item in author.social -%}

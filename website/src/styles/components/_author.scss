@@ -1,0 +1,27 @@
+.author {
+  $self: &;
+  .author__details {
+    #{ $self }__name {
+      font-weight: $weight-heavy;
+      margin-bottom: 0;
+      > span {
+        font-weight: $weight-exlight;
+        display: block;
+      }
+    }
+    hr {
+      @include size(50px, null);
+      border-bottom: solid 3px v(colour-accent);
+      @include margin(20px null 40px 0);
+    }
+    #{ $self }__bio {
+      color: v(colour-text-secondary);
+      font-weight: $weight-light;
+    }
+    #{ $self }__social {
+      list-style: none;
+      @include flex(center, space-between, row);
+      padding-left: 0;
+    }
+  }
+}

@@ -74,7 +74,7 @@
   {%- comment -%} Hybrid Lasyloading {%- endcomment -%}
   <script type="module">
     {%- if jekyll.environment == "production" -%}
-      (async()=>{if("loading"in HTMLImageElement.prototype){const e=document.querySelectorAll("img.lazyload");e.forEach(e=>{e.src=e.dataset.src}),document.addEventListener("DOMContentLoaded",function(){const s=new IntersectionObserver((e,s)=>{e.forEach(e=>{if(e.isIntersecting){const t=e.target;t.classList.add("lazyloaded"),s.unobserve(t)}})});e.forEach(e=>{s.observe(e)})})}else{await import("{{ '/assets/js/ls.unveilhooks.min.js' | relative_url }}"),await import("{{ '/assets/js/blur-up/ls.blur-up.min.js' | relative_url }}"),await import("{{ '/assets/js/lazysizes.min.js' | relative_url }}");lazySizes.init()}})();
+      (async()=>{if("loading"in HTMLImageElement.prototype){const e=document.querySelectorAll("img.lazyload");e.forEach(e=>{e.src=e.dataset.src}),document.addEventListener("DOMContentLoaded",function(){const s=new IntersectionObserver((e,s)=>{e.forEach(e=>{if(e.isIntersecting){const t=e.target;t.classList.add("lazyloaded"),s.unobserve(t)}})});e.forEach(e=>{s.observe(e)})})}else{await import("{{ '/assets/js/ls.unveilhooks.min.js' | relative_url }}"),await import("{{ '/assets/js/lazysizes.min.js' | relative_url }}");lazySizes.init()}})();
     {%- else -%}
       (async () => {
         if ('loading' in HTMLImageElement.prototype) {
@@ -100,7 +100,6 @@
         } else {
           // Dynamically import the LazySizes library
           const lazySizesPluginUnveil = await import("{{ '/assets/js/ls.unveilhooks.min.js' | relative_url }}")
-          const lazySizesPluginBlur = await import("{{ '/assets/js/blur-up/ls.blur-up.min.js' | relative_url }}")
           const lazySizesLib = await import("{{ '/assets/js/lazysizes.min.js' | relative_url }}");
           // Initiate LazySizes (reads data-src & class=lazyload)
           lazySizes.init(); // lazySizes works off a global.
@@ -109,7 +108,7 @@
     {%- endif -%}
   </script>
   <script nomodule>
-    "use strict";function _getRequireWildcardCache(){if("function"!=typeof WeakMap)return null;var e=new WeakMap;return _getRequireWildcardCache=function(){return e},e}function _interopRequireWildcard(e){if(e&&e.__esModule)return e;if(null===e||"object"!=typeof e&&"function"!=typeof e)return{default:e};var r=_getRequireWildcardCache();if(r&&r.has(e))return r.get(e);var t={},i=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var n in e)if(Object.prototype.hasOwnProperty.call(e,n)){var a=i?Object.getOwnPropertyDescriptor(e,n):null;a&&(a.get||a.set)?Object.defineProperty(t,n,a):t[n]=e[n]}return t.default=e,r&&r.set(e,t),t}(async()=>{if("loading"in HTMLImageElement.prototype){const e=document.querySelectorAll("img.lazyload");e.forEach(e=>{e.src=e.dataset.src}),document.addEventListener("DOMContentLoaded",function(){const r=new IntersectionObserver((e,r)=>{e.forEach(e=>{if(e.isIntersecting){const t=e.target;t.classList.add("lazyloaded"),r.unobserve(t)}})});e.forEach(e=>{r.observe(e)})})}else{await Promise.resolve().then(()=>_interopRequireWildcard(require("{{ '/assets/js/ls.unveilhooks.min.js' | relative_url }}"))),await Promise.resolve().then(()=>_interopRequireWildcard(require("{{ '/assets/js/blur-up/ls.blur-up.min.js' | relative_url }}"))),await Promise.resolve().then(()=>_interopRequireWildcard(require("{{ '/assets/js/lazysizes.min.js' | relative_url }}")));lazySizes.init()}})();
+    "use strict";function _getRequireWildcardCache(){if("function"!=typeof WeakMap)return null;var e=new WeakMap;return _getRequireWildcardCache=function(){return e},e}function _interopRequireWildcard(e){if(e&&e.__esModule)return e;if(null===e||"object"!=typeof e&&"function"!=typeof e)return{default:e};var r=_getRequireWildcardCache();if(r&&r.has(e))return r.get(e);var t={},i=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var n in e)if(Object.prototype.hasOwnProperty.call(e,n)){var a=i?Object.getOwnPropertyDescriptor(e,n):null;a&&(a.get||a.set)?Object.defineProperty(t,n,a):t[n]=e[n]}return t.default=e,r&&r.set(e,t),t}(async()=>{if("loading"in HTMLImageElement.prototype){const e=document.querySelectorAll("img.lazyload");e.forEach(e=>{e.src=e.dataset.src}),document.addEventListener("DOMContentLoaded",function(){const r=new IntersectionObserver((e,r)=>{e.forEach(e=>{if(e.isIntersecting){const t=e.target;t.classList.add("lazyloaded"),r.unobserve(t)}})});e.forEach(e=>{r.observe(e)})})}else{await Promise.resolve().then(()=>_interopRequireWildcard(require("{{ '/assets/js/ls.unveilhooks.min.js' | relative_url }}"))),await Promise.resolve().then(()=>_interopRequireWildcard(require("{{ '/assets/js/lazysizes.min.js' | relative_url }}")));lazySizes.init()}})();
   </script>
 
   {%- comment -%} External JS {%- endcomment -%}
