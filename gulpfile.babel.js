@@ -185,7 +185,7 @@ export const vendorTask = () => {
 /**
  * Images
  */
-export const images = () => {
+export const localImages = () => {
   return src(config.image.src, { allowEmpty: true, since: lastRun(images) })
     .pipe($.plumber())
     .pipe($.changed(config.jekyllDist + config.image.dist))
@@ -417,9 +417,11 @@ export const replaceImgSrc = (done) => {
 /**
  * Upload and replace image src
  */
-export const cloudinary = (done) => {
+export const images = (done) => {
   if (config.cloudinary.key) {
     series(cloudinaryUpload, replaceImgSrc)
+  } else {
+    series(localImages, webpImg)
   }
   done()
 }
@@ -564,7 +566,7 @@ export const serve = (done) => {
     .on('change', series(svgSprites, reload))
   watch(config.watch.jekyll, series(jekyll, reload))
   if (config.cloudinary.key) {
-    watch(config.watch.images, series(cloudinary, reload))
+    watch(config.watch.images, series(cloudinaryUpload, replaceImgSrc, reload))
   } else {
     watch(config.watch.images, series(images, webpImg, reload))
   }
@@ -608,7 +610,6 @@ export const build = series(
   copy,
   parallel(styles, js, images, html, fonts),
   parallel(svgSprites, sprite),
-  parallel(cloudinary, webpImg),
   deploy
 )
 
@@ -623,7 +624,6 @@ export const dev = series(
   copy,
   parallel(styles, js, images, fonts),
   parallel(svgSprites, sprite),
-  parallel(cloudinary, webpImg),
   serve
 )
 
