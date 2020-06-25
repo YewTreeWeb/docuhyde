@@ -35,7 +35,9 @@ cloudinary:
     secret: "secrect_id"
   dist: "/images"
   manifest: "config/cloudinary-manifest.json"
+  path: "image/upload/"
   src: "website/src/images/**/*.+(jpg|jpeg|png|svg|gif)"
+  transformations: "f_auto,w_auto,c_scale,dpr_auto,fl_progressive"
 
 ## Copy vendor files
 copy:

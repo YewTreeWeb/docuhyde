@@ -33,6 +33,7 @@ const $ = plugins({
     'gulp-clean-css': 'cleanCSS',
     'gulp-html-autoprefixer': 'htmlAutoprefixer',
     'gulp-gh-pages': 'ghPages',
+    'gulp-replace-image-src': 'rep',
   },
   pattern: ['gulp-*', '*', '-', '@*/gulp{-,.}*'],
   replaceString: /\bgulp[\-.]/,
@@ -142,7 +143,6 @@ export const js = () => {
         showFiles: true,
       })
     )
-    .pipe($.if(prod, $.uglify()))
     .pipe(
       $.if(
         prod,
@@ -369,9 +369,9 @@ export const svgSprites = () => {
 }
 
 /**
- * Cloudinary
+ * Upload images to Cloudinary servers
  */
-export const cloudinary = () => {
+export const cloudinaryUpload = () => {
   return src(config.cloudinary.src, {
     allowEmpty: true,
     since: lastRun(cloudinary),
@@ -393,6 +393,35 @@ export const cloudinary = () => {
       })
     )
     .pipe(dest(config.cloudinary.dist))
+}
+
+/**
+ * Replace image src with Cloudinary URL
+ */
+export const replaceImgSrc = (done) => {
+  src(`${config.dist}/**/*.html`, {
+    allowEmpty: true,
+    since: lastRun(replaceImgSrc),
+  })
+    .pipe($.plumber())
+    .pipe(
+      $.rep({
+        prependSrc: `https://res.cloudinary.com/${config.cloudinary.account.name}/${config.cloudinary.path}/${config.cloudinary.transformations}`,
+        keepOrigin: false,
+      })
+    )
+    .pipe(dest(config.dist))
+  done()
+}
+
+/**
+ * Upload and replace image src
+ */
+export const cloudinary = (done) => {
+  if (config.cloudinary.key) {
+    series(cloudinaryUpload, replaceImgSrc)
+  }
+  done()
 }
 
 /**
@@ -534,7 +563,11 @@ export const serve = (done) => {
     .on('add', series(svgSprites, reload))
     .on('change', series(svgSprites, reload))
   watch(config.watch.jekyll, series(jekyll, reload))
-  watch(config.watch.images, series(images, webpImg, reload))
+  if (config.cloudinary.key) {
+    watch(config.watch.images, series(cloudinary, reload))
+  } else {
+    watch(config.watch.images, series(images, webpImg, reload))
+  }
   watch(config.watch.sprites, series(sprite, webpImg, reload))
 }
 
@@ -544,10 +577,16 @@ export const serve = (done) => {
 export const deploy = (done) => {
   if (config.deploy) {
     let live
-    if (config.deploy === 'netlify') {
-      live = prod ? 'netlify deploy --prod' : 'netlify deploy'
-    } else if (config.deploy === 'firebase') {
-      live = 'firebase deploy'
+    switch (config.deploy) {
+      case 'firebase':
+        live = 'firebase deploy'
+        break
+      case 'netlify':
+        live = prod ? 'netlify deploy --prod' : 'netlify deploy'
+        break
+      default:
+        live = null
+        break
     }
     if (config.deploy !== 'github' || config.deploy !== 'ghPages') {
       shell.exec(live)
@@ -557,6 +596,7 @@ export const deploy = (done) => {
   }
   done()
 }
+
 /**
  * Build site
  */
@@ -583,7 +623,7 @@ export const dev = series(
   copy,
   parallel(styles, js, images, fonts),
   parallel(svgSprites, sprite),
-  webpImg,
+  parallel(cloudinary, webpImg),
   serve
 )
 
