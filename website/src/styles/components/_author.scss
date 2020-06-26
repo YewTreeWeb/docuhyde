@@ -22,6 +22,38 @@
       list-style: none;
       @include flex(center, space-between, row);
       padding-left: 0;
+      .icon {
+        font-weight: $weight;
+        line-height: 1.5;
+        color: v(colour-grey-light);
+        box-sizing: inherit;
+        @include margin(0);
+        @include padding(0);
+        @include flex(center, center, column);
+        border: 2px solid v(colour-white);
+        @include size(80px);
+        text-align: center;
+        background-color: hex2hsla(_colour(grey), 0.5);
+        margin-right: 3%;
+        @include hardware(transform);
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          border-width: 2px;
+          border-style: solid;
+          transform: scale(1.2);
+        }
+        > a {
+          text-rendering: optimizeLegibility;
+          display: block;
+          @include size(100%);
+          position: relative;
+          > svg,
+          > i {
+            color: inherit;
+            @include center;
+          }
+        }
+      }
     }
   }
 }
