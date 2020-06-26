@@ -608,8 +608,9 @@ export const build = series(
   jekyll,
   vendorTask,
   copy,
-  parallel(styles, js, images, html, fonts),
+  parallel(styles, js, images, fonts),
   parallel(svgSprites, sprite),
+  html,
   deploy
 )
 

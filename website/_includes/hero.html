@@ -1,6 +1,7 @@
 {%- assign hero = page.hero -%}
+{%- assign classes = include.class | split: ' ' -%}
 
-<section class="hero hero--fullheight">
+<section class="hero{% for class in classes %} {{ class | prepend: 'hero--' }}{% endfor %}">
   <div class="hero-body container">
     <div class="hero-inner">
       <h1 class="reveal-from-bottom" data-reveal-delay="150">{{ hero.title | default: site.title }}</h1>
