@@ -141,9 +141,17 @@ sections:
     <div class="columns is-multiline is-tablet posts">
       <div class="column is-12 reveal-from-bottom">
         <h2>Latest Posts</h2>
+        {%- include pictureTag.html name='volcano' alt='default image' -%}
+        <picture>
+            <source type="image/webp" srcset="/assets/images/volcano.webp">
+            <source type="image/jpg" srcset="/assets/images/volcano.jpg">
+            <img class="post__image lazyload" data-src="/assets/images/volcano.jpg" loading="lazy" alt="volcano" data-sizes="auto">
+        </picture>
         {%- for post in site.posts limit: 3 -%}
           <article class="post">
             {%- if post.image.src -%}
+              {%- assign name = post.image.src | remove: '.jpg' | remove: '.png' -%}
+              {%- include pictureTag.html name=name alt=post.image.alt -%}
                 <picture>
                     <source type="image/webp" srcset="{{ post.image.src | remove: '.jpg' | remove: '.png' | prepend: '/assets/images/' }}.webp">
                     <source type="image/jpg" srcset="{{ post.image.src | prepend: '/assets/images/' }}">
