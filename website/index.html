@@ -141,7 +141,8 @@ sections:
     <div class="columns is-multiline is-tablet posts">
       <div class="column is-12 reveal-from-bottom">
         <h2>Latest Posts</h2>
-        {%- include default-image.html -%}
+        {%- comment -%} {%- include default-image.html -%} {%- endcomment -%}
+        {%- include picture-tag.html name='default' srcset="200, 354, 400" class="image" -%}
         {%- include picture-tag.html name='volcano' srcset="200, 354, 400" sizes="(max-width: 1400px) 100vw, 1400px" class="post__image image" alt='default image' -%}
         <picture>
             <source type="image/webp" srcset="/assets/images/volcano.webp">
@@ -152,7 +153,7 @@ sections:
           <article class="post">
             {%- if post.image.src -%}
               {%- assign name = post.image.src | remove: '.jpg' | remove: '.png' -%}
-              {%- include picture-tag.html name=name alt=post.image.alt -%}
+              {%- include picture-tag.html name=name class="post__image" alt=post.image.alt -%}
                 <picture>
                     <source type="image/webp" srcset="{{ post.image.src | remove: '.jpg' | remove: '.png' | prepend: '/assets/images/' }}.webp">
                     <source type="image/jpg" srcset="{{ post.image.src | prepend: '/assets/images/' }}">
