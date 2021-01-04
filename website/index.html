@@ -152,7 +152,7 @@ sections:
           <article class="post">
             {%- if post.image.src -%}
               {%- assign name = post.image.src | remove: '.jpg' | remove: '.png' -%}
-              {%- include pictureTag.html name=name alt=post.image.alt -%}
+              {%- include picture-tag.html name=name alt=post.image.alt -%}
                 <picture>
                     <source type="image/webp" srcset="{{ post.image.src | remove: '.jpg' | remove: '.png' | prepend: '/assets/images/' }}.webp">
                     <source type="image/jpg" srcset="{{ post.image.src | prepend: '/assets/images/' }}">
