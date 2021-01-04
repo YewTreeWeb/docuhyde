@@ -141,7 +141,8 @@ sections:
     <div class="columns is-multiline is-tablet posts">
       <div class="column is-12 reveal-from-bottom">
         <h2>Latest Posts</h2>
-        {%- include pictureTag.html name='volcano' alt='default image' -%}
+        {%- include default-image.html -%}
+        {%- include picture-tag.html name='volcano' srcset="200, 354, 400" sizes="(max-width: 1400px) 100vw, 1400px" class="post__image image" alt='default image' -%}
         <picture>
             <source type="image/webp" srcset="/assets/images/volcano.webp">
             <source type="image/jpg" srcset="/assets/images/volcano.jpg">

@@ -1,0 +1,88 @@
+{%- comment -%} {%- assign name = include.name -%}
+
+{%- assign formats = '' | split: '' -%}
+{%- if include.types -%}
+  {%- assign types = include.types | split: ', ' -%}
+  {%- assign formats = formats | concat: types -%}
+{%- else -%}
+  {%- assign defaultTypes = 'avif, webp, jpg' | split: ', ' -%}
+  {%- assign formats = formats | concat: defaultTypes -%}
+{%- endif -%}
+
+{%- assign srcset = include.srcset | split: ', ' -%}
+{%- assign sizes = include.sizes -%}
+{%- assign classes = include.class -%}
+{%- assign alt = include.alt -%}
+{%- assign lazyload = include.lazyload | default: true -%} {%- endcomment -%}
+
+{%- comment -%} <picture>
+  {%- for format in formats -%}
+    <source
+    type="image/{{ format }}"
+    srcset="
+    {%- if srcset -%}
+      {%- for set in srcset -%}
+        {%- if src.includes == '_' -%}
+          {%- assign srcs = set | split: '_' -%}
+          {%- assign src = srcs[0] -%}
+          {%- assign srcSize = srcs[1] -%}
+        {%- else -%}
+          {%- assign src = name -%}
+          {%- assign srcSize = set -%}
+        {%- endif -%}
+
+        {{ src | prepend: '/assets/images/' }}.{{ format }} {{ srcSize }}w{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    {%- else -%}
+      {{ name | prepend: '/assets/images/' }}.{{ format }}
+    {%- endif -%}
+    "
+    {%- if sizes -%}
+      sizes="{{ sizes }}"
+    {%- endif -%}
+    >
+  {%- endfor -%}
+  <img class="{% for class in classes %}{{ class }}{% endfor %}{% if lazyload %} lazyload{% endif %}" src="{{ name | prepend: '/assets/images/' }}.{% for format in formats %}{% if forloop.last %}{{ format }}{% endif %}{% endfor %}"{% if lazyload %} loading="lazy"{% endif %} alt="{{ alt }}" data-sizes="auto">
+</picture> {%- endcomment -%}
+<picture>
+    <source
+    type="image/avif"
+    srcset="
+    /assets/images/default_200.avif 200w,
+    /assets/images/default_460.avif 460w,
+    /assets/images/default_635.avif 635w,
+    /assets/images/default_819.avif 819w,
+    /assets/images/default_975.avif 975w,
+    /assets/images/default_1135.avif 1135w,
+    /assets/images/default_1291.avif 1291w,
+    /assets/images/default_1400.avif 1400w"
+    sizes="(max-width: 1400px) 100vw, 1400px"
+    >
+    <source
+    type="image/webp"
+    srcset="
+    /assets/images/default_200.webp 200w,
+    /assets/images/default_460.webp 460w,
+    /assets/images/default_635.webp 635w,
+    /assets/images/default_819.webp 819w,
+    /assets/images/default_975.webp 975w,
+    /assets/images/default_1135.webp 1135w,
+    /assets/images/default_1291.webp 1291w,
+    /assets/images/default_1400.webp 1400w"
+    sizes="(max-width: 1400px) 100vw, 1400px"
+    >
+    <source
+    type="image/jpg"
+    srcset="
+    /assets/images/default_200.jpg 200w,
+    /assets/images/default_460.jpg 460w,
+    /assets/images/default_635.jpg 635w,
+    /assets/images/default_819.jpg 819w,
+    /assets/images/default_975.jpg 975w,
+    /assets/images/default_1135.jpg 1135w,
+    /assets/images/default_1291.jpg 1291w,
+    /assets/images/default_1400.jpg 1400w"
+    sizes="(max-width: 1400px) 100vw, 1400px"
+    >
+    <img class="image-default lazyload" src="/assets/images/default.jpg" loading="lazy" alt="A picture of a dark pink overlay of coding background with coding brackets." data-sizes="auto">
+</picture>

@@ -5,9 +5,9 @@
 
 ---
 ## Root settings
-dist: "website/build"
-distAssets: "website/build/assets"
-jekyllDist: "website/assets"
+dist: 'website/build'
+distAssets: 'website/build/assets'
+jekyllDist: 'website/assets'
 
 ## Project syncing
 browsersync:
@@ -21,7 +21,7 @@ browsersync:
 
 ## Project file deleting
 clean:
-  dist: "website/build"
+  dist: 'website/build'
 
 ## Deploying
 # If using Github Pages make sure you have a gh-pages branch.
@@ -30,83 +30,84 @@ deploy: null
 ## Image uploading
 cloudinary:
   account:
-    name: "example"
-    key: "key_id"
-    secret: "secrect_id"
-  dist: "/images"
-  manifest: "config/cloudinary-manifest.json"
-  path: "image/upload"
-  src: "website/src/images/**/*.+(jpg|jpeg|png|svg|gif)"
-  transformations: "f_auto,w_auto,c_scale,dpr_auto,fl_progressive"
+    name: 'example'
+    key: 'key_id'
+    secret: 'secrect_id'
+  dist: '/images'
+  manifest: 'config/cloudinary-manifest.json'
+  path: 'image/upload'
+  src: 'website/src/images/**/*.+(jpg|jpeg|png|svg|gif)'
+  transformations: 'f_auto,w_auto,c_scale,dpr_auto,fl_progressive'
 
 ## Copy vendor files
 copy:
-  distJs: "/js"
-  distStyles: "/css"
+  distJs: '/js'
+  distStyles: '/css'
   src:
-    - "website/src/vendors/lazysizes/lazysizes.min.js"
-    - "website/src/vendors/lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js"
-    - "website/src/vendors/lazysizes/plugins/blur-up/ls.blur-up.min.js"
+    - 'website/src/vendors/lazysizes/lazysizes.min.js'
+    - 'website/src/vendors/lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js'
+    - 'website/src/vendors/lazysizes/plugins/blur-up/ls.blur-up.min.js'
 
 ### Fonts
 fonts:
-  dist: "/fonts"
-  src: "website/src/fonts/*"
+  dist: '/fonts'
+  src: 'website/src/fonts/*'
 
 ## Images
 image:
-  dist: "/images"
-  svgsprites: "website/src/images/svgsprites/**/*.svg"
-  sprites: "website/src/images/sprites/*.+(jpg|jpeg|png)"
+  dist: '/images'
+  svgsprites: 'website/src/images/svgsprites/**/*.svg'
+  sprites: 'website/src/images/sprites/*.+(jpg|jpeg|png)'
   src:
-    - "website/src/images/**/*.+(jpg|jpeg|png|svg|gif)"
-    - "!website/src/images/svgsprites/*"
-    - "!website/src/images/sprites/*"
+    - 'website/src/images/**/*.+(jpg|jpeg|png|svg|gif)'
+    - '!website/src/images/svgsprites/*'
+    - '!website/src/images/sprites/*'
   webp:
-    - "website/src/images/**/*.+(jpg|jpeg|png)"
-    - "!website/src/images/*.svg"
-    - "!website/src/images/svgsprites/*"
-    - "!website/src/images/favicons/*"
-    - "!website/src/images/sprites/*"
+    - 'website/src/images/**/*.+(jpg|jpeg|png)'
+    - '!website/src/images/*.svg'
+    - '!website/src/images/svgsprites/*'
+    - '!website/src/images/favicons/*'
+    - '!website/src/images/sprites/*'
 
 ## Jekyll build settings
 jekyll:
   flags:
-    dev: "--trace --verbose"
-    prod: "--quiet"
+    # dev: "--trace --verbose"
+    dev: '--trace'
+    prod: '--quiet'
 
 ## Project scripts
 js:
-  dist: "/js"
-  src: "website/src/js/main.js"
+  dist: '/js'
+  src: 'website/src/js/main.js'
 
 ## Project styles
 styles:
-  dist: "/css"
+  dist: '/css'
   src:
-    - "website/src/styles/main.scss"
-    - "website/src/styles/font.scss"
+    - 'website/src/styles/main.scss'
+    - 'website/src/styles/font.scss'
 
 ### Vendor assets
 vendors:
-  dist: "website/src/vendors"
+  dist: 'website/src/vendors'
 
 ### Watch files
 watch:
-  fonts: "website/src/fonts/*"
+  fonts: 'website/src/fonts/*'
   jekyll:
-    - "config/jekyll.config.yml"
-    - "config/jekyll.config.dev.yml"
-    - "website/**/*.+(md|markdown)"
-    - "website/**/*.html"
-    - "website/**/*.+(yml|yaml)"
-    - "website/**/*.xml"
-    - "website/**/*.json"
-    - "website/**/*.txt"
-    - "!website/build/**/*"
-    - "!website/website/src/**/*"
-  js: "website/src/js/**/*.js"
-  images: "website/src/images/**/*"
-  svgsprites: "website/src/images/svgsprites/*"
-  sprites: "website/src/images/sprites/*"
-  scss: "website/src/styles/**/*.scss"
+    - 'config/jekyll.config.yml'
+    - 'config/jekyll.config.dev.yml'
+    - 'website/**/*.+(md|markdown)'
+    - 'website/**/*.html'
+    - 'website/**/*.+(yml|yaml)'
+    - 'website/**/*.xml'
+    - 'website/**/*.json'
+    - 'website/**/*.txt'
+    - '!website/build/**/*'
+    - '!website/website/src/**/*'
+  js: 'website/src/js/**/*.js'
+  images: 'website/src/images/**/*'
+  svgsprites: 'website/src/images/svgsprites/*'
+  sprites: 'website/src/images/sprites/*'
+  scss: 'website/src/styles/**/*.scss'
